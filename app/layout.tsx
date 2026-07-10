@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Designing the AI-Native Organisation | Cha Lee",
+  title: "Designing the AI-Native Organisation",
   description:
-    "A premium keynote-style presentation for a Head of Design interview at Macquarie Bank.",
+    "A premium keynote-style presentation for Macquarie Bank.",
   openGraph: {
     title: "Designing the AI-Native Organisation",
     description:

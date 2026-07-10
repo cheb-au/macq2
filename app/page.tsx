@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Presentation } from "./presentation";
 
 export const metadata: Metadata = {
-  title: "Designing the AI-Native Organisation | Cha Lee",
+  title: "Designing the AI-Native Organisation",
   description:
     "A keynote-style interview presentation for Macquarie Bank on how AI changes people, ways of working, tools, and operating models.",
 };
