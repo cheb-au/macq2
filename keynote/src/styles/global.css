@@ -1,0 +1,608 @@
+:root {
+  /* Surface */
+  --bg: #0e1013;
+  --bg-deep: #090a0c;
+  --bg-lift: #14171c;
+
+  /* Ink */
+  --ink: #f4f6f8;
+  --ink-soft: #c3c9d4;
+  --ink-dim: #8b93a1;
+  --ink-faint: #5a6270;
+  --ink-ghost: #363c46;
+
+  /* Lines & glass */
+  --line: rgba(255, 255, 255, 0.09);
+  --line-soft: rgba(255, 255, 255, 0.055);
+  --line-strong: rgba(255, 255, 255, 0.16);
+  --glass: rgba(255, 255, 255, 0.028);
+  --glass-lift: rgba(255, 255, 255, 0.05);
+
+  /* Restrained accents */
+  --violet: #8b93ff;
+  --violet-deep: #5b63d6;
+  --blue: #5b8def;
+  --gold: #cbab74;
+  --gold-soft: #d9c299;
+
+  /* Semantic (governance) */
+  --green: #6fcf97;
+  --amber: #e0b25f;
+  --red: #e08585;
+
+  --accent: var(--violet);
+  --accent-glow: rgba(139, 147, 255, 0.5);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --font: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Inter",
+    system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+  --mono: "SF Mono", ui-monospace, "JetBrains Mono", "Menlo", monospace;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background: var(--bg-deep);
+  color: var(--ink);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow: hidden;
+  cursor: default;
+  letter-spacing: -0.011em;
+}
+
+::selection {
+  background: rgba(139, 147, 255, 0.28);
+}
+
+/* ============================================================= *
+ *  STAGE - fixed 1920x1080 canvas, scaled to fit the viewport   *
+ * ============================================================= */
+.viewport {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(
+      120% 120% at 50% -10%,
+      #12151b 0%,
+      var(--bg-deep) 55%,
+      #070809 100%
+    );
+  overflow: hidden;
+}
+
+.stage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1920px;
+  height: 1080px;
+  flex: none;
+  transform: translate(-50%, -50%) scale(1);
+  transform-origin: center center;
+  overflow: hidden;
+  background: var(--bg);
+  box-shadow: 0 60px 200px -40px rgba(0, 0, 0, 0.9);
+}
+
+.stage__ambient {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.stage__glow {
+  position: absolute;
+  inset: -20% -10% auto -10%;
+  height: 70%;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    60% 100% at 50% 0%,
+    var(--accent-glow) 0%,
+    transparent 62%
+  );
+  opacity: 0.16;
+  filter: blur(20px);
+  transition: opacity 1.2s var(--ease-out), background 1.2s var(--ease-out);
+}
+
+.stage__vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  background: radial-gradient(
+    130% 120% at 50% 45%,
+    transparent 55%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+}
+
+.stage__grain {
+  position: absolute;
+  inset: 0;
+  z-index: 41;
+  pointer-events: none;
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ============================================================= *
+ *  SLIDE LAYER - depth transition between sections              *
+ * ============================================================= */
+.deck {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  padding: 96px 128px;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity, filter;
+  transform: scale(1.06);
+  filter: blur(14px);
+  transition: opacity 0.85s var(--ease-out), transform 0.95s var(--ease-out),
+    filter 0.85s var(--ease-out);
+}
+
+.slide[data-state="active"] {
+  opacity: 1;
+  transform: scale(1);
+  filter: blur(0);
+  pointer-events: auto;
+}
+
+/* leaving forward → recede into depth */
+.slide[data-state="past"] {
+  opacity: 0;
+  transform: scale(0.9) translateY(-1%);
+  filter: blur(18px);
+}
+
+/* leaving backward → push forward past camera */
+.slide[data-state="future"] {
+  opacity: 0;
+  transform: scale(1.14);
+  filter: blur(20px);
+}
+
+/* ============================================================= *
+ *  REVEAL primitive                                             *
+ * ============================================================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  filter: blur(7px);
+  transition: opacity 0.9s var(--ease-out), transform 1s var(--ease-out),
+    filter 0.9s var(--ease-out);
+  will-change: transform, opacity, filter;
+}
+.reveal.is-shown {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+  transition-delay: calc(var(--i, 0) * 80ms);
+}
+.reveal--soft {
+  transform: translateY(14px) scale(0.985);
+}
+.reveal--soft.is-shown {
+  transform: translateY(0) scale(1);
+}
+.reveal--fade {
+  transform: none;
+}
+.reveal--rise {
+  transform: translateY(48px) scale(0.97);
+}
+.reveal--rise.is-shown {
+  transform: translateY(0) scale(1);
+}
+/* headings resolve out of a soft blur - cinematic, works with clipped
+   gradients because the blur is on the heading box, not its word children */
+.reveal--head {
+  opacity: 0;
+  transform: translateY(30px) scale(0.992);
+  filter: blur(20px);
+  transition: opacity 1.1s var(--ease-out), transform 1.2s var(--ease-out),
+    filter 1.1s var(--ease-out);
+}
+.reveal--head.is-shown {
+  opacity: 1;
+  transform: none;
+  filter: blur(0);
+  transition-delay: calc(var(--i, 0) * 80ms);
+}
+/* dim when a later beat supersedes it */
+.dim-past {
+  transition: opacity 0.7s var(--ease-out), filter 0.7s var(--ease-out);
+}
+.dim-past.is-dimmed {
+  opacity: 0.28 !important;
+  filter: saturate(0.6);
+}
+
+/* ============================================================= *
+ *  TYPE SYSTEM                                                  *
+ * ============================================================= */
+.kicker {
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+}
+.kicker::before {
+  content: "";
+  width: 34px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+}
+
+.display {
+  font-size: 118px;
+  line-height: 0.98;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  color: var(--ink);
+}
+.h1 {
+  font-size: 84px;
+  line-height: 1.02;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+.h2 {
+  font-size: 62px;
+  line-height: 1.05;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+.lead {
+  font-size: 30px;
+  line-height: 1.42;
+  font-weight: 400;
+  color: var(--ink-soft);
+  letter-spacing: -0.01em;
+}
+.body {
+  font-size: 22px;
+  line-height: 1.5;
+  color: var(--ink-dim);
+  font-weight: 400;
+}
+.mono {
+  font-family: var(--mono);
+  font-size: 15px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+.grad-ink {
+  background: linear-gradient(180deg, #ffffff 0%, #b9c0cc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.grad-accent {
+  background: linear-gradient(
+    110deg,
+    var(--ink) 30%,
+    var(--violet) 78%,
+    var(--blue) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.gold {
+  color: var(--gold-soft);
+}
+
+/* word-by-word headline reveal.
+   NB: keep this opacity-only - a transform/filter on these spans would
+   break `background-clip:text` gradients on the parent headline. */
+.words {
+  display: inline;
+}
+.words .w {
+  display: inline-block;
+  /* background-clip:text only fills within the box - extend it down so glyph
+     descenders (g, y, p) don't get clipped; negative margin keeps layout put */
+  padding-bottom: 0.16em;
+  margin-bottom: -0.16em;
+  opacity: 0;
+  will-change: opacity, filter, transform;
+}
+/* keyframe (not transition) so the per-word blur-in replays every time a slide
+   becomes active - including the very first load */
+.words.is-shown .w {
+  animation: wordIn 0.9s var(--ease-out) both;
+  animation-delay: calc(var(--wi, 0) * 90ms);
+}
+@keyframes wordIn {
+  from {
+    opacity: 0;
+    filter: blur(20px);
+    transform: translateX(-0.18em) translateY(0.07em);
+  }
+  60% {
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: none;
+  }
+}
+
+/* ============================================================= *
+ *  GLASS + CARD atoms                                           *
+ * ============================================================= */
+.glass {
+  background: linear-gradient(
+    160deg,
+    var(--glass-lift) 0%,
+    var(--glass) 100%
+  );
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 30px 70px -40px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--glass);
+  font-size: 20px;
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 14px 2px var(--accent-glow);
+  flex: none;
+}
+
+/* ============================================================= *
+ *  CHROME - progress, nav, hint                                *
+ * ============================================================= */
+.chrome {
+  position: absolute;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+}
+.chrome__top {
+  position: absolute;
+  top: 54px;
+  left: 128px;
+  right: 128px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.wordmark {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 17px;
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+.wordmark__logo {
+  width: 22px;
+  height: 22px;
+}
+.wordmark__sep {
+  color: var(--ink-ghost);
+  font-weight: 300;
+}
+.wordmark__sub {
+  color: var(--ink-faint);
+  font-weight: 400;
+}
+.counter {
+  font-family: var(--mono);
+  font-size: 15px;
+  letter-spacing: 0.14em;
+  color: var(--ink-faint);
+}
+.counter b {
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+
+/* vertical navigation rail - right edge, top-down */
+.nav-rail {
+  position: absolute;
+  right: 46px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 13px;
+  z-index: 60;
+  pointer-events: auto;
+}
+.nav-rail__count {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  color: var(--ink-faint);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+}
+.nav-rail__count b {
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 15px;
+}
+.nav-rail__row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 8px;
+  cursor: pointer;
+}
+.nav-rail__tick {
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--line-strong);
+  transition: width 0.5s var(--ease-out), background 0.5s var(--ease-out),
+    opacity 0.5s;
+}
+.nav-rail__row[data-state="done"] .nav-rail__tick {
+  background: var(--ink-dim);
+  width: 14px;
+}
+.nav-rail__row[data-state="future"] .nav-rail__tick {
+  background: var(--line-soft);
+  width: 14px;
+}
+.nav-rail__row:hover .nav-rail__tick {
+  background: var(--ink-soft);
+}
+.nav-rail__tick--cur {
+  width: auto;
+  height: 3px;
+  display: flex;
+  gap: 3px;
+  background: transparent !important;
+}
+.nav-rail__tick--cur i {
+  width: 7px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--line-strong);
+  transition: background 0.4s var(--ease-out), box-shadow 0.4s;
+}
+.nav-rail__tick--cur i.on {
+  background: linear-gradient(90deg, var(--ink), var(--accent));
+  box-shadow: 0 0 10px -1px var(--accent-glow);
+}
+
+.hint {
+  position: absolute;
+  bottom: 48px;
+  left: 128px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--ink-faint);
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-out);
+}
+.hint.show {
+  opacity: 1;
+}
+.key {
+  display: inline-grid;
+  place-items: center;
+  min-width: 30px;
+  height: 30px;
+  padding: 0 8px;
+  border-radius: 8px;
+  border: 1px solid var(--line-strong);
+  background: var(--glass-lift);
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+.edgenav {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 140px;
+  z-index: 55;
+  pointer-events: auto;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s;
+  display: grid;
+  place-items: center;
+}
+.viewport:hover .edgenav {
+  opacity: 1;
+}
+.edgenav--left {
+  left: 0;
+}
+.edgenav--right {
+  right: 0;
+}
+.edgenav svg {
+  width: 30px;
+  height: 30px;
+  stroke: var(--ink-faint);
+  transition: stroke 0.2s, transform 0.3s var(--ease-out);
+}
+.edgenav:hover svg {
+  stroke: var(--ink);
+  transform: scale(1.15);
+}
+
+/* Cover / start affordance */
+.tooSmall {
+  position: fixed;
+  inset: 0;
+  display: none;
+  place-items: center;
+  text-align: center;
+  padding: 40px;
+  z-index: 200;
+  background: var(--bg-deep);
+  color: var(--ink-dim);
+}
+
+.no-blur .slide,
+.no-blur .reveal,
+.no-blur .words .w {
+  filter: none !important;
+}
