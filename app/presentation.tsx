@@ -2,14 +2,25 @@
 
 import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import {
+  BarChart3,
   BrainCircuit,
+  CheckSquare,
   Compass,
   FileText,
+  Flag,
+  Gem,
+  Heart,
+  Lightbulb,
   Lock,
   PencilRuler,
+  PenTool,
   Radar,
+  Rocket,
+  Search,
   ShieldCheck,
   Sparkles,
+  Target,
+  Users,
   Workflow,
   Zap,
 } from "lucide-react";
@@ -35,7 +46,8 @@ type Slide = {
   kicker?: string;
   subtitle?: string;
   titleSize?: TitleSize;
-  scene: (active: boolean) => ReactNode;
+  scene: (active: boolean, buildStep?: number) => ReactNode;
+  buildSteps?: number;
   notes: PresenterNotes;
 };
 
@@ -94,15 +106,15 @@ const slides: Slide[] = [
     ),
   },
   {
-    title: "This is not another productivity story.",
+    title: "AI does not just make the work faster. It changes who can do the work.",
     titleSize: "standard",
     scene: (active) => <ProductivityScene active={active} />,
     notes: makeNotes(
-      "Reframe the conversation from individual productivity to organisational design.",
-      "Explain that the first-order effect is faster task completion, but the second-order effect is much larger: the unit of work changes, boundaries blur, and teams can form around learning loops rather than deliverable handoffs.",
-      "The strategic question is not which AI tool should we buy. It is how should we redesign the organisation now that capability is available on demand.",
+      "Make the strategic shift instantly understandable for product, HR and executives.",
+      "Start with the simple point: AI is not only speeding up existing tasks. It changes who can move across design, software, research and data. That is why the organisational question matters.",
+      "That changes the shape of the team.",
       "How is this different from normal automation?",
-      "Automation usually optimises a known process. AI changes who can participate, what can be generated, and how quickly ideas can become evidence.",
+      "Automation speeds a defined task. This changes who can participate in the task and how much cross-disciplinary movement one person can credibly make.",
       "Use that to introduce the new unit of work.",
     ),
   },
@@ -120,13 +132,13 @@ const slides: Slide[] = [
     ),
   },
   {
-    title: "Three months changed my view of what one person - and one team - can do.",
+    title: "Three months, one founder, multidisciplinary scope.",
     titleSize: "compact",
     scene: (active) => <LevriTimelineScene active={active} />,
     notes: makeNotes(
       "Use Levri as proof of scope without overstating what AI replaced.",
-      "Describe the breadth of work across product proposition, core platform, AI capability, production operations and growth surfaces. Keep the language careful: this breadth would traditionally require a multidisciplinary team and a longer runway.",
-      "The breadth of product and platform capability created in approximately three months would traditionally have required a multidisciplinary team and a substantially longer delivery runway.",
+      "Set up the traditional build versus my build. The point is not that AI replaced all those roles. The point is that it gave me leverage across disciplines that would normally require a much larger team and a longer delivery runway.",
+      "AI did not give me more hours. It gave me access to more disciplines.",
       "Could a bank reproduce this in three months?",
       "Not directly, and that is the point. Enterprise constraints are different. But the lesson about compressed loops, orchestration and decision quality does transfer.",
       "Move from timeline to concrete product scope.",
@@ -138,21 +150,21 @@ const slides: Slide[] = [
     scene: (active) => <ArchitectureScene active={active} />,
     notes: makeNotes(
       "Demonstrate Levri as real product/platform scope rather than a vague claim.",
-      "Use the layered architecture to show customer experience, platform, AI automation, operations and human responsibility. Call out the screenshot placeholders honestly: they are slots for verified product evidence, not fabricated mockups.",
+      "Keep the architecture readable. Show only what customers see, what makes it work, and what makes it real. The right side should be one large product evidence area, not multiple small placeholders.",
       "Levri matters here because it forced me to operate across product, design, engineering, AI and production risk at the same time.",
       "Where are the real product screenshots?",
-      "The deck now labels the screenshot slots clearly. I would replace those with verified Levri captures before the interview rather than fake the evidence.",
+      "Use a product evidence slot if a verified screenshot is not available yet. Do not fake product proof.",
       "Shift from what was built to how work actually happened.",
     ),
   },
   {
-    title: "The breakthrough was not code generation. It was the closed loop.",
+    title: "A real Levri incident changed how I think about AI work.",
     titleSize: "long",
     scene: (active) => <ClosedLoopScene active={active} />,
     notes: makeNotes(
-      "Explain the AI-native workflow as supervised collaboration rather than autonomy hype.",
-      "Talk through the production loop: problem appears, agent investigates, proposes, human challenges, agent edits, tests run, PR is created, results are verified, deployment is observed. This is the practical difference from chat-based prompting.",
-      "The model was not autonomous software development. It was tightly supervised, high-leverage collaboration.",
+      "Make the closed loop personal and memorable rather than generic.",
+      "Describe the incident: credits were charged before an analysis completed. AI traced the charging path, inspected database functions, found mismatched run IDs, proposed an atomic refund flow, and helped implement tests. My role was to reject manual table edits, require an idempotent path, separate the follow-up issue and verify the customer outcome.",
+      "I no longer ask AI for code. I direct an investigation and govern the outcome.",
       "Who owns quality if an agent writes code?",
       "The human and the organisation do. AI can assist search, synthesis and implementation, but accountability, risk thresholds and approval stay human.",
       "Next, make the boundary between acceleration and responsibility explicit.",
@@ -172,42 +184,30 @@ const slides: Slide[] = [
     ),
   },
   {
-    title: "I moved from producing every answer to orchestrating the system.",
+    title: "AI is changing every part of the design practice.",
     titleSize: "compact",
-    scene: (active) => <RoleShiftScene active={active} />,
+    scene: (active, buildStep = 0) => <DesignPracticeScene active={active} buildStep={buildStep} />,
+    buildSteps: 6,
     notes: makeNotes(
-      "Position the user as a transformational design leader, not a tool user.",
-      "Explain the evolution from maker to manager to orchestrator. Do not imply equal mastery of all disciplines; instead, show credible participation across product, design, engineering, research, data, growth and operations.",
-      "The highest-leverage skill was not prompting. It was knowing what to ask, what to reject and what mattered next.",
-      "Does this devalue craft?",
-      "No. Craft becomes more important because it becomes the basis for critique, constraints and quality judgement when outputs are abundant.",
-      "Now apply the lesson to designers more broadly.",
+      "Translate the personal Levri case study into implications for the wider UXD organisation.",
+      "Explain that the same pattern is appearing across discovery, definition, making, validation, delivery and learning. The point is not the tools themselves. The point is that the design loop is becoming more connected, with less friction between customer access, evidence, prototypes, testing and learning.",
+      "AI gives teams access to specialist leverage, but it does not give them specialist judgement. The role of the design organisation is to connect these capabilities while protecting the integrity of the disciplines.",
+      "Does this weaken specialist disciplines?",
+      "It can if leaders treat AI output as expertise. The healthier model is supervised leverage: researchers, designers, content specialists, accessibility experts and design-system teams set standards, review quality and make the work safer to scale.",
+      "Move from the practice-wide design loop into what this means for people and apprenticeship.",
     ),
   },
   {
-    title: "Every designer can now access a specialist team on demand.",
+    title: "Every designer now has access to specialist leverage.",
     titleSize: "compact",
     scene: (active) => <SpecialistLeverageScene active={active} />,
     notes: makeNotes(
-      "Show how AI changes people and capability around each designer.",
-      "Talk through the specialist capabilities as actions, not roles: reviewing semantics, clustering evidence, building prototypes, translating data into hypotheses. Then land the warning that access to capability is not the same as expertise.",
-      "Capability on demand is not expertise on demand.",
+      "Combine the people leverage idea with the apprenticeship tension.",
+      "Use the phrase specialist leverage carefully. AI can help designers review semantics, cluster evidence, build functional prototypes and interpret data signals. But it does not make them specialists. Then raise the leadership problem: how do juniors develop judgement when AI performs work they once learned through?",
+      "Not specialist expertise. Specialist leverage.",
       "How do designers know whether the output is good?",
-      "They need stronger foundations in research, systems, accessibility, product thinking and verification. Leaders must build those muscles deliberately.",
-      "That leads to the career ladder and HR implications.",
-    ),
-  },
-  {
-    title: "When production becomes easier, judgement becomes more visible.",
-    titleSize: "compact",
-    scene: (active) => <CareerLadderScene active={active} />,
-    notes: makeNotes(
-      "Make this relevant to HR and leadership, not just product tooling.",
-      "Explain how expectations change by level. Emerging designers still need craft and verification. Senior designers make trade-offs. Leads orchestrate outcomes. Leaders build the environment and governance. Acknowledge the junior pathway issue directly.",
-      "If AI performs entry-level production work, leaders must deliberately create new pathways for people to develop judgement.",
-      "What happens to junior designers?",
-      "We should not remove the apprenticeship. We should redesign it around critique, evidence, systems thinking and supervised use of AI outputs.",
-      "Move to how the work process changes.",
+      "Leaders need to keep apprenticeship but shift it toward critique, customer exposure, systems and verification, with supervised and transparent AI-assisted work.",
+      "Move from people to the new working loops.",
     ),
   },
   {
@@ -224,54 +224,41 @@ const slides: Slide[] = [
     ),
   },
   {
-    title: "The tools matter less than the capability they create.",
+    title: "The tools are beginning to connect.",
     titleSize: "long",
     scene: (active) => <CapabilityModelScene active={active} />,
     notes: makeNotes(
-      "Turn the tools slide from a catalogue into a leadership framework.",
-      "Use Think, Make, Connect and Operate. Explain that products will change fast, but these capability layers persist. This helps senior executives understand investment, governance and capability planning.",
-      "A tool strategy expires quickly. A capability strategy survives the next model release.",
+      "Give the product leader the newer shift: AI features are becoming connected through shared context.",
+      "Focus on MCP, queryable research repositories, Figma connected to design systems and code, Claude Code and Codex working in real repositories, and insights travelling into the moment where decisions are made.",
+      "The next wave is not more isolated AI features. It is shared context moving between research, design, product and engineering.",
       "Which tool should Macquarie standardise on?",
       "The better question is which capability needs to be safe, integrated and measurable. Tool choices should follow from that.",
-      "Move from tools into the design system as enterprise infrastructure.",
+      "Move from tools into accountability.",
     ),
   },
   {
-    title: "In an AI-native organisation, the design system is executable intent.",
-    titleSize: "compact",
-    scene: (active) => <DesignSystemScene active={active} />,
-    notes: makeNotes(
-      "Connect AI quality to design-system maturity and enterprise consistency.",
-      "Explain human-readable, machine-readable and executable layers. This is where design leadership becomes infrastructure leadership: AI outputs are only as good as the organisational context they can access.",
-      "Weak systems produce faster inconsistency. Strong systems let AI scale quality.",
-      "How is this different from a normal design system?",
-      "A normal design system helps people reuse patterns. An AI-native system also gives machines constraints, examples, rules and checks so generated work stays aligned.",
-      "Now address governance head-on.",
-    ),
-  },
-  {
-    title: "AI can scale quality - or scale risk.",
+    title: "The risk is not speed. It is unclear accountability.",
     titleSize: "standard",
     scene: (active) => <GovernanceScene active={active} />,
     notes: makeNotes(
       "Make the leadership content credible for a regulated enterprise.",
-      "Present this as an operating principle, not Macquarie policy. Green work is assisted, amber work is controlled, red work is restricted. Then add leadership controls: approved environments, role access, data classification, evaluations and named accountability.",
-      "Speed without controls does not create transformation. It creates faster risk.",
+      "Frame governance around three executive questions: what data is the model allowed to see, what decisions can it influence, and who remains accountable for the outcome. Green, amber and red then become supporting detail rather than the main idea.",
+      "The risk is not that AI moves too fast. It is that accountability becomes unclear.",
       "How much autonomy should AI have?",
       "Autonomy should depend on data sensitivity, customer impact and reversibility. The higher the risk, the stronger the review, traceability and accountability required.",
       "Translate the framework into a practical 90-day plan.",
     ),
   },
   {
-    title: "I would start with value, safety and evidence - not a company-wide tool rollout.",
+    title: "I would start by finding the design friction.",
     titleSize: "compact",
     scene: (active) => <RoadmapScene active={active} />,
     notes: makeNotes(
       "Show a practical first 90 days at Macquarie.",
-      "Explain that the plan starts by understanding current use and constraints, then proving two or three measurable use cases, then scaling deliberately with playbooks, governance and design-system integration.",
-      "The first 90 days should create evidence, safety and repeatable capability before scale.",
+      "Make the plan design-specific: find where designers wait, where engineering rebuilds prototypes, where synthesis is slow and where the design system is too weak to guide AI. Then prove three workflows before building the operating model.",
+      "Start with friction, prove workflows, then scale the operating model.",
       "What would you do first?",
-      "Map current use, identify high-friction workflows, assess design-system readiness and find internal practitioners already leading. Then choose pilots with product, design, engineering, risk and legal together.",
+      "Map waiting, rework, synthesis delay and system readiness. Then choose pilots with design, product, engineering, risk and legal together.",
       "Close by returning to the organisational advantage.",
     ),
   },
@@ -293,6 +280,7 @@ const slides: Slide[] = [
 export function Presentation() {
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState<Direction>(1);
+  const [buildStep, setBuildStep] = useState(0);
   const [overview, setOverview] = useState(false);
   const [blackout, setBlackout] = useState(false);
   const [showNotes, setShowNotes] = useState(false);
@@ -313,6 +301,7 @@ export function Presentation() {
       }
       setDirection(bounded > index ? 1 : -1);
       setIndex(bounded);
+      setBuildStep(0);
       setOverview(false);
       setBlackout(false);
       const url = new URL(window.location.href);
@@ -326,12 +315,27 @@ export function Presentation() {
     (delta: Direction) => {
       if (inputLock.current || overview || blackout) return;
       inputLock.current = true;
+      const maxBuildStep = slides[index].buildSteps ?? 0;
+      if (delta > 0 && buildStep < maxBuildStep) {
+        setBuildStep((value) => Math.min(maxBuildStep, value + 1));
+        window.setTimeout(() => {
+          inputLock.current = false;
+        }, 620);
+        return;
+      }
+      if (delta < 0 && buildStep > 0) {
+        setBuildStep((value) => Math.max(0, value - 1));
+        window.setTimeout(() => {
+          inputLock.current = false;
+        }, 620);
+        return;
+      }
       go(index + delta);
       window.setTimeout(() => {
         inputLock.current = false;
       }, 620);
     },
-    [blackout, go, index, overview],
+    [blackout, buildStep, go, index, overview],
   );
 
   const advance = useCallback(() => moveBy(1), [moveBy]);
@@ -344,6 +348,7 @@ export function Presentation() {
     if (next > 0) {
       setDirection(1);
       setIndex(next);
+      setBuildStep(0);
     }
   }, []);
 
@@ -419,7 +424,7 @@ export function Presentation() {
       <AnimatePresence custom={direction} mode="popLayout">
         <motion.section
           key={index}
-          className={`slide title-${slide.titleSize ?? "standard"}`}
+          className={`slide slide-${index + 1} title-${slide.titleSize ?? "standard"}`}
           data-slide-index={index + 1}
           custom={direction}
           variants={{
@@ -445,7 +450,7 @@ export function Presentation() {
           transition={{ duration: 0.82, ease }}
         >
           <SlideHeader slide={slide} index={index} />
-          <div className="scene">{slide.scene(true)}</div>
+          <div className="scene">{slide.scene(true, buildStep)}</div>
         </motion.section>
       </AnimatePresence>
       <AnimatePresence>{overview ? <Overview current={index} onSelect={go} /> : null}</AnimatePresence>
@@ -456,7 +461,7 @@ export function Presentation() {
 }
 
 function SlideHeader({ slide, index }: { slide: Slide; index: number }) {
-  if (index === 0 || index === slides.length - 1) return null;
+  if (index === 0 || index === 7 || index === slides.length - 1) return null;
   return (
     <header className="slide-header">
       <motion.p variants={rise} initial="hidden" animate="visible" className="kicker">
@@ -572,17 +577,17 @@ function ProductivityScene({ active }: { active: boolean }) {
   return (
     <div className="two-level">
       <motion.article className="level-card subdued" variants={rise} initial="hidden" animate="visible">
-        <span>Level 1</span>
-        <h2>AI helps individuals complete existing tasks faster.</h2>
-        <ShiftPills from={["Assistance", "Deliverables", "Functional handoffs"]} muted />
+        <span>Before</span>
+        <h2>Capability sat inside functions.</h2>
+        <ShiftPills from={["Designer creates design", "Engineer creates software", "Researcher creates evidence", "Analyst interprets data"]} muted />
       </motion.article>
       <motion.article className="level-card primary" variants={rise} custom={2} initial="hidden" animate="visible">
-        <span>Level 2</span>
-        <h2>AI changes the unit of work, boundaries and organisation shape.</h2>
-        <ShiftPills from={["Agency", "Learning loops", "Orchestrated capability"]} />
+        <span>Now</span>
+        <h2>A designer can move across all four - with AI support.</h2>
+        <ShiftPills from={["Shape the experience", "Probe technical options", "Synthesize evidence", "Interrogate signals"]} />
       </motion.article>
       <motion.blockquote variants={rise} custom={4} initial="hidden" animate="visible">
-        The strategic question is organisational design.
+        That changes the shape of the team.
       </motion.blockquote>
     </div>
   );
@@ -624,24 +629,25 @@ function ProcessTrack({ label, items, dim, active }: { label: string; items: str
 }
 
 function LevriTimelineScene({ active }: { active: boolean }) {
-  const items = [
-    ["Foundation", "Product proposition - customer problem - service architecture"],
-    ["Core product", "Authentication - workspaces - analysis - reports - credits - payments"],
-    ["AI capability", "Page analysis - recommendations - research - synthesis"],
-    ["Production", "Database - security - browser automation - jobs - deployment"],
-    ["Growth", "Acquisition pages - attribution - emails - referrals - analytics"],
-  ];
+  const traditional = ["Product manager", "Designer", "2-4 engineers", "AI engineer", "QA", "DevOps", "Growth", "12-18 months"];
+  const built = ["One founder", "AI-assisted across disciplines", "Production product", "Approximately three months"];
+  const scope = ["Product proposition", "Authentication", "Payments", "AI analysis", "Browser automation", "Reports", "Monitoring", "Growth surfaces"];
   return (
     <div className="levri-timeline">
-      <motion.div className="timeline-line" initial={{ scaleX: 0 }} animate={{ scaleX: active ? 1 : 0 }} transition={{ duration: 1.1, ease }} />
-      {items.map(([label, detail], i) => (
-        <motion.article key={label} variants={rise} custom={i} initial="hidden" animate="visible">
-          <span>{label}</span>
-          <p>{detail}</p>
-        </motion.article>
-      ))}
-      <motion.blockquote variants={rise} custom={5} initial="hidden" animate="visible">
-        Scope compressed. Accountability remained human.
+      <motion.article variants={rise} initial="hidden" animate="visible">
+        <span>Traditional build</span>
+        {traditional.map((item) => <p key={item}>{item}</p>)}
+      </motion.article>
+      <motion.article className="levri-proof" variants={rise} custom={1} initial="hidden" animate="visible">
+        <span>My build</span>
+        {built.map((item) => <p key={item}>{item}</p>)}
+      </motion.article>
+      <motion.article variants={rise} custom={2} initial="hidden" animate="visible">
+        <span>Created underneath</span>
+        {scope.map((item) => <p key={item}>{item}</p>)}
+      </motion.article>
+      <motion.blockquote variants={rise} custom={4} initial="hidden" animate="visible">
+        AI did not give me more hours. It gave me access to more disciplines.
       </motion.blockquote>
     </div>
   );
@@ -649,11 +655,9 @@ function LevriTimelineScene({ active }: { active: boolean }) {
 
 function ArchitectureScene({ active }: { active: boolean }) {
   const layers = [
-    ["Customer experience", ["Analysis", "Funnels", "Experiments", "Signals", "Variant Studio", "Reports"]],
-    ["Platform", ["Auth", "Workspaces", "Credits", "Payments", "Usage", "Attribution"]],
-    ["AI + automation", ["Model orchestration", "Browser capture", "Pipelines", "Async jobs", "Scoring", "Generation"]],
-    ["Operations", ["Supabase", "GitHub", "Deployment", "Monitoring", "Testing", "Security controls"]],
-    ["Human responsibilities", ["Product direction", "Experience quality", "Architecture", "Risk", "Prioritisation", "Final approval"]],
+    ["What customers see", ["Analysis", "Funnels", "Experiments", "Reports"]],
+    ["What makes it work", ["AI orchestration", "Browser automation", "Scoring", "Async jobs"]],
+    ["What makes it real", ["Auth", "Payments", "Security", "Monitoring", "Deployment"]],
   ];
   return (
     <div className="architecture-scene">
@@ -666,8 +670,8 @@ function ArchitectureScene({ active }: { active: boolean }) {
         ))}
       </div>
       <motion.aside className="screenshot-slots" variants={rise} custom={4} initial="hidden" animate="visible">
-        <ScreenshotSlot title="REPLACE_WITH_VERIFIED_DATA" detail="Levri analysis surface screenshot" />
-        <ScreenshotSlot title="REPLACE_WITH_VERIFIED_DATA" detail="Reports or Variant Studio screenshot" />
+        <ScreenshotSlot title="Levri product evidence" detail="Add verified product screenshot here before the interview" />
+        <p className="human-note">Product direction, quality and risk stayed with me.</p>
       </motion.aside>
     </div>
   );
@@ -684,40 +688,25 @@ function ScreenshotSlot({ title, detail }: { title: string; detail: string }) {
 }
 
 function ClosedLoopScene({ active }: { active: boolean }) {
-  const steps = ["Problem", "Investigate", "Root cause", "Plan", "Challenge", "Edit", "Test", "PR", "Verify", "Deploy"];
-  const stepPositions = [
-    ["96%", "50%"],
-    ["86%", "78%"],
-    ["62%", "94%"],
-    ["38%", "94%"],
-    ["14%", "78%"],
-    ["4%", "50%"],
-    ["14%", "22%"],
-    ["38%", "6%"],
-    ["62%", "6%"],
-    ["86%", "22%"],
-  ];
+  const ai = ["Traced charging path", "Inspected database functions", "Found mismatched run IDs", "Proposed atomic refund flow", "Implemented tests"];
+  const me = ["Rejected manual table edits", "Required idempotent fix", "Separated follow-up issue", "Verified customer outcome"];
   return (
-    <div className="closed-loop">
-      <div className="loop-ring" aria-hidden="true">
-        {steps.map((step, i) => (
-          <motion.div
-            key={step}
-            className="loop-node"
-            style={{ "--x": stepPositions[i][0], "--y": stepPositions[i][1] } as CSSProperties}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: i * 0.06, duration: 0.72, ease }}
-          >
-            {step}
-          </motion.div>
-        ))}
-        <motion.div className="loop-core" animate={{ scale: active ? [1, 1.04, 1] : 1 }} transition={{ repeat: Infinity, duration: 4 }}>
-          <Workflow />
-          Closed loop
-        </motion.div>
-      </div>
-      <OwnershipSplit />
+    <div className="case-study">
+      <motion.article className="incident-card" variants={rise} initial="hidden" animate="visible">
+        <span>A real production incident</span>
+        <h2>Credits were charged before an analysis completed.</h2>
+      </motion.article>
+      <motion.article className="case-card" variants={rise} custom={1} initial="hidden" animate="visible">
+        <span>AI contribution</span>
+        {ai.map((item) => <p key={item}>{item}</p>)}
+      </motion.article>
+      <motion.article className="case-card human" variants={rise} custom={2} initial="hidden" animate="visible">
+        <span>My contribution</span>
+        {me.map((item) => <p key={item}>{item}</p>)}
+      </motion.article>
+      <motion.blockquote variants={rise} custom={3} initial="hidden" animate="visible">
+        I no longer ask AI for code. I direct an investigation and govern the outcome.
+      </motion.blockquote>
     </div>
   );
 }
@@ -741,6 +730,203 @@ function AccelerationScene({ active }: { active: boolean }) {
   const accelerated = ["Codebase investigation", "Early concepts", "Research synthesis", "Documentation", "Test creation", "Prototype production", "Repetitive implementation", "Cross-disciplinary learning"];
   const judgement = ["Customer problem choice", "Evidence reliability", "Commercial priorities", "Experience quality", "Architecture trade-offs", "Security and privacy", "When not to ship", "Outcome accountability"];
   return <DualList leftTitle="Accelerated" rightTitle="Still required judgement" left={accelerated} right={judgement} />;
+}
+
+function DesignPracticeScene({ active, buildStep }: { active: boolean; buildStep: number }) {
+  const pointOnCircle = (angle: number, radius: number, tangent = 0, offsetX = 0, offsetY = 0) => {
+    const radians = angle * Math.PI / 180;
+    return {
+      "--x": `calc(50% + ${Math.cos(radians) * radius + -Math.sin(radians) * tangent + offsetX}px)`,
+      "--y": `calc(50% + ${Math.sin(radians) * radius + Math.cos(radians) * tangent + offsetY}px)`,
+    } as CSSProperties;
+  };
+  const phaseRadius = 145;
+  const toolRadius = phaseRadius + 80;
+  const stages = [
+    ["Understand", "Discover", "Understand people and context", Search, -90],
+    ["Frame", "Define", "Frame the right problem", Target, -30],
+    ["Create", "Make", "Create and prototype solutions", PenTool, 30],
+    ["Validate", "Validate", "Test with users and measure", CheckSquare, 90],
+    ["Ship", "Deliver", "Ship and measure impact", Rocket, 150],
+    ["Learn", "Learn", "Turn insights into better decisions", BarChart3, 210],
+  ] as const;
+  const toolClusters = [
+    ["Discover", -90, "row", -99, -54, [
+      ["Dovetail", "dovetail", "teal"],
+      ["Askable", "askable", "blue"],
+      ["Maze", "maze", "purple"],
+    ]],
+    ["Define", -30, "column", -13, -59, [
+      ["Claude", "claude", "amber"],
+      ["NotebookLM", "notebooklm", "white"],
+    ]],
+    ["Make", 30, "column", -8, -102, [
+      ["Figma Make", "figma", "multi"],
+      ["Figma AI", "figma", "purple"],
+    ]],
+    ["Validate", 90, "row", -97, -11, [
+      ["Stark", "stark", "blue"],
+      ["UserTesting", "usertesting", "blue"],
+      ["Maze", "maze", "purple"],
+    ]],
+    ["Deliver", 150, "column", -32, 12, [
+      ["Claude Code / Codex", "claude-code", "cream"],
+    ]],
+    ["Learn", 210, "column", -33, -58, [
+      ["Contentsquare", "contentsquare", "multi"],
+      ["FullStory", "fullstory", "white"],
+    ]],
+  ] as const;
+  const finalStep = stages.length;
+  const activeIndex = Math.min(buildStep, stages.length - 1);
+  const isFinal = buildStep >= finalStep;
+  const activeAngle = stages[activeIndex][4];
+  const radians = activeAngle * Math.PI / 180;
+  const cameraX = isFinal ? 0 : Math.cos(radians) * -32;
+  const cameraY = isFinal ? 0 : Math.sin(radians) * -26;
+  const cameraScale = isFinal ? 0.92 : 1.06;
+  const accelerates = [
+    ["Recruitment", Users],
+    ["Synthesis", Sparkles],
+    ["Exploration", Lightbulb],
+    ["Prototyping", PenTool],
+    ["Analysis", BarChart3],
+    ["Documentation", FileText],
+  ] as const;
+  const accountable = [
+    ["Research ethics", ShieldCheck],
+    ["Customer empathy", Heart],
+    ["Problem selection", Target],
+    ["Interpretation", Search],
+    ["Quality", Gem],
+    ["Outcomes", Flag],
+  ] as const;
+
+  return (
+    <div className="practice-ecosystem">
+      <motion.div className="practice-thesis" variants={rise} custom={1} initial="hidden" animate="visible">
+        <p className="kicker">Act 2</p>
+        <h1>
+          AI is changing
+          <span>every part of the</span>
+          <em>design practice.</em>
+        </h1>
+        <p>AI connects the entire design loop from the first customer question to measurable impact.</p>
+        <i />
+        <motion.blockquote className="practice-message" variants={rise} custom={7} initial="hidden" animate="visible">
+          AI does not remove the design process.
+          <span>It removes friction between the parts of it.</span>
+        </motion.blockquote>
+      </motion.div>
+      <div className="practice-orbit">
+        <motion.div
+          className="practice-journey-camera"
+          animate={{ x: cameraX, y: cameraY, scale: cameraScale }}
+          transition={{ duration: 0.78, ease }}
+        >
+          <motion.div className="practice-core" variants={rise} initial="hidden" animate="visible">
+            <Users />
+            <strong>Customer problem</strong>
+          </motion.div>
+          <div className="practice-planet" aria-hidden="true" />
+          {stages.map(([verb, stage, detail, Icon, angle], i) => {
+            const status = isFinal ? "complete" : i === activeIndex ? "active" : i < activeIndex ? "visited" : "future";
+            return (
+              <motion.div
+                key={stage}
+                className={`practice-stage is-${status}`}
+                style={pointOnCircle(angle, phaseRadius)}
+                initial={false}
+                animate={{
+                  opacity: status === "active" ? 1 : status === "visited" ? 0.18 : isFinal ? 0.82 : 0.06,
+                  scale: status === "active" ? 1 : status === "visited" ? 0.72 : isFinal ? 0.86 : 0.62,
+                  filter: status === "active" || isFinal ? "blur(0px)" : "blur(2px)",
+                }}
+                transition={{ duration: 0.58, ease }}
+              >
+                <i><Icon /></i>
+                <b>{verb}</b>
+                <motion.em
+                  initial={false}
+                  animate={{ opacity: status === "future" ? 0 : status === "active" || isFinal ? 1 : 0.72 }}
+                  transition={{ delay: status === "active" ? 0.48 : 0, duration: 0.38, ease }}
+                >
+                  {stage}
+                </motion.em>
+                <p>{detail}</p>
+              </motion.div>
+            );
+          })}
+          <AnimatePresence>
+            {toolClusters.map(([stage, angle, layout, offsetX, offsetY, items], i) => {
+              if (!isFinal && i > activeIndex) return null;
+              const status = isFinal ? "complete" : i === activeIndex ? "active" : "visited";
+              const clusterRadians = angle * Math.PI / 180;
+              return (
+          <motion.div
+            key={stage}
+            className={`practice-tool-cluster cluster-${layout} is-${status}`}
+            style={{ ...pointOnCircle(angle, toolRadius, 0, offsetX, offsetY), "--float-delay": `${i * -0.6}s` } as CSSProperties}
+            initial={{
+              opacity: 0,
+              scale: 0.82,
+              x: Math.cos(clusterRadians) * -28,
+              y: Math.sin(clusterRadians) * -22,
+              filter: "blur(10px)",
+            }}
+            animate={{
+              opacity: status === "visited" ? 0.18 : 1,
+              scale: status === "visited" ? 0.82 : isFinal ? 0.9 : 1,
+              x: 0,
+              y: 0,
+              filter: status === "visited" ? "blur(1.5px)" : "blur(0px)",
+            }}
+            exit={{ opacity: 0, scale: 0.8, filter: "blur(10px)" }}
+            transition={{ type: "spring", stiffness: 170, damping: 24, mass: 0.7 }}
+          >
+            {items.map(([tool, mark, tone]) => (
+              <div key={`${stage}-${tool}`} className={`practice-tool tool-${tone}`} title={`${tool} - ${stage}`}>
+                <ToolLogo brand={mark} label={tool} />
+                <b>{tool}</b>
+              </div>
+            ))}
+          </motion.div>
+              );
+            })}
+          </AnimatePresence>
+        </motion.div>
+      </div>
+      <motion.div className="accountability-band" variants={rise} custom={8} initial="hidden" animate="visible">
+        <div>
+          <strong>AI accelerates</strong>
+          {accelerates.map(([label, Icon]) => <span key={label}><Icon />{label}</span>)}
+        </div>
+        <div>
+          <strong>Humans remain accountable for</strong>
+          {accountable.map(([label, Icon]) => <span key={label}><Icon />{label}</span>)}
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
+const simpleIconAssets: Record<string, string> = {
+  askable: "/logos/askable.svg",
+  dovetail: "/logos/dovetail.svg",
+  maze: "/logos/maze.svg",
+  claude: "/logos/claude.svg",
+  "claude-code": "/logos/claude-code.svg",
+  notebooklm: "/logos/notebooklm.svg",
+  figma: "/logos/figma.svg",
+  usertesting: "/logos/usertesting.svg",
+};
+
+function ToolLogo({ brand, label }: { brand: string; label: string }) {
+  const src = simpleIconAssets[brand];
+  if (!src) {
+    return <span className="logo-missing"><abbr title={`${label} official SVG needed`}>{label.slice(0, 2)}</abbr></span>;
+  }
+  return <span><img src={src} alt="" aria-hidden="true" /></span>;
 }
 
 function RoleShiftScene({ active }: { active: boolean }) {
@@ -807,8 +993,13 @@ function SpecialistLeverageScene({ active }: { active: boolean }) {
         ))}
       </div>
       <motion.p className="warning-line" variants={rise} custom={8} initial="hidden" animate="visible">
-        Capability on demand is not expertise on demand.
+        Not specialist expertise. Specialist leverage.
       </motion.p>
+      <motion.div className="apprentice-note" variants={rise} custom={9} initial="hidden" animate="visible">
+        <strong>Leadership problem</strong>
+        <span>How do junior designers develop judgement if AI performs the work they once learned through?</span>
+        <p>Keep apprenticeship - shift it toward critique, customer exposure, systems and verification.</p>
+      </motion.div>
     </div>
   );
 }
@@ -860,20 +1051,23 @@ function WaysOfWorkingScene({ active }: { active: boolean }) {
 
 function CapabilityModelScene({ active }: { active: boolean }) {
   const layers = [
-    ["THINK", "Claude - ChatGPT - NotebookLM - Perplexity", "Research, synthesis, critique and decision support"],
-    ["MAKE", "Figma Make - Codex - Claude Code - Cursor - V0", "Prototypes, interfaces, code and production changes"],
-    ["CONNECT", "MCP - APIs - GitHub - Figma - Jira - Confluence", "Enterprise systems and shared context"],
-    ["OPERATE", "Testing - Monitoring - Deployment - Documentation - Analytics", "Continuous delivery and learning"],
+    ["MCP", "AI connects to tools and organisational context instead of waiting inside chat."],
+    ["Queryable research", "Research repositories become organisational memory that can surface inside live decisions."],
+    ["Connected Figma", "Design systems, code packages and Make kits turn design intent into constrained working software."],
+    ["Real repositories", "Claude Code and Codex investigate, plan, edit, test and verify inside actual codebases."],
+    ["Decision context", "Insights travel into the moment product, design and engineering choose what to do next."],
   ];
   return (
-    <div className="capability-model">
-      {layers.map(([name, tools, capability], i) => (
+    <div className="connected-tools">
+      {layers.map(([name, capability], i) => (
         <motion.article key={name} variants={rise} custom={i} initial="hidden" animate="visible">
           <span>{name}</span>
-          <h2>{capability}</h2>
-          <p>{tools}</p>
+          <p>{capability}</p>
         </motion.article>
       ))}
+      <motion.blockquote variants={rise} custom={6} initial="hidden" animate="visible">
+        Shared context is the next operating system for design work.
+      </motion.blockquote>
     </div>
   );
 }
@@ -900,34 +1094,44 @@ function DesignSystemScene({ active }: { active: boolean }) {
 }
 
 function GovernanceScene({ active }: { active: boolean }) {
+  const questions = [
+    ["Data", "What is the model allowed to see?"],
+    ["Decisions", "What is it allowed to influence?"],
+    ["Accountability", "Who remains accountable for the outcome?"],
+  ];
   const zones = [
-    ["GREEN", "Assisted work", ["Ideation", "Approved summaries", "Draft documentation", "Non-sensitive prototypes"]],
-    ["AMBER", "Controlled work", ["Research synthesis", "Generated interfaces", "Code changes", "Analytics interpretation"]],
-    ["RED", "Restricted work", ["Sensitive data in unapproved systems", "Unreviewed financial guidance", "Autonomous customer-impacting decisions"]],
+    ["GREEN", "Assisted", "Approved material - draft documentation - non-sensitive prototypes"],
+    ["AMBER", "Controlled", "Research synthesis - generated interfaces - code changes - regulated content"],
+    ["RED", "Restricted", "Sensitive customer data - unreviewed guidance - autonomous customer-impacting decisions"],
   ];
   return (
     <div className="governance-scene">
+      <div className="accountability-questions">
+        {questions.map(([label, question], i) => (
+          <motion.article key={label} variants={rise} custom={i} initial="hidden" animate="visible">
+            <span>{label}</span>
+            <h2>{question}</h2>
+          </motion.article>
+        ))}
+      </div>
       <div className="risk-zones">
         {zones.map(([zone, title, items], i) => (
           <motion.article className={`zone zone-${String(zone).toLowerCase()}`} key={zone as string} variants={rise} custom={i} initial="hidden" animate="visible">
             <span>{zone}</span>
             <h2>{title}</h2>
-            {(items as string[]).map((item) => <p key={item}>{item}</p>)}
+            <p>{items}</p>
           </motion.article>
         ))}
       </div>
-      <motion.div className="controls-strip" variants={rise} custom={4} initial="hidden" animate="visible">
-        {["Approved environments", "Role access", "Data classification", "Evaluation + testing", "Named accountability"].map((item) => <b key={item}>{item}</b>)}
-      </motion.div>
     </div>
   );
 }
 
 function RoadmapScene({ active }: { active: boolean }) {
   const steps = [
-    ["30", "Understand", ["Map current use", "Find high-friction workflows", "Assess system readiness", "Baseline cycle time and confidence"]],
-    ["60", "Prove", ["Select 2-3 use cases", "Pair design, product, engineering, risk and legal", "Run measurable pilots", "Capture failure modes"]],
-    ["90", "Scale deliberately", ["Publish operating model", "Create role-specific playbooks", "Embed AI into design system", "Agree leadership metrics"]],
+    ["30", "Find the friction", ["Where are designers waiting?", "Where does engineering rebuild prototypes?", "Where is synthesis slow?", "Where is the system too weak to guide AI?"]],
+    ["60", "Prove three workflows", ["Research synthesis", "Design-system-connected functional prototyping", "Accessibility and quality review"]],
+    ["90", "Build the operating model", ["Approved tools and data rules", "Role expectations", "Human-review requirements", "Reusable workflows", "Measurement"]],
   ];
   return (
     <div className="roadmap">
@@ -938,9 +1142,6 @@ function RoadmapScene({ active }: { active: boolean }) {
           {(items as string[]).map((item) => <p key={item}>{item}</p>)}
         </motion.article>
       ))}
-      <motion.div className="pilot-strip" variants={rise} custom={4} initial="hidden" animate="visible">
-        {["Research synthesis", "System-connected prototyping", "Accessibility review", "Prototype-to-production", "Experiment documentation"].map((item) => <b key={item}>{item}</b>)}
-      </motion.div>
     </div>
   );
 }

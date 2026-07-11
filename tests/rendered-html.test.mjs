@@ -33,16 +33,17 @@ test("server-renders the presentation shell", async () => {
   assert.doesNotMatch(html, /Your site is taking shape|react-loading-skeleton|codex-preview/i);
 });
 
-test("presentation contains the full 16-slide executive story and controls", async () => {
+test("presentation contains the full 14-slide executive story and controls", async () => {
   const source = await readFile(new URL("../app/presentation.tsx", import.meta.url), "utf8");
   const slideCount = [...source.matchAll(/notes:\s*makeNotes\(/g)].length;
 
-  assert.equal(slideCount, 16);
-  assert.match(source, /This is not another productivity story/);
+  assert.equal(slideCount, 14);
+  assert.match(source, /AI does not just make the work faster/);
   assert.match(source, /This was not a prototype\. It became an operating product/);
   assert.match(source, /AI removed waiting\. It did not remove responsibility/);
-  assert.match(source, /Capability on demand is not expertise on demand/);
-  assert.match(source, /AI can scale quality - or scale risk/);
+  assert.match(source, /AI is changing every part of the design practice/);
+  assert.match(source, /Not specialist expertise\. Specialist leverage/);
+  assert.match(source, /The risk is not speed\. It is unclear accountability/);
   assert.match(source, /The future of design is not AI/);
   assert.match(source, /setBlackout/);
   assert.match(source, /setShowNotes/);
