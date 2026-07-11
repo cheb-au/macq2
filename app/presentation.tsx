@@ -93,12 +93,12 @@ const slides: Slide[] = [
   {
     kicker: "Macquarie Bank",
     title: "Designing the AI-Native Organisation",
-    subtitle: "What building an AI company taught me about people, ways of working and tools",
+    subtitle: "Lessons from building Levri while leading enterprise design teams",
     titleSize: "hero",
     scene: (active) => <OpeningScene active={active} />,
     notes: makeNotes(
       "Establish credibility and make clear this is not a speculative AI trend talk.",
-      "Open by saying this talk comes from two worlds at once: leading enterprise design teams and building Levri as an AI-native product. Set the tone that the point is not tool enthusiasm. The point is how capability availability changes the design organisation itself.",
+      "Open by saying this talk comes from two worlds at once: leading enterprise design teams and building Levri. Set the tone that the point is not tool enthusiasm. The point is how capability availability changes the design organisation itself.",
       "This is not a presentation about using AI. It is about designing organisations that can use AI responsibly and exceptionally well.",
       "Is Levri a side project or real evidence?",
       "I would describe Levri as evidence of lived operating-model change: product, platform, AI workflow and production constraints compressed into one build cycle. I will separate verified facts from placeholders.",
@@ -163,7 +163,7 @@ const slides: Slide[] = [
     scene: (active) => <ClosedLoopScene active={active} />,
     notes: makeNotes(
       "Make the closed loop personal and memorable rather than generic.",
-      "Describe the incident: credits were charged before an analysis completed. AI traced the charging path, inspected database functions, found mismatched run IDs, proposed an atomic refund flow, and helped implement tests. My role was to reject manual table edits, require an idempotent path, separate the follow-up issue and verify the customer outcome.",
+      "Describe the incident: credits were charged before an analysis completed. AI traced the charging path, inspected the database functions, found mismatched run IDs, and proposed and tested the fix. My role was to reject unsafe manual edits, require an idempotent solution, separate the follow-up issue and verify the customer outcome.",
       "I no longer ask AI for code. I direct an investigation and govern the outcome.",
       "Who owns quality if an agent writes code?",
       "The human and the organisation do. AI can assist search, synthesis and implementation, but accountability, risk thresholds and approval stay human.",
@@ -187,7 +187,7 @@ const slides: Slide[] = [
     title: "AI is changing every part of the design practice.",
     titleSize: "compact",
     scene: (active, buildStep = 0) => <DesignPracticeScene active={active} buildStep={buildStep} />,
-    buildSteps: 6,
+    buildSteps: 7,
     notes: makeNotes(
       "Translate the personal Levri case study into implications for the wider UXD organisation.",
       "Explain that the same pattern is appearing across discovery, definition, making, validation, delivery and learning. The point is not the tools themselves. The point is that the design loop is becoming more connected, with less friction between customer access, evidence, prototypes, testing and learning.",
@@ -565,7 +565,6 @@ function OpeningScene({ active }: { active: boolean }) {
         ))}
       </h1>
       <motion.div className="opening-copy" variants={rise} custom={3} initial="hidden" animate="visible">
-        <p>What building an AI company taught me about people, ways of working and tools</p>
         <span>Lessons from building Levri while leading enterprise design teams</span>
       </motion.div>
       <FloatingConstellation active={active} />
@@ -629,9 +628,9 @@ function ProcessTrack({ label, items, dim, active }: { label: string; items: str
 }
 
 function LevriTimelineScene({ active }: { active: boolean }) {
-  const traditional = ["Product manager", "Designer", "2-4 engineers", "AI engineer", "QA", "DevOps", "Growth", "12-18 months"];
+  const traditional = ["Product manager", "Designer", "Engineering", "AI specialist", "QA and DevOps", "12-18 months"];
   const built = ["One founder", "AI-assisted across disciplines", "Production product", "Approximately three months"];
-  const scope = ["Product proposition", "Authentication", "Payments", "AI analysis", "Browser automation", "Reports", "Monitoring", "Growth surfaces"];
+  const scope = ["Product proposition", "Authentication", "Payments", "AI analysis", "Browser automation", "Monitoring"];
   return (
     <div className="levri-timeline">
       <motion.article variants={rise} initial="hidden" animate="visible">
@@ -688,13 +687,17 @@ function ScreenshotSlot({ title, detail }: { title: string; detail: string }) {
 }
 
 function ClosedLoopScene({ active }: { active: boolean }) {
-  const ai = ["Traced charging path", "Inspected database functions", "Found mismatched run IDs", "Proposed atomic refund flow", "Implemented tests"];
-  const me = ["Rejected manual table edits", "Required idempotent fix", "Separated follow-up issue", "Verified customer outcome"];
+  const ai = ["Traced the charging path", "Inspected the database functions", "Found the mismatched run IDs", "Proposed and tested the fix"];
+  const me = ["Rejected unsafe manual edits", "Required an idempotent solution", "Separated the follow-up issue", "Verified the customer outcome"];
   return (
     <div className="case-study">
       <motion.article className="incident-card" variants={rise} initial="hidden" animate="visible">
         <span>A real production incident</span>
         <h2>Credits were charged before an analysis completed.</h2>
+        <div className="incident-lesson">
+          <b>AI investigated.</b>
+          <b>I governed.</b>
+        </div>
       </motion.article>
       <motion.article className="case-card" variants={rise} custom={1} initial="hidden" animate="visible">
         <span>AI contribution</span>
@@ -727,9 +730,9 @@ function OwnershipSplit() {
 }
 
 function AccelerationScene({ active }: { active: boolean }) {
-  const accelerated = ["Codebase investigation", "Early concepts", "Research synthesis", "Documentation", "Test creation", "Prototype production", "Repetitive implementation", "Cross-disciplinary learning"];
-  const judgement = ["Customer problem choice", "Evidence reliability", "Commercial priorities", "Experience quality", "Architecture trade-offs", "Security and privacy", "When not to ship", "Outcome accountability"];
-  return <DualList leftTitle="Accelerated" rightTitle="Still required judgement" left={accelerated} right={judgement} />;
+  const accelerated = ["Codebase investigation", "Research synthesis", "Prototype production", "Test creation", "Repetitive implementation"];
+  const judgement = ["Customer problem choice", "Evidence reliability", "Experience quality", "Security and privacy", "Outcome accountability"];
+  return <DualList leftTitle="Accelerated" rightTitle="Still requires judgement" left={accelerated} right={judgement} />;
 }
 
 function DesignPracticeScene({ active, buildStep }: { active: boolean; buildStep: number }) {
@@ -751,7 +754,7 @@ function DesignPracticeScene({ active, buildStep }: { active: boolean; buildStep
     ["Learn", "Learn", "Turn insights into better decisions", BarChart3, 210],
   ] as const;
   const toolClusters = [
-    ["Discover", -90, "row", -99, -54, [
+    ["Discover", -90, "row", -99, -75, [
       ["Dovetail", "dovetail", "teal"],
       ["Askable", "askable", "blue"],
       ["Maze", "maze", "purple"],
@@ -764,27 +767,28 @@ function DesignPracticeScene({ active, buildStep }: { active: boolean; buildStep
       ["Figma Make", "figma", "multi"],
       ["Figma AI", "figma", "purple"],
     ]],
-    ["Validate", 90, "row", -97, -11, [
-      ["Stark", "stark", "blue"],
+    ["Validate", 90, "row", -74, -11, [
       ["UserTesting", "usertesting", "blue"],
       ["Maze", "maze", "purple"],
     ]],
-    ["Deliver", 150, "column", -32, 12, [
-      ["Claude Code / Codex", "claude-code", "cream"],
+    ["Deliver", 150, "column", -56, -85, [
+      ["Claude", "claude-code", "cream"],
+      ["Codex", "codex", "cream"],
     ]],
-    ["Learn", 210, "column", -33, -58, [
-      ["Contentsquare", "contentsquare", "multi"],
+    ["Learn", 210, "column", -54, -54, [
+      ["VWO", "vwo", "multi"],
       ["FullStory", "fullstory", "white"],
     ]],
   ] as const;
-  const finalStep = stages.length;
-  const activeIndex = Math.min(buildStep, stages.length - 1);
+  const finalStep = stages.length + 1;
+  const isOverview = buildStep === 0;
   const isFinal = buildStep >= finalStep;
-  const activeAngle = stages[activeIndex][4];
+  const activeIndex = Math.max(0, Math.min(buildStep - 1, stages.length - 1));
+  const activeAngle = isOverview ? 0 : stages[activeIndex][4];
   const radians = activeAngle * Math.PI / 180;
-  const cameraX = isFinal ? 0 : Math.cos(radians) * -32;
-  const cameraY = isFinal ? 0 : Math.sin(radians) * -26;
-  const cameraScale = isFinal ? 0.92 : 1.06;
+  const cameraX = isFinal || isOverview ? 0 : Math.cos(radians) * -34;
+  const cameraY = isFinal || isOverview ? 0 : Math.sin(radians) * -28;
+  const cameraScale = isFinal ? 0.9 : isOverview ? 1 : 1.1;
   const accelerates = [
     ["Recruitment", Users],
     ["Synthesis", Sparkles],
@@ -813,7 +817,12 @@ function DesignPracticeScene({ active, buildStep }: { active: boolean; buildStep
         </h1>
         <p>AI connects the entire design loop from the first customer question to measurable impact.</p>
         <i />
-        <motion.blockquote className="practice-message" variants={rise} custom={7} initial="hidden" animate="visible">
+        <motion.blockquote
+          className="practice-message"
+          initial={false}
+          animate={{ opacity: isFinal ? 1 : 0, y: isFinal ? 0 : 18, filter: isFinal ? "blur(0px)" : "blur(8px)" }}
+          transition={{ duration: 0.58, ease }}
+        >
           AI does not remove the design process.
           <span>It removes friction between the parts of it.</span>
         </motion.blockquote>
@@ -824,22 +833,27 @@ function DesignPracticeScene({ active, buildStep }: { active: boolean; buildStep
           animate={{ x: cameraX, y: cameraY, scale: cameraScale }}
           transition={{ duration: 0.78, ease }}
         >
-          <motion.div className="practice-core" variants={rise} initial="hidden" animate="visible">
+          <motion.div
+            className="practice-core"
+            initial={{ opacity: 0, scale: 0.86, filter: "blur(10px)" }}
+            animate={{ opacity: 1, scale: isOverview ? 1.24 : isFinal ? 0.94 : 1, filter: "blur(0px)" }}
+            transition={{ duration: 0.58, ease }}
+          >
             <Users />
             <strong>Customer problem</strong>
           </motion.div>
           <div className="practice-planet" aria-hidden="true" />
           {stages.map(([verb, stage, detail, Icon, angle], i) => {
-            const status = isFinal ? "complete" : i === activeIndex ? "active" : i < activeIndex ? "visited" : "future";
+            const status = isFinal ? "complete" : isOverview ? "future" : i === activeIndex ? "active" : i < activeIndex ? "visited" : "future";
             return (
               <motion.div
                 key={stage}
-                className={`practice-stage is-${status}`}
+                className={`practice-stage stage-${stage.toLowerCase()} is-${status}`}
                 style={pointOnCircle(angle, phaseRadius)}
                 initial={false}
                 animate={{
-                  opacity: status === "active" ? 1 : status === "visited" ? 0.18 : isFinal ? 0.82 : 0.06,
-                  scale: status === "active" ? 1 : status === "visited" ? 0.72 : isFinal ? 0.86 : 0.62,
+                  opacity: status === "active" ? 1 : status === "visited" ? 0.24 : isFinal ? 0.82 : isOverview ? 0.1 : 0.1,
+                  scale: status === "active" ? 1.16 : status === "visited" ? 0.72 : isFinal ? 0.86 : 0.62,
                   filter: status === "active" || isFinal ? "blur(0px)" : "blur(2px)",
                 }}
                 transition={{ duration: 0.58, ease }}
@@ -859,7 +873,7 @@ function DesignPracticeScene({ active, buildStep }: { active: boolean; buildStep
           })}
           <AnimatePresence>
             {toolClusters.map(([stage, angle, layout, offsetX, offsetY, items], i) => {
-              if (!isFinal && i > activeIndex) return null;
+              if (isOverview || (!isFinal && i !== activeIndex)) return null;
               const status = isFinal ? "complete" : i === activeIndex ? "active" : "visited";
               const clusterRadians = angle * Math.PI / 180;
               return (
@@ -875,7 +889,7 @@ function DesignPracticeScene({ active, buildStep }: { active: boolean; buildStep
               filter: "blur(10px)",
             }}
             animate={{
-              opacity: status === "visited" ? 0.18 : 1,
+              opacity: status === "visited" ? 0.24 : 1,
               scale: status === "visited" ? 0.82 : isFinal ? 0.9 : 1,
               x: 0,
               y: 0,
@@ -919,6 +933,8 @@ const simpleIconAssets: Record<string, string> = {
   notebooklm: "/logos/notebooklm.svg",
   figma: "/logos/figma.svg",
   usertesting: "/logos/usertesting.svg",
+  vwo: "/logos/vwo.svg",
+  fullstory: "/logos/fullstory.svg",
 };
 
 function ToolLogo({ brand, label }: { brand: string; label: string }) {
@@ -969,15 +985,13 @@ function RoleShiftScene({ active }: { active: boolean }) {
 
 function SpecialistLeverageScene({ active }: { active: boolean }) {
   const items = [
-    ["Accessibility", "reviews semantics, keyboard paths and contrast"],
-    ["Research", "clusters evidence and surfaces contradictions"],
-    ["Engineering", "builds functional prototypes against components"],
-    ["Data", "turns signals into testable hypotheses"],
-    ["UX writing", "drafts alternatives in product voice"],
-    ["QA", "checks edge cases and regression paths"],
-    ["Documentation", "captures decisions and reusable patterns"],
-    ["Strategy", "maps options against business constraints"],
-  ];
+    ["Accessibility", "reviews semantics, keyboard paths and contrast", ShieldCheck],
+    ["Research", "clusters evidence and surfaces contradictions", Search],
+    ["Engineering", "builds functional prototypes against components", Workflow],
+    ["Data", "turns signals into testable hypotheses", BarChart3],
+    ["QA", "checks edge cases and regression paths", CheckSquare],
+    ["Strategy", "maps options against business constraints", Compass],
+  ] as const;
   return (
     <div className="specialist-scene">
       <motion.div className="designer-core" variants={rise} initial="hidden" animate="visible">
@@ -985,8 +999,9 @@ function SpecialistLeverageScene({ active }: { active: boolean }) {
         <strong>Designer</strong>
       </motion.div>
       <div className="specialist-grid">
-        {items.map(([name, action], i) => (
+        {items.map(([name, action, Icon], i) => (
           <motion.article key={name} variants={rise} custom={i} initial="hidden" animate="visible">
+            <Icon />
             <span>{name}</span>
             <p>{action}</p>
           </motion.article>
@@ -1029,9 +1044,9 @@ function CareerLadderScene({ active }: { active: boolean }) {
 
 function WaysOfWorkingScene({ active }: { active: boolean }) {
   const loops = [
-    ["Discovery loop", "Evidence - themes - hypotheses", ["AI: synthesis", "Human: problem selection"]],
-    ["Making loop", "Concepts - prototypes - critique", ["AI: variation", "Human: quality threshold"]],
-    ["Delivery loop", "Build - measure - improve", ["AI: checks", "Human: outcome ownership"]],
+    ["Discovery loop", "Evidence → Themes → Hypotheses", ["AI: synthesis", "Human: problem selection"]],
+    ["Making loop", "Concepts → Prototypes → Critique", ["AI: variation", "Human: quality threshold"]],
+    ["Delivery loop", "Build → Measure → Improve", ["AI: checks", "Human: outcome ownership"]],
   ];
   return (
     <div className="work-loops">
@@ -1066,7 +1081,7 @@ function CapabilityModelScene({ active }: { active: boolean }) {
         </motion.article>
       ))}
       <motion.blockquote variants={rise} custom={6} initial="hidden" animate="visible">
-        Shared context is the next operating system for design work.
+        Shared context becomes the operating system for design.
       </motion.blockquote>
     </div>
   );
@@ -1129,15 +1144,19 @@ function GovernanceScene({ active }: { active: boolean }) {
 
 function RoadmapScene({ active }: { active: boolean }) {
   const steps = [
-    ["30", "Find the friction", ["Where are designers waiting?", "Where does engineering rebuild prototypes?", "Where is synthesis slow?", "Where is the system too weak to guide AI?"]],
-    ["60", "Prove three workflows", ["Research synthesis", "Design-system-connected functional prototyping", "Accessibility and quality review"]],
-    ["90", "Build the operating model", ["Approved tools and data rules", "Role expectations", "Human-review requirements", "Reusable workflows", "Measurement"]],
+    ["30", "Understand", "Find the friction", ["Where are designers waiting?", "Where does engineering rebuild prototypes?", "Where is synthesis slow?", "Where is the system too weak to guide AI?"]],
+    ["60", "Prove", "Prove three workflows", ["Research synthesis", "Design-system-connected functional prototyping", "Accessibility and quality review"]],
+    ["90", "Scale", "Build the operating model", ["Approved tools and data rules", "Role expectations", "Human-review requirements", "Reusable workflows", "Measurement"]],
   ];
   return (
     <div className="roadmap">
-      {steps.map(([day, label, items], i) => (
+      <motion.p className="roadmap-subtitle" variants={rise} initial="hidden" animate="visible">
+        Value, safety and evidence before scale.
+      </motion.p>
+      {steps.map(([day, phase, label, items], i) => (
         <motion.article className="road-step" key={day as string} variants={rise} custom={i} initial="hidden" animate="visible">
           <strong>{day}</strong>
+          <em>{phase}</em>
           <h2>{label}</h2>
           {(items as string[]).map((item) => <p key={item}>{item}</p>)}
         </motion.article>

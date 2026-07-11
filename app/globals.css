@@ -15,6 +15,7 @@
   --glass: rgba(255, 255, 255, 0.07);
   --solid-pill: #252a33;
   --safe-bottom: 38px;
+  --font-display: "Avenir Next", "Avenir", "Trebuchet MS", var(--font-geist-sans), sans-serif;
 }
 
 @theme inline {
@@ -118,9 +119,10 @@ button {
 .slide-title {
   max-width: 1220px;
   margin: 0;
+  font-family: var(--font-display);
   font-size: clamp(2.4rem, 5.2vw, 5.8rem);
   line-height: 1.01;
-  font-weight: 760;
+  font-weight: 850;
   letter-spacing: 0;
   text-wrap: balance;
 }
@@ -138,8 +140,6 @@ button {
 }
 
 .slide-11 .slide-title {
-  font-family: "Avenir Next", "Avenir", "Trebuchet MS", var(--font-geist-sans), sans-serif;
-  font-weight: 850;
   color: transparent;
   background: linear-gradient(100deg, #ffffff 8%, #dfe9ff 42%, var(--blue-2) 70%, var(--purple));
   background-clip: text;
@@ -279,9 +279,10 @@ button {
   margin: 0;
   display: grid;
   gap: clamp(2px, 0.7vh, 10px);
+  font-family: var(--font-display);
   font-size: clamp(4rem, 9vw, 10.9rem);
   line-height: 0.84;
-  font-weight: 790;
+  font-weight: 850;
   letter-spacing: 0;
 }
 
@@ -649,6 +650,24 @@ button {
   line-height: 1.02;
 }
 
+.incident-lesson {
+  margin-top: 22px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.incident-lesson b {
+  display: inline-flex;
+  padding: 10px 14px;
+  border: 1px solid rgba(103, 183, 255, 0.34);
+  border-radius: 999px;
+  color: white;
+  background: rgba(22, 133, 255, 0.12);
+  font-size: clamp(1.15rem, 1.8vw, 1.8rem);
+  line-height: 1;
+}
+
 .case-card {
   min-height: 240px;
   padding: 22px;
@@ -662,6 +681,7 @@ button {
   margin: 10px 0 0;
   color: var(--soft);
   line-height: 1.24;
+  font-size: clamp(0.98rem, 1.18vw, 1.18rem);
 }
 
 .case-study blockquote {
@@ -772,6 +792,10 @@ button {
   padding: 24px;
 }
 
+.dual-card p {
+  font-size: clamp(1.02rem, 1.24vw, 1.24rem);
+}
+
 .dual-card.right {
   border-color: rgba(155, 124, 255, 0.34);
 }
@@ -781,7 +805,7 @@ button {
   width: min(1320px, 100%);
   min-height: min(710px, calc(100vh - 70px));
   display: grid;
-  grid-template-columns: 34% 66%;
+  grid-template-columns: 31% 69%;
   grid-template-rows: 1fr auto;
   gap: 10px 0;
   align-items: center;
@@ -819,8 +843,9 @@ button {
 .practice-thesis h1 {
   margin: 0;
   color: white;
+  font-family: var(--font-display);
   font-size: clamp(1.88rem, 2.95vw, 3.15rem);
-  font-weight: 790;
+  font-weight: 850;
   line-height: 1.02;
   letter-spacing: 0;
 }
@@ -857,6 +882,21 @@ button {
     radial-gradient(circle at 50% 50%, rgba(155, 124, 255, 0.18), transparent 27%),
     radial-gradient(circle at 48% 55%, rgba(22, 133, 255, 0.14), transparent 38%);
   overflow: visible;
+}
+
+.journey-path {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.journey-path path {
+  fill: none;
+  stroke: rgba(103, 183, 255, 0.52);
+  stroke-width: 0.42;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
 }
 
 .practice-orbit::after {
@@ -958,7 +998,7 @@ button {
   position: absolute;
   left: 50%;
   top: 50%;
-  z-index: 20;
+  z-index: 30;
   width: 128px;
   height: 128px;
   translate: -50% -50%;
@@ -999,7 +1039,7 @@ button {
 }
 
 .practice-stage.is-active {
-  z-index: 18;
+  z-index: 24;
 }
 
 .practice-stage.is-visited {
@@ -1051,6 +1091,11 @@ button {
   line-height: 1.18;
 }
 
+.practice-stage.stage-validate.is-active p {
+  max-width: 160px;
+  white-space: nowrap;
+}
+
 .practice-tool-cluster {
   position: absolute;
   left: var(--x);
@@ -1075,15 +1120,15 @@ button {
 }
 
 .practice-tool {
-  width: 56px;
+  width: 66px;
   display: grid;
   justify-items: center;
   gap: 8px;
 }
 
 .practice-tool span {
-  width: 56px;
-  height: 56px;
+  width: 66px;
+  height: 66px;
   display: grid;
   place-items: center;
   border: 1px solid rgba(255, 255, 255, 0.18);
@@ -1096,8 +1141,8 @@ button {
 }
 
 .practice-tool span img {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   display: block;
   object-fit: contain;
 }
@@ -1119,7 +1164,7 @@ button {
   font-size: 8px;
   line-height: 1.05;
   text-align: center;
-  max-width: 66px;
+  max-width: 72px;
 }
 
 .tool-teal span { background: linear-gradient(145deg, rgba(33, 213, 184, 0.62), rgba(11, 42, 52, 0.92)); }
@@ -1172,7 +1217,7 @@ button {
   display: grid;
   grid-template-columns: 1fr 1.08fr;
   gap: 12px;
-  margin: 0 44px 10px;
+  margin: 0 40px -23px;
 }
 
 .accountability-band div {
@@ -1317,13 +1362,20 @@ button {
 
 .specialist-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
 }
 
 .specialist-grid article {
-  min-height: 118px;
-  padding: 15px;
+  min-height: 138px;
+  padding: 18px;
+}
+
+.specialist-grid article svg {
+  width: 24px;
+  height: 24px;
+  color: rgba(255, 255, 255, 0.78);
+  margin-bottom: 12px;
 }
 
 .warning-line {
@@ -1398,6 +1450,15 @@ button {
   padding: 22px;
 }
 
+.work-loops article span {
+  color: var(--blue-2);
+  font-size: clamp(0.86rem, 1vw, 1rem);
+}
+
+.work-loops h2 {
+  font-size: clamp(1.45rem, 2.05vw, 2.25rem);
+}
+
 .work-loops .insight-line {
   grid-column: 1 / -1;
 }
@@ -1450,7 +1511,7 @@ button {
   grid-column: 1 / -1;
   margin: 8px 0 0;
   color: white;
-  font-size: clamp(1.55rem, 3vw, 3.3rem);
+  font-size: clamp(1.8rem, 3.35vw, 3.65rem);
   line-height: 1.02;
   font-weight: 730;
 }
@@ -1511,30 +1572,34 @@ button {
 .zone {
   min-height: 256px;
   padding: 20px;
+  border-width: 1.5px;
 }
 
 .zone-green {
-  border-color: rgba(107,230,176,0.36);
+  border-color: rgba(107,230,176,0.56);
 }
 
 .zone-green span {
   color: var(--green);
+  border-bottom: 2px solid rgba(107,230,176,0.58);
 }
 
 .zone-amber {
-  border-color: rgba(255,209,102,0.36);
+  border-color: rgba(255,209,102,0.58);
 }
 
 .zone-amber span {
   color: var(--amber);
+  border-bottom: 2px solid rgba(255,209,102,0.6);
 }
 
 .zone-red {
-  border-color: rgba(255,107,122,0.36);
+  border-color: rgba(255,107,122,0.6);
 }
 
 .zone-red span {
   color: var(--red);
+  border-bottom: 2px solid rgba(255,107,122,0.62);
 }
 
 .controls-strip,
@@ -1552,8 +1617,15 @@ button {
   gap: 14px;
 }
 
+.roadmap-subtitle {
+  grid-column: 1 / -1;
+  margin: 0 0 2px;
+  color: var(--soft);
+  font-size: clamp(1.05rem, 1.4vw, 1.35rem);
+}
+
 .road-step {
-  min-height: 312px;
+  min-height: 292px;
   padding: 22px;
   position: relative;
   z-index: 2;
@@ -1567,6 +1639,15 @@ button {
   font-size: clamp(3.4rem, 6vw, 6.2rem);
   line-height: 0.85;
   letter-spacing: 0;
+}
+
+.road-step em {
+  display: block;
+  margin-top: 8px;
+  color: var(--blue-2);
+  font-size: clamp(1rem, 1.25vw, 1.24rem);
+  font-style: normal;
+  font-weight: 760;
 }
 
 .pilot-strip {
@@ -1589,8 +1670,10 @@ button {
 
 .finale h1 {
   margin: clamp(18px, 3vh, 42px) 0 0;
+  font-family: var(--font-display);
   font-size: clamp(2.5rem, 5.4vw, 6.5rem);
   line-height: 0.96;
+  font-weight: 850;
   letter-spacing: 0;
   text-wrap: balance;
 }
