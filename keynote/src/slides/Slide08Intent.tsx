@@ -15,7 +15,7 @@ export default function Slide08Intent(_: SlideProps) {
         <h2 className="h1">
           <Words text="AI accelerated execution." at={0} grad="ink" />
           <br />
-          <Words text="Judgement directed intent." at={0} from={3} grad="violet" />
+          <Words text="Leadership directed intent." at={0} from={3} grad="violet" />
         </h2>
       </div>
 
