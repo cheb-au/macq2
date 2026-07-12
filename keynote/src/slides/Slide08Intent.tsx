@@ -46,7 +46,7 @@ export default function Slide08Intent(_: SlideProps) {
           </Reveal>
           <div className="pills">
             {HUMAN.map((t, i) => (
-              <Reveal key={t} at={2} i={i} variant="soft">
+              <Reveal key={t} at={2} i={i * 2} variant="soft">
                 <div className="pill">
                   <Icon.compass className="ico" size={22} />
                   {t}
@@ -61,7 +61,7 @@ export default function Slide08Intent(_: SlideProps) {
         <div className="takeaway">
           <span className="takeaway__mark">→</span>
           <div className="takeaway__text">
-            Machines produce the options.{" "}
+            Machines produce options.{" "}
             <span className="muted">People own the intent.</span>
           </div>
         </div>

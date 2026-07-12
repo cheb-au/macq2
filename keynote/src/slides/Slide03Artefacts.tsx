@@ -66,10 +66,10 @@ export default function Slide03Artefacts(_: SlideProps) {
           <Words text="One decision" at={2} from={3} grad="violet" />
         </div>
 
-        {/* fades in ~1s after "One decision" settles */}
+        {/* fades in after "One decision" settles — two staggered lines */}
         <div className="s3-follow" data-on={beat >= 2}>
-          The output scales.{" "}
-          <span style={{ color: "var(--ink-soft)" }}>Judgement compounds.</span>
+          <span className="s3-follow__a">Output scales.</span>{" "}
+          <span className="s3-follow__b">Judgement compounds.</span>
         </div>
       </div>
 

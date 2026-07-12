@@ -8,15 +8,13 @@ interface Layer {
   icon: ComponentType<{ size?: number; className?: string }>;
 }
 
-// build order - foundation first (index 0), production last
+// build order - foundation first (index 0), the stakes on top
 const LAYERS: Layer[] = [
-  { key: "repo", label: "Repository", meta: "the foundation", icon: Icon.grid },
-  { key: "auth", label: "Authentication", meta: "accounts & identity", icon: Icon.shield },
-  { key: "pay", label: "Payments", meta: "real money moves", icon: Icon.card },
-  { key: "browser", label: "Browser automation", meta: "agents in the loop", icon: Icon.bolt },
-  { key: "ai", label: "AI", meta: "generation & investigation", icon: Icon.spark },
-  { key: "exp", label: "Experiments", meta: "evidence, not opinion", icon: Icon.tree },
-  { key: "prod", label: "Production", meta: "real customers", icon: Icon.signal },
+  { key: "infra", label: "Real infrastructure", meta: "it actually runs", icon: Icon.grid },
+  { key: "data", label: "Real data", meta: "live, not seeded", icon: Icon.node },
+  { key: "pay", label: "Real payments", meta: "money actually moved", icon: Icon.card },
+  { key: "cust", label: "Real customers", meta: "real people, real outcomes", icon: Icon.signal },
+  { key: "risk", label: "Real operational risk", meta: "the stakes were real", icon: Icon.shield },
 ];
 
 /**

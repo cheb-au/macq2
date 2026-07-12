@@ -97,7 +97,11 @@ export default function App() {
   } as React.CSSProperties;
 
   return (
-    <div className="viewport" ref={viewportRef}>
+    <div
+      className="viewport"
+      ref={viewportRef}
+      onClick={() => next()}
+    >
       <div className="stage" ref={stageRef} style={stageStyle}>
         <div className="stage__glow" />
         <NodeField />

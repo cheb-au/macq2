@@ -1,7 +1,16 @@
 import type { CSSProperties } from "react";
+import { useEffect, useState } from "react";
 import { Words } from "../components/Reveal";
 import { useBeat } from "../engine/PresentationContext";
 import type { SlideProps } from "../engine/types";
+
+const ADVANTAGES = [
+  "Better customer understanding",
+  "Stronger design systems",
+  "Clearer accountability",
+  "Faster organisational learning",
+  "Better leadership",
+];
 
 const scene = (visible: boolean): CSSProperties => ({
   position: "absolute",
@@ -24,42 +33,78 @@ const scene = (visible: boolean): CSSProperties => ({
 export default function Slide12Future(_: SlideProps) {
   const beat = useBeat();
 
+  // final scene self-plays: line 1 lands, then line 2 arrives ~3s later, no click
+  const [revealLast, setRevealLast] = useState(false);
+  useEffect(() => {
+    if (beat !== 3) {
+      setRevealLast(false);
+      return;
+    }
+    const t = setTimeout(() => setRevealLast(true), 3000);
+    return () => clearTimeout(t);
+  }, [beat]);
+
   return (
     <>
-      {/* thesis */}
+      {/* beat 0 - same AI for everyone */}
       <div style={scene(beat === 0)}>
-        <h2 className="h1" style={{ fontSize: 76, maxWidth: 1400 }}>
-          <Words text="The future belongs to organisations" at={0} grad="accent" />
-          <br />
-          <Words text="that learn fastest." at={0} from={4} grad="accent" />
+        <h2 className="h1" style={{ fontSize: 72, maxWidth: 1450 }}>
+          <Words
+            text="Every financial institution will have access to the same AI."
+            at={0}
+            grad="ink"
+          />
         </h2>
       </div>
 
-      {/* the pivot - same AI, different leadership */}
+      {/* beats 1-2 - where the advantage actually comes from */}
       <div style={scene(beat === 1 || beat === 2)}>
-        <p className="h1" style={{ fontSize: 66, color: "var(--ink)", maxWidth: 1400 }}>
-          <Words text="Every organisation will have access to the same AI." at={1} grad="ink" />
+        <p className="h2" style={{ fontSize: 52, color: "var(--ink)", maxWidth: 1300 }}>
+          <Words text="The advantage won't come from the technology." at={1} grad="ink" />
         </p>
-        <p
-          className="h1"
-          style={{
-            fontSize: 66,
-            maxWidth: 1400,
-            opacity: beat >= 2 ? 1 : 0,
-            transition: "opacity 1s var(--ease-out)",
-          }}
+        <div
+          className="stack"
+          style={{ gap: 16, marginTop: 18, alignItems: "center" }}
         >
-          <Words text="Not every organisation will know how to lead with it." at={2} grad="gold" />
-        </p>
+          <p className="h2" style={{ fontSize: 52, color: "var(--ink)", marginBottom: 6 }}>
+            <Words text="It will be..." at={2} grad="ink" />
+          </p>
+          {ADVANTAGES.map((a, i) => (
+            <div
+              key={a}
+              style={{
+                fontSize: 34,
+                fontWeight: 500,
+                color: "var(--gold-soft)",
+                opacity: beat >= 2 ? 1 : 0,
+                transform: beat >= 2 ? "none" : "translateY(10px)",
+                transition:
+                  "opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out)",
+                transitionDelay: `${i * 260}ms`,
+              }}
+            >
+              {a}
+            </div>
+          ))}
+        </div>
       </div>
 
-      {/* the one idea to leave them with */}
-      <div style={scene(beat >= 3)}>
-        <p className="lead" style={{ fontSize: 40, color: "var(--ink-faint)" }}>
-          <Words text="AI will commoditise execution." at={3} />
+      {/* beat 3 - the one idea to leave them with (self-plays the second line) */}
+      <div style={scene(beat === 3)}>
+        <p className="lead" style={{ fontSize: 42, color: "var(--ink-faint)" }}>
+          <Words text="AI commoditises execution." at={3} />
         </p>
-        <p className="display" style={{ fontSize: 96, maxWidth: 1500 }}>
-          <Words text="Leadership becomes the advantage." at={3} from={4} grad="gold" />
+        <p
+          className="display"
+          style={{
+            fontSize: 92,
+            maxWidth: 1500,
+            opacity: revealLast ? 1 : 0,
+            filter: revealLast ? "blur(0)" : "blur(14px)",
+            transition: "opacity 1s var(--ease-out), filter 1s var(--ease-out)",
+          }}
+        >
+          <span className="gold">Leadership differentiates outcomes.</span>
         </p>
       </div>
 

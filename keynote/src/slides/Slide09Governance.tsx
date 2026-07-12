@@ -1,64 +1,80 @@
 import type { ComponentType } from "react";
-import { Reveal, Words } from "../components/Reveal";
+import { useEffect, useState } from "react";
+import { Words } from "../components/Reveal";
 import { Icon } from "../components/Icons";
-import { useBeat } from "../engine/PresentationContext";
 import type { SlideProps } from "../engine/types";
 
-interface Step {
-  beat: number;
+interface Card {
+  p: number;
   k: string;
   t: string;
-  variant?: "danger" | "safe";
+  sub?: string;
+  variant: "" | "ai" | "amber" | "judge" | "safe";
   icon: ComponentType<{ size?: number }>;
-  strikeAt?: number;
 }
 
-const STEPS: Step[] = [
-  { beat: 1, k: "Signal", t: "A customer is charged", icon: Icon.signal },
-  { beat: 2, k: "AI", t: "Automated investigation traces the fault", icon: Icon.node },
+const CARDS: Card[] = [
+  { p: 1, k: "Signal", t: "High application abandonment", variant: "", icon: Icon.signal },
   {
-    beat: 3,
-    k: "Proposed",
-    t: "A fast shortcut that could double-refund",
-    icon: Icon.bolt,
-    variant: "danger",
-    strikeAt: 4,
+    p: 2,
+    k: "AI",
+    t: "Predicts scarcity messaging will increase completed applications by 8-12%.",
+    variant: "ai",
+    icon: Icon.node,
   },
-  { beat: 4, k: "Judgement", t: "Rejected - unsafe under load", icon: Icon.shield },
   {
-    beat: 5,
-    k: "Resolution",
-    t: "Idempotent repair · customer protected",
+    p: 3,
+    k: "Proposed",
+    t: "Introduce scarcity messaging",
+    sub: "“Apply now before this offer ends.”",
+    variant: "amber",
+    icon: Icon.bolt,
+  },
+  {
+    p: 4,
+    k: "Judgement",
+    t: "Rejected - optimises conversion at the expense of customer trust.",
+    variant: "judge",
     icon: Icon.shield,
+  },
+  {
+    p: 5,
+    k: "Resolution",
+    t: "Clearer guidance and simpler next steps.",
+    sub: "Reduced complexity instead of increasing pressure.",
     variant: "safe",
+    icon: Icon.compass,
   },
 ];
 
-export default function Slide09Governance(_: SlideProps) {
-  const beat = useBeat();
-  const frozen = beat === 3; // the held decision point
-  const danger = beat >= 3 && beat < 5;
+export default function Slide09Governance({ active }: SlideProps) {
+  const [p, setP] = useState(0);
+  const [struck, setStruck] = useState(false);
+
+  // the slide plays itself: 2s beats, no keyboard taps required
+  useEffect(() => {
+    if (!active) {
+      setP(0);
+      setStruck(false);
+      return;
+    }
+    const timers: number[] = [];
+    const at = (ms: number, fn: () => void) => timers.push(window.setTimeout(fn, ms));
+    at(400, () => setP(1)); // signal
+    at(4400, () => setP(2)); // ai investigates
+    at(8400, () => setP(3)); // proposed (amber, attractive)
+    at(10000, () => setStruck(true)); // ~1.5s later, turns red (rejected)
+    at(12400, () => setP(4)); // judgement (deliberate)
+    at(16400, () => setP(5)); // resolution (calm)
+    at(20400, () => setP(6)); // takeaway 1
+    at(24400, () => setP(7)); // takeaway 2
+    return () => timers.forEach((t) => clearTimeout(t));
+  }, [active]);
 
   return (
     <div className="stack grow" style={{ gap: 8 }}>
-      {/* tension flood - the frame holds its breath on the risky decision */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          zIndex: 0,
-          pointerEvents: "none",
-          background:
-            "radial-gradient(80% 70% at 50% 60%, rgba(224,133,133,0.16), transparent 70%)",
-          opacity: frozen ? 1 : danger ? 0.4 : 0,
-          transition: "opacity 0.9s var(--ease-out)",
-        }}
-      />
-
-      <div className="s-head" style={{ position: "relative", zIndex: 2 }}>
-        <Reveal at={0} variant="fade">
-          <span className="kicker">The other side of speed</span>
-        </Reveal>
+      <div className="s-head">
+        <span className="kicker">The other side of speed</span>
         <h2 className="h1" style={{ maxWidth: 1300 }}>
           <Words text="Speed without governance" at={0} grad="ink" />
           <br />
@@ -66,73 +82,67 @@ export default function Slide09Governance(_: SlideProps) {
         </h2>
       </div>
 
-      <div className="incident" style={{ marginTop: 6, position: "relative", zIndex: 2 }}>
-        {STEPS.map((s, i) => {
-          const shown = beat >= s.beat;
-          const struck = s.strikeAt !== undefined && beat >= s.strikeAt;
-          const isDanger = s.variant === "danger";
-          const dimmed = frozen && !isDanger && shown;
+      <div className="incident" style={{ marginTop: 48 }}>
+        {CARDS.map((c, i) => {
+          const shown = p >= c.p;
+          const isStruck = c.variant === "amber" && struck;
+          const dur = c.variant === "judge" ? 1.1 : 0.6;
           return (
             <div
-              key={s.k}
+              key={c.k}
               className={[
                 "istep",
-                isDanger ? "istep--danger" : "",
-                s.variant === "safe" ? "istep--safe" : "",
-                struck ? "istep--strike" : "",
-                frozen && isDanger ? "istep--held" : "",
+                "istep--left",
+                `istep--${c.variant || "plain"}`,
+                isStruck ? "is-struck" : "",
+                shown ? "is-shown" : "",
               ].filter(Boolean).join(" ")}
               style={{
-                opacity: shown ? (dimmed ? 0.32 : 1) : 0,
-                transform: shown ? "none" : "translateY(18px)",
-                filter: shown ? "none" : "blur(6px)",
-                transition:
-                  "opacity .6s var(--ease-out), transform .8s var(--ease-out), filter .6s var(--ease-out)",
+                opacity: shown ? 1 : 0,
+                transform: shown ? "none" : "translateX(-46px)",
+                transition: `opacity ${dur}s var(--ease-out), transform ${dur}s var(--ease-out)`,
               }}
             >
               <div className="istep__rail">
                 <div className="istep__dot">
-                  <s.icon size={20} />
+                  <c.icon size={20} />
                 </div>
-                {i < STEPS.length - 1 && (
-                  <div
-                    className="istep__line"
-                    style={{
-                      background:
-                        beat > s.beat ? "var(--line-strong)" : "var(--line)",
-                    }}
-                  />
-                )}
+                {i < CARDS.length - 1 && <div className="istep__line" />}
               </div>
               <div className="istep__card">
-                <div className="istep__k">{s.k}</div>
-                <div className="istep__t">{s.t}</div>
+                <div className="istep__k">{c.k}</div>
+                <div className="istep__t">{c.t}</div>
+                {c.sub && <div className="istep__sub">{c.sub}</div>}
               </div>
-
-              {/* the held-for-review badge, only while frozen on the danger */}
-              {isDanger && (
-                <div
-                  className="hold-badge"
-                  style={{
-                    opacity: frozen ? 1 : 0,
-                    transform: frozen ? "translateX(0)" : "translateX(-12px)",
-                  }}
-                >
-                  <span className="hold-badge__pulse" />
-                  Held - human decision required
-                </div>
-              )}
             </div>
           );
         })}
       </div>
 
-      <Reveal at={6} variant="rise" style={{ marginTop: 4, position: "relative", zIndex: 2 }}>
-        <p className="eyebrow-quote">
-          AI solved the investigation.{" "}
-          <span className="muted">Leadership owned the outcome.</span>
-        </p>
-      </Reveal>
+      <div className="takeaway" style={{ minHeight: 56, marginTop: 34 }}>
+        <div
+          className="takeaway__text"
+          style={{
+            color: "var(--ink-faint)",
+            opacity: p >= 6 ? 1 : 0,
+            transform: p >= 6 ? "none" : "translateY(10px)",
+            transition: "opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out)",
+          }}
+        >
+          AI found the fastest answer.
+        </div>
+        <div
+          className="takeaway__text"
+          style={{
+            color: "var(--violet)",
+            opacity: p >= 7 ? 1 : 0,
+            transform: p >= 7 ? "none" : "translateY(10px)",
+            transition: "opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out)",
+          }}
+        >
+          Leadership chose the right one.
+        </div>
+      </div>
     </div>
   );
 }

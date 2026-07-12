@@ -44,15 +44,17 @@ export default function Slide02Work(_: SlideProps) {
         </div>
       </div>
 
-      <Reveal at={2} variant="rise">
-        <div className="takeaway">
+      <div className="takeaway">
+        <Reveal at={2} variant="rise" style={{ display: "flex", alignItems: "baseline", gap: 22 }}>
           <span className="takeaway__mark">→</span>
-          <div className="takeaway__text">
-            AI compresses organisational handoffs.{" "}
-            <span className="muted">Not jobs.</span>
+          <div className="takeaway__text" style={{ color: "var(--ink-faint)" }}>
+            AI compresses organisational handoffs.
           </div>
-        </div>
-      </Reveal>
+        </Reveal>
+        <Reveal at={3} variant="rise">
+          <div className="takeaway__text">Not jobs.</div>
+        </Reveal>
+      </div>
     </div>
   );
 }

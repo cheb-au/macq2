@@ -13,14 +13,14 @@ function waveLine(amp: number, base: number, phase: number) {
   }
   return d;
 }
-const FILL_A = waveLine(13, 26, 0) + " L1440 60 L0 60 Z";
-const CREST = waveLine(13, 26, 0);
+const FILL_A = waveLine(8, 28, 0) + " L1440 60 L0 60 Z";
+const CREST = waveLine(8, 28, 0);
 
 export default function Slide04Value(_: SlideProps) {
   const beat = useBeat();
-  // fills on entry (beat 0), then leaders push the level higher (beat 1)
+  // fills on entry, the floor rises on beat 1, then the ceiling brightens on beat 2
   const level = beat < 0 ? 0 : beat >= 1 ? 76 : 52;
-  const ceilOn = beat >= 1;
+  const ceilOn = beat >= 2; // capabilities brighten only once the water settles
 
   return (
     <div className="stack grow" style={{ gap: 8 }}>
@@ -66,15 +66,17 @@ export default function Slide04Value(_: SlideProps) {
         </div>
       </div>
 
-      <Reveal at={2} variant="rise">
-        <div className="takeaway">
+      <div className="takeaway">
+        <Reveal at={1} variant="rise" style={{ display: "flex", alignItems: "baseline", gap: 22 }}>
           <span className="takeaway__mark">→</span>
-          <div className="takeaway__text">
-            AI raises the floor.{" "}
-            <span style={{ color: "var(--accent)" }}>Leaders raise the ceiling.</span>
+          <div className="takeaway__text">AI raises the floor.</div>
+        </Reveal>
+        <Reveal at={2} variant="rise">
+          <div className="takeaway__text" style={{ color: "var(--accent)" }}>
+            Leaders raise the ceiling.
           </div>
-        </div>
-      </Reveal>
+        </Reveal>
+      </div>
     </div>
   );
 }

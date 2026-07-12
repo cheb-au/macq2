@@ -10,7 +10,7 @@ export default function Slide01Title(_: SlideProps) {
       </Reveal>
 
       <Reveal at={0} i={1} variant="fade">
-        <span className="kicker">A perspective for the Head of UX</span>
+        <span className="kicker">A Head of UX perspective</span>
       </Reveal>
 
       <h1 className="display" style={{ maxWidth: 1500 }}>
@@ -27,9 +27,15 @@ export default function Slide01Title(_: SlideProps) {
 
       <Reveal at={2} variant="rise" style={{ marginTop: 26 }}>
         <p className="subline" style={{ maxWidth: 1000, textAlign: "center" }}>
-          AI isn't changing <span className="gold">what</span> good design is.
-          <br />
-          It's changing how quickly we move from ambiguity to evidence.
+          AI isn't changing what good design is.
+        </p>
+      </Reveal>
+
+      <Reveal at={3} variant="soft">
+        <p className="subline" style={{ maxWidth: 1000, textAlign: "center" }}>
+          It's changing how quickly we move from{" "}
+          <span className="gold">ambiguity</span> to{" "}
+          <span className="gold">evidence</span>.
         </p>
       </Reveal>
     </div>

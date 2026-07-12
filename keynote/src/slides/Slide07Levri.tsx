@@ -1,88 +1,125 @@
+import { useEffect, useState } from "react";
 import { Reveal, Words } from "../components/Reveal";
-import { LevriStack } from "../components/LevriStack";
 import { useBeat } from "../engine/PresentationContext";
 import type { SlideProps } from "../engine/types";
 
-const FACTS = [
-  "3 months",
-  "one team of one",
-  "real customers",
-  "real payments",
+const MILESTONES: { t: string; key?: boolean }[] = [
+  { t: "Production product" },
+  { t: "Real customers" },
+  { t: "Real revenue" },
+  { t: "AI-native operating model proven", key: true },
 ];
 
-export default function Slide07Levri(_: SlideProps) {
+export default function Slide07Levri({ active }: SlideProps) {
   const beat = useBeat();
-  const live = beat >= 6;
+  const [showLevri, setShowLevri] = useState(false);
+
+  // "through Levri" resolves into the heading ~700ms after the slide arrives
+  useEffect(() => {
+    if (!active) {
+      setShowLevri(false);
+      return;
+    }
+    const t = window.setTimeout(() => setShowLevri(true), 700);
+    return () => clearTimeout(t);
+  }, [active]);
 
   return (
     <div className="stack grow" style={{ gap: 8 }}>
       <div className="s-head">
         <Reveal at={0} variant="fade">
-          <span className="kicker">Evidence · the one thing no one else can show</span>
+          <span className="kicker">Proof</span>
         </Reveal>
         <h2 className="h1">
-          <Words text="I didn't describe it." at={0} grad="ink" />{" "}
-          <Words text="I built it." at={0} from={3} grad="gold" />
+          <Words text="From theory to production." at={0} grad="ink" />
+          <br />
+          <span
+            className="gold"
+            style={{
+              opacity: showLevri ? 1 : 0,
+              filter: showLevri ? "blur(0)" : "blur(14px)",
+              transition: "opacity 0.9s var(--ease-out), filter 0.9s var(--ease-out)",
+            }}
+          >
+            through Levri.
+          </span>
         </h2>
       </div>
 
       <div className="row" style={{ flex: 1, alignItems: "center", gap: 40, minHeight: 0 }}>
-        <div className="grow" style={{ display: "flex", justifyContent: "center" }}>
-          <LevriStack beat={beat} />
+        <div className="stack" style={{ flex: "0 0 560px", gap: 26 }}>
+          <Reveal at={0} i={1} variant="rise">
+            <div className="stack" style={{ gap: 0, lineHeight: 0.86 }}>
+              <span
+                className="grad-accent"
+                style={{ fontSize: 96, fontWeight: 600, letterSpacing: "-0.05em" }}
+              >
+                100+
+              </span>
+              <span
+                style={{
+                  fontSize: 40,
+                  fontWeight: 500,
+                  color: "var(--ink-dim)",
+                  letterSpacing: "-0.02em",
+                }}
+              >
+                teams
+              </span>
+            </div>
+          </Reveal>
+          <Reveal at={0} i={2} variant="soft">
+            <p className="lead" style={{ fontSize: 27, maxWidth: 480 }}>
+              Built to test an AI-native operating model.
+            </p>
+          </Reveal>
+          <Reveal at={0} i={3} variant="soft">
+            <div
+              className="stack"
+              style={{ gap: 8, fontSize: 24, color: "var(--ink-soft)", fontWeight: 500 }}
+            >
+              <span>One multidisciplinary team.</span>
+              <span>Production from day one.</span>
+            </div>
+          </Reveal>
         </div>
 
-        <div className="stack" style={{ flex: "0 0 440px", gap: 24 }}>
-          <div
-            style={{
-              fontSize: 21,
-              lineHeight: 1.5,
-              color: "var(--ink-dim)",
-              maxWidth: 400,
-              opacity: live ? 0 : 1,
-              transition: "opacity 0.6s var(--ease-out)",
-              position: live ? "absolute" : "relative",
-            }}
-          >
-            A production platform, assembled one layer at a time - repository to
-            live customers.
-          </div>
-
-          <div
-            style={{
-              opacity: live ? 1 : 0,
-              transform: live ? "none" : "translateY(16px)",
-              transition: "opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out)",
-            }}
-          >
-            <div
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 12,
-                padding: "10px 20px",
-                borderRadius: 999,
-                border: "1px solid color-mix(in srgb, var(--gold) 45%, transparent)",
-                background: "rgba(203,171,116,0.08)",
-                color: "var(--gold-soft)",
-                fontSize: 16,
-                fontWeight: 600,
-                letterSpacing: "0.08em",
-              }}
-            >
-              <span className="dot" style={{ background: "var(--gold)", boxShadow: "0 0 12px 2px rgba(203,171,116,0.6)" }} />
-              LIVE IN PRODUCTION
-            </div>
-            <div className="factlist" style={{ marginTop: 26 }}>
-              {FACTS.map((f) => (
-                <div key={f} className="fact" style={{ fontSize: 27 }}>
-                  <span className="dot" />
-                  {f}
-                </div>
-              ))}
-            </div>
+        <div className="grow" style={{ display: "flex", justifyContent: "center" }}>
+          <div className="milestones">
+            {MILESTONES.map((m, i) => (
+              <div key={m.t} className="milestones__cell">
+                <Reveal
+                  at={i + 1}
+                  variant="rise"
+                  className={["milestone", m.key ? "milestone--key" : ""]
+                    .filter(Boolean)
+                    .join(" ")}
+                >
+                  <span className="milestone__dot" />
+                  <div className="milestone__t">{m.t}</div>
+                </Reveal>
+                {i < MILESTONES.length - 1 && (
+                  <div
+                    className="milestone__link"
+                    style={{
+                      opacity: beat >= i + 2 ? 1 : 0.15,
+                      transition: "opacity 0.6s var(--ease-out)",
+                    }}
+                  />
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </div>
+
+      <Reveal at={5} variant="rise">
+        <p className="eyebrow-quote">
+          The experiment was the operating model.
+          <br />
+          <span className="gold">The product was the proof.</span>
+        </p>
+      </Reveal>
     </div>
   );
 }

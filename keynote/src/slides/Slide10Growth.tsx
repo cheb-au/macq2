@@ -1,16 +1,38 @@
 import { Reveal, Words } from "../components/Reveal";
+import { useBeat } from "../engine/PresentationContext";
 import type { SlideProps } from "../engine/types";
 
-// bottom → top
 const RUNGS = [
-  "Critique",
-  "Customer exposure",
-  "Systems thinking",
-  "Business context",
-  "Judgement",
+  { label: "Critique", desc: "Learning by reviewing work, not just creating it." },
+  {
+    label: "Customer exposure",
+    desc: "Building empathy through real customer problems and conversations.",
+  },
+  {
+    label: "Systems thinking",
+    desc: "Understanding dependencies, platforms and organisational complexity.",
+  },
+  {
+    label: "Commercial context",
+    desc: "Balancing customer value with business outcomes, risk and regulation.",
+  },
+  {
+    label: "Verification",
+    desc: "Testing assumptions against evidence instead of opinion.",
+  },
+  {
+    label: "Decision quality",
+    desc: "Making better decisions with stronger judgement and clearer trade-offs.",
+  },
 ];
 
 export default function Slide10Growth(_: SlideProps) {
+  const beat = useBeat();
+  // capabilities roll in from beat 1; the active one sits at the centre
+  const active = beat - 1; // -1 before any capability, 0..5 as they roll
+  const rolling = beat >= 1;
+  const atDestination = beat >= RUNGS.length; // Decision quality centred
+
   return (
     <div className="stack grow" style={{ gap: 8 }}>
       <div className="s-head">
@@ -23,37 +45,60 @@ export default function Slide10Growth(_: SlideProps) {
       </div>
 
       <div className="ascent">
-        <div className="rungs">
+        <div
+          className="caproller"
+          style={{
+            opacity: rolling ? 1 : 0,
+            transform: "translateY(-82px)", // align the active row with the question
+            transition: "opacity 0.6s var(--ease-out)",
+          }}
+        >
+          <span className="caproller__now" />
           {RUNGS.map((r, i) => {
-            const hot = i === RUNGS.length - 1;
+            const rel = i - active;
+            const on = rel === 0;
+            const dist = Math.abs(rel);
+            const isKey = i === RUNGS.length - 1;
             return (
-              <Reveal
-                key={r}
-                at={0}
-                i={i}
-                variant="soft"
-                className={["rung", hot ? "hot" : ""].join(" ")}
-                style={{ marginLeft: `${i * 52}px` }}
+              <div
+                key={r.label}
+                className={[
+                  "capitem",
+                  on ? "capitem--active" : "",
+                  on && isKey && atDestination ? "capitem--key" : "",
+                ]
+                  .filter(Boolean)
+                  .join(" ")}
+                style={{
+                  transform: `translateY(calc(-50% + ${rel * 128}px))`,
+                  opacity: on ? 1 : Math.max(0.1, 0.5 - dist * 0.17),
+                  filter: on ? "blur(0)" : `blur(${Math.min(9, 2.4 + dist * 2.2)}px)`,
+                }}
               >
-                <div className="rung__num">{String(i + 1).padStart(2, "0")}</div>
-                <div className="rung__t">{r}</div>
-                <div className="rung__ln" />
-              </Reveal>
+                <span className="capitem__num">{String(i + 1).padStart(2, "0")}</span>
+                <div className="capitem__body">
+                  <div className="capitem__label">{r.label}</div>
+                  <div className="capitem__desc">{r.desc}</div>
+                </div>
+              </div>
             );
           })}
         </div>
 
-        <div className="stack" style={{ gap: 32 }}>
-          <Reveal at={1} variant="rise">
-            <p className="h2" style={{ fontSize: 54 }}>
-              <span className="grad-ink">Not through</span>{" "}
-              <span className="gold">UI production.</span>
+        <div className="stack" style={{ gap: 30 }}>
+          <Reveal at={0} i={1} variant="rise">
+            <p className="h2" style={{ fontSize: 46, lineHeight: 1.2, maxWidth: 700 }}>
+              How do we develop great designers when AI removes the{" "}
+              <span className="gold">apprenticeship?</span>
             </p>
           </Reveal>
-          <Reveal at={2} variant="soft">
-            <p className="subline">
-              Execution is becoming cheaper.{" "}
-              <span className="gold">Judgement becomes more valuable.</span>
+          <Reveal at={7} variant="soft">
+            <p className="subline" style={{ fontSize: 27, maxWidth: 640 }}>
+              AI is reducing the cost of execution.{" "}
+              <span className="gold">
+                The competitive advantage becomes how quickly people develop
+                expertise.
+              </span>
             </p>
           </Reveal>
         </div>

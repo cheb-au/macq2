@@ -7,12 +7,26 @@ export function Chrome({ ctrl, showHint }: { ctrl: Controller; showHint: boolean
 
   return (
     <>
-      <div className="edgenav edgenav--left" onClick={prev} aria-label="Previous">
+      <div
+        className="edgenav edgenav--left"
+        onClick={(e) => {
+          e.stopPropagation();
+          prev();
+        }}
+        aria-label="Previous"
+      >
         <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
           <path d="M15 6l-6 6 6 6" />
         </svg>
       </div>
-      <div className="edgenav edgenav--right" onClick={next} aria-label="Next">
+      <div
+        className="edgenav edgenav--right"
+        onClick={(e) => {
+          e.stopPropagation();
+          next();
+        }}
+        aria-label="Next"
+      >
         <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
           <path d="M9 6l6 6-6 6" />
         </svg>
@@ -44,7 +58,10 @@ export function Chrome({ ctrl, showHint }: { ctrl: Controller; showHint: boolean
                 key={s.id}
                 className="nav-rail__row"
                 data-state={state}
-                onClick={() => goTo(i)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  goTo(i);
+                }}
               >
                 {state === "cur" ? (
                   <span className="nav-rail__tick nav-rail__tick--cur">
