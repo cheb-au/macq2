@@ -219,6 +219,25 @@
 .pill--muted .ico {
   color: var(--ink-faint);
 }
+/* the two human verbs the bank is actually hiring for - not delegable */
+.pill--key {
+  color: var(--ink);
+  font-weight: 600;
+  border-color: color-mix(in srgb, var(--gold) 55%, transparent);
+  box-shadow: 0 0 26px -10px var(--gold-soft);
+}
+.pill--key .ico {
+  color: var(--gold);
+  opacity: 1;
+}
+.pills__note {
+  margin-top: 4px;
+  font-size: 15px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-soft);
+  text-align: right;
+}
 
 /* ---------- key takeaway strip ---------- */
 .takeaway {
@@ -502,6 +521,10 @@
 .tank__ceiling[data-on="true"] span {
   transform: scale(1.06);
 }
+/* the close callback: ACCOUNTABILITY lands last, in cream */
+.tank__ceil--gold {
+  color: var(--gold) !important;
+}
 .tank__ceiling i {
   width: 4px;
   height: 4px;
@@ -524,6 +547,15 @@
 }
 .tank__caption[data-on="true"] {
   opacity: 1;
+}
+/* the line inherited from slide 03 - sits just under the ceiling label */
+.tank__caption--sub {
+  top: 92px;
+  text-transform: none;
+  letter-spacing: 0.01em;
+  font-size: 17px;
+  color: var(--ink-dim);
+  transition-delay: 0.25s;
 }
 
 /* floor label - outside the tank, below it, never touches the water */
@@ -549,6 +581,45 @@
   gap: 0 80px;
   flex: 1;
   align-content: center;
+}
+/* headcount block under the NOW column - answers "does my team shrink?" */
+.role-shape {
+  margin-top: 26px;
+}
+.role-shape__rule {
+  height: 1px;
+  background: var(--line-soft);
+  margin-bottom: 16px;
+}
+.role-shape__lead {
+  font-size: 21px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+}
+.role-shape__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.role-shape__list li {
+  position: relative;
+  padding-left: 20px;
+  font-size: 18px;
+  color: var(--ink-dim);
+}
+.role-shape__list li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 0.62em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.7;
 }
 .tnn__h {
   display: flex;
@@ -783,6 +854,15 @@
   bottom: calc(100% + 12px);
   right: 0;
   white-space: nowrap;
+}
+.opwalk__side--left .opwalk__srce {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  white-space: nowrap;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  color: var(--ink-faint);
 }
 .opwalk__dur {
   display: flex;
@@ -1482,6 +1562,22 @@
   margin-top: 6px;
   font-style: italic;
 }
+.istep__note {
+  margin-top: 9px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+.istep__cite {
+  margin-top: 11px;
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink-faint);
+  max-width: 640px;
+}
 /* AI card - dot pulses briefly on arrival */
 .istep--ai.is-shown .istep__dot {
   color: var(--violet);
@@ -2141,4 +2237,130 @@
   font-size: 14px;
   font-family: var(--mono);
   letter-spacing: 0.1em;
+}
+
+/* ============================================================= *
+ *  SLIDE 12 - THE SANCTIONED PATH                               *
+ * ============================================================= */
+.sanction {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+.sanction__layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  transition: opacity 0.7s var(--ease-out);
+}
+.sanction__thead,
+.sanction__row {
+  display: grid;
+  grid-template-columns: 1.15fr 0.75fr 1.5fr;
+  align-items: center;
+  gap: 36px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+.sanction__thead {
+  border-bottom-color: var(--line);
+  font-size: 14px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.sanction__cap {
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+}
+.sanction__why {
+  font-size: 18px;
+  color: var(--ink-dim);
+}
+.srcpill {
+  justify-self: start;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  white-space: nowrap;
+}
+.srcpill--build {
+  color: var(--violet);
+  border-color: color-mix(in srgb, var(--violet) 48%, transparent);
+}
+.srcpill--buy {
+  color: var(--ink-dim);
+  border-color: var(--line);
+}
+.srcpill--tenant {
+  color: var(--gold);
+  border-color: color-mix(in srgb, var(--gold) 48%, transparent);
+}
+.sanction__layer--matrix {
+  align-items: center;
+}
+.sanction__sublabel {
+  font-size: 16px;
+  letter-spacing: 0.02em;
+  color: var(--ink-dim);
+  margin-bottom: 22px;
+}
+.matrix__row {
+  display: grid;
+  grid-template-columns: 320px 24px 1fr;
+  align-items: center;
+  gap: 30px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line-soft);
+  width: 100%;
+  max-width: 1040px;
+}
+.matrix__cls {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.matrix__dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  justify-self: center;
+}
+.matrix__dot--green {
+  background: var(--green);
+  box-shadow: 0 0 14px 1px color-mix(in srgb, var(--green) 60%, transparent);
+}
+.matrix__dot--amber {
+  background: var(--amber);
+  box-shadow: 0 0 14px 1px color-mix(in srgb, var(--amber) 60%, transparent);
+}
+.matrix__dot--red {
+  background: var(--red);
+  box-shadow: 0 0 14px 1px color-mix(in srgb, var(--red) 60%, transparent);
+}
+.matrix__v {
+  font-size: 20px;
+  color: var(--ink-soft);
+}
+.sanction__foot {
+  text-align: center;
+  font-size: 22px;
+  color: var(--ink-dim);
+  max-width: 1220px;
+  margin: 0 auto;
+}
+.sanction__sting {
+  color: var(--red);
+  font-weight: 600;
 }

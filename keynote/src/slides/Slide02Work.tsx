@@ -7,8 +7,8 @@ import type { SlideProps } from "../engine/types";
 
 const PHASES: Phase[] = [
   {
-    label: "Traditional organisation",
-    text: "A straight line. Research to release - with a queue at every handoff.",
+    label: "Even inside agile",
+    text: "We removed the phases. The queues moved into the sprint.",
   },
   {
     label: "Modern organisation",

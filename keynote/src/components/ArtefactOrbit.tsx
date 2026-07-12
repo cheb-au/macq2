@@ -1,30 +1,21 @@
 import { useEffect, useRef } from "react";
 
+// only things a designer PRODUCES - inbound signals (metrics, tickets, quotes)
+// are evidence you consume, not artefacts you make, so they don't belong here
 const LABELS = [
-  "Research reports",
+  "Roadmaps",
+  "Spec docs",
   "Wireframes",
   "Figma frames",
-  "Customer quotes",
-  "User interviews",
-  "Heatmaps",
-  "Analytics charts",
-  "Session replays",
-  "Support tickets",
+  "Prototypes",
+  "Personas",
+  "Journey maps",
+  "Research reports",
   "Jira tickets",
   "Backlog items",
-  "SQL queries",
-  "Dashboards",
-  "A/B results",
-  "Prototypes",
-  "Surveys",
-  "Journey maps",
-  "Personas",
-  "Code snippets",
-  "Slack threads",
-  "Spec docs",
-  "Roadmaps",
   "Retro notes",
-  "Metrics",
+  "Code snippets",
+  "Dashboards",
 ];
 
 // centred below the heading and left of the nav rail
@@ -42,9 +33,9 @@ interface Chip {
 
 // concentric elliptical rings - evenly spaced so artefacts don't clump
 const RINGS = [
-  { r: 320, count: 6, spd: 0.05, scale: 1.02, op: 0.9, phase: 0.2 },
-  { r: 500, count: 8, spd: -0.038, scale: 0.9, op: 0.72, phase: 0.55 },
-  { r: 685, count: 10, spd: 0.03, scale: 0.8, op: 0.56, phase: 0 },
+  { r: 300, count: 4, spd: 0.05, scale: 1.02, op: 0.9, phase: 0.2 },
+  { r: 500, count: 4, spd: -0.038, scale: 0.92, op: 0.74, phase: 0.9 },
+  { r: 690, count: 5, spd: 0.03, scale: 0.82, op: 0.58, phase: 0 },
 ];
 const RF = 0.42;
 

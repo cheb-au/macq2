@@ -39,7 +39,7 @@ export default function Slide10Growth({ review }: SlideProps) {
     return (
       <div className="stack grow" style={{ gap: 8 }}>
         <div className="s-head">
-          <span className="kicker">The talent question</span>
+          <span className="kicker">People · The talent question</span>
           <h2 className="h1">
             <Words text="Growing designers in an AI world." at={0} grad="ink" />
           </h2>
@@ -87,7 +87,7 @@ export default function Slide10Growth({ review }: SlideProps) {
     <div className="stack grow" style={{ gap: 8 }}>
       <div className="s-head">
         <Reveal at={0} variant="fade">
-          <span className="kicker">The talent question</span>
+          <span className="kicker">People · The talent question</span>
         </Reveal>
         <h2 className="h1">
           <Words text="Growing designers in an AI world." at={0} grad="ink" />

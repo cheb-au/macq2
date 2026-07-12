@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import { useEffect, useState } from "react";
 import { Words } from "../components/Reveal";
+import { WaterTank } from "../components/WaterTank";
 import { useBeat } from "../engine/PresentationContext";
 import type { SlideProps } from "../engine/types";
 
@@ -30,15 +31,28 @@ const scene = (visible: boolean): CSSProperties => ({
   pointerEvents: "none",
 });
 
-export default function Slide12Future(_: SlideProps) {
+export default function Slide12Future({ review }: SlideProps) {
   const beat = useBeat();
 
-  // final scene self-plays: line 1 lands, line 2 arrives ~3s later, then it sits
-  // for ~3.8s before fading to black on its own - no click needed
+  // beat 3 water callback: the fifth ceiling word (ACCOUNTABILITY) lands last
+  const [showAcct, setShowAcct] = useState(false);
+  useEffect(() => {
+    if (review) return;
+    if (beat !== 3) {
+      setShowAcct(false);
+      return;
+    }
+    const t = setTimeout(() => setShowAcct(true), 1100);
+    return () => clearTimeout(t);
+  }, [beat, review]);
+
+  // beat 4 keyframe self-plays: line 1 lands, line 2 arrives ~3s later, then it
+  // sits for ~3.8s before fading to black on its own - no click needed
   const [revealLast, setRevealLast] = useState(false);
   const [autoBlack, setAutoBlack] = useState(false);
   useEffect(() => {
-    if (beat !== 3) {
+    if (review) return;
+    if (beat !== 4) {
       setRevealLast(false);
       setAutoBlack(false);
       return;
@@ -49,7 +63,12 @@ export default function Slide12Future(_: SlideProps) {
       clearTimeout(t1);
       clearTimeout(t2);
     };
-  }, [beat]);
+  }, [beat, review]);
+
+  // in the review contact sheet, show the finished keyframe (no auto-fade)
+  const acct = review || showAcct;
+  const last = review || revealLast;
+  const black = !review && (beat >= 5 || autoBlack);
 
   return (
     <>
@@ -96,13 +115,36 @@ export default function Slide12Future(_: SlideProps) {
         </div>
       </div>
 
-      {/* beat 3 - the one idea to leave them with (self-plays, then self-fades) */}
-      <div style={{ ...scene(beat === 3), gap: 64 }}>
+      {/* beat 3 - the water callback: the ceiling now reads five words */}
+      <div
+        style={{
+          ...scene(beat === 3),
+          padding: "56px 160px",
+          gap: 0,
+          alignItems: "stretch",
+        }}
+      >
+        <WaterTank
+          level={76}
+          ceilOn={beat === 3}
+          lastIn={acct}
+          ceiling={[
+            { t: "Judgement" },
+            { t: "Taste" },
+            { t: "Systems" },
+            { t: "Leadership" },
+            { t: "Accountability", gold: true },
+          ]}
+        />
+      </div>
+
+      {/* beat 4 - the one idea to leave them with (self-plays, then self-fades) */}
+      <div style={{ ...scene(beat === 4), gap: 64 }}>
         <p
           className="lead"
           style={{ fontSize: 42, color: "var(--ink-faint)", marginTop: 40 }}
         >
-          <Words text="AI commoditises execution." at={3} />
+          <Words text="AI commoditises execution." at={4} />
         </p>
         <p
           className="display"
@@ -110,8 +152,8 @@ export default function Slide12Future(_: SlideProps) {
             fontSize: 92,
             maxWidth: 1500,
             marginTop: 12,
-            opacity: revealLast ? 1 : 0,
-            filter: revealLast ? "blur(0)" : "blur(14px)",
+            opacity: last ? 1 : 0,
+            filter: last ? "blur(0)" : "blur(14px)",
             transition: "opacity 1s var(--ease-out), filter 1s var(--ease-out)",
           }}
         >
@@ -120,7 +162,7 @@ export default function Slide12Future(_: SlideProps) {
       </div>
 
       {/* fade to black - on a click, or automatically once the line has sat */}
-      <div className={["blackout", beat >= 4 || autoBlack ? "on" : ""].join(" ")} />
+      <div className={["blackout", black ? "on" : ""].join(" ")} />
     </>
   );
 }

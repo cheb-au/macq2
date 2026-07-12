@@ -45,6 +45,7 @@ const STAGES = [
       "Validate the findings.",
       "Check risk and bias.",
       "Decide whether the evidence is sufficient.",
+      "Human involvement on high-risk decisions - APRA's stated minimum.",
     ],
   },
   {
@@ -83,7 +84,7 @@ export default function Slide06Pipeline({ review }: SlideProps) {
     return (
       <div className="stack grow" style={{ gap: 8 }}>
         <div className="s-head">
-          <span className="kicker">The system of work</span>
+          <span className="kicker">Ways of working · The system of work</span>
           <h2 className="h1">
             <Words text="An AI-native operating model." at={0} grad="ink" />
           </h2>
@@ -108,8 +109,8 @@ export default function Slide06Pipeline({ review }: SlideProps) {
         </div>
 
         <div className="opreview__payoff">
-          AI compresses execution.{" "}
-          <span className="gold">Leadership compounds outcomes.</span>
+          Six steps. The work compresses.{" "}
+          <span className="gold">The role gets bigger.</span>
         </div>
       </div>
     );
@@ -119,7 +120,7 @@ export default function Slide06Pipeline({ review }: SlideProps) {
     <div className="stack grow" style={{ gap: 8 }}>
       <div className="s-head">
         <Reveal at={0} variant="fade">
-          <span className="kicker">The system of work</span>
+          <span className="kicker">Ways of working · The system of work</span>
         </Reveal>
         <h2 className="h1">
           <Words text="An AI-native operating model." at={0} grad="ink" />
@@ -136,6 +137,7 @@ export default function Slide06Pipeline({ review }: SlideProps) {
               <span className="opwalk__arrow">→</span>
               <span className="opwalk__to">{s.to}</span>
             </div>
+            <div className="opwalk__srce">Measured on Levri. Not modelled.</div>
           </div>
         </div>
 
@@ -179,11 +181,11 @@ export default function Slide06Pipeline({ review }: SlideProps) {
           className="opwalk__payoff"
           style={{ pointerEvents: payoff ? "auto" : "none" }}
         >
-          <Words text="AI compresses execution." at={STAGES.length} grad="ink" />
+          <Words text="Six steps. The work compresses." at={STAGES.length} grad="ink" />
           <Words
-            text="Leadership compounds outcomes."
+            text="The role gets bigger."
             at={STAGES.length}
-            from={3}
+            from={4}
             grad="gold"
           />
         </div>

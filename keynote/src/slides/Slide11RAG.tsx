@@ -30,7 +30,7 @@ export default function Slide11RAG(_: SlideProps) {
     <div className="stack grow" style={{ gap: 8 }}>
       <div className="s-head">
         <Reveal at={0} variant="fade">
-          <span className="kicker">A model for accountability</span>
+          <span className="kicker">Ways of working · A model for accountability</span>
         </Reveal>
         <h2 className="h1" style={{ maxWidth: 1400 }}>
           <Words text="How far should AI go?" at={0} grad="ink" />
@@ -83,7 +83,24 @@ export default function Slide11RAG(_: SlideProps) {
         })}
       </div>
 
-      <Reveal at={4} variant="rise" style={{ marginTop: 64 }}>
+      <Reveal at={4} variant="soft" style={{ marginTop: 40 }}>
+        <p
+          style={{
+            textAlign: "center",
+            fontSize: 16,
+            lineHeight: 1.5,
+            color: "var(--ink-faint)",
+            maxWidth: 1180,
+            margin: "0 auto",
+          }}
+        >
+          Human involvement on high-risk decisions, ownership across the AI
+          lifecycle, a register of AI use. Not my framework - APRA's minimum
+          expectation, April 2026.
+        </p>
+      </Reveal>
+
+      <Reveal at={4} i={1} variant="rise" style={{ marginTop: 26 }}>
         <p className="eyebrow-quote" style={{ textAlign: "center", maxWidth: "none" }}>
           AI accelerates execution.{" "}
           <span className="gold">Leadership remains accountable.</span>

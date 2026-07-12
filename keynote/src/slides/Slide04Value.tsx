@@ -1,20 +1,9 @@
 import { Reveal, Words } from "../components/Reveal";
+import { WaterTank } from "../components/WaterTank";
 import { useBeat } from "../engine/PresentationContext";
 import type { SlideProps } from "../engine/types";
 
 const CEIL = ["Judgement", "Taste", "Systems", "Leadership"];
-
-// a smooth wave line across a 0..1440 viewBox (4 wavelengths → seamless scroll)
-function waveLine(amp: number, base: number, phase: number) {
-  let d = `M0 ${(base + amp * Math.sin(phase)).toFixed(1)}`;
-  for (let x = 15; x <= 1440; x += 15) {
-    const y = base + amp * Math.sin((x / 360) * Math.PI * 2 + phase);
-    d += ` L${x} ${y.toFixed(1)}`;
-  }
-  return d;
-}
-const FILL_A = waveLine(8, 28, 0) + " L1440 60 L0 60 Z";
-const CREST = waveLine(8, 28, 0);
 
 export default function Slide04Value(_: SlideProps) {
   const beat = useBeat();
@@ -33,38 +22,12 @@ export default function Slide04Value(_: SlideProps) {
         </h2>
       </div>
 
-      <div className="s-fill center" style={{ flexDirection: "column", gap: 0 }}>
-        <div className="tank">
-          <div className="tank__ceiling" data-on={ceilOn}>
-            {CEIL.map((c, i) => (
-              <span key={c}>
-                {c}
-                {i < CEIL.length - 1 && <i style={{ marginLeft: 22 }} />}
-              </span>
-            ))}
-          </div>
-          <div className="tank__caption" data-on={ceilOn}>
-            the ceiling - only leaders raise it
-          </div>
-
-          <div className="tank__water" style={{ height: `${level}%` }}>
-            <div className="tank__body" />
-            <div className="tank__waves">
-              <svg className="tank__wave tank__wave--a" viewBox="0 0 1440 60" preserveAspectRatio="none">
-                <path d={FILL_A} />
-              </svg>
-              <svg className="tank__wave tank__crest" viewBox="0 0 1440 60" preserveAspectRatio="none">
-                <path d={CREST} fill="none" />
-              </svg>
-            </div>
-            <div className="tank__fill-label">Where leaders create value</div>
-          </div>
-        </div>
-
-        <div className="tank-floor">
-          <b>Execution</b> - the floor, raised by AI
-        </div>
-      </div>
+      <WaterTank
+        level={level}
+        ceilOn={ceilOn}
+        ceiling={CEIL.map((t) => ({ t }))}
+        subCaption="Output scales. Judgement compounds."
+      />
 
       <div className="takeaway">
         <Reveal at={1} variant="rise" style={{ display: "flex", alignItems: "baseline", gap: 22 }}>
@@ -74,6 +37,12 @@ export default function Slide04Value(_: SlideProps) {
         <Reveal at={2} variant="rise">
           <div className="takeaway__text" style={{ color: "var(--accent)" }}>
             Leaders raise the ceiling.
+          </div>
+        </Reveal>
+        <Reveal at={2} i={1} variant="soft" style={{ marginTop: 8 }}>
+          <div style={{ fontSize: 20, color: "var(--ink-faint)", maxWidth: 960 }}>
+            But a rising floor means everything ships faster - including the ideas
+            that shouldn't.
           </div>
         </Reveal>
       </div>

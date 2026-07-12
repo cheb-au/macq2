@@ -22,7 +22,7 @@ export default function Slide05HeadOfUX(_: SlideProps) {
     <div className="stack grow" style={{ gap: 8 }}>
       <div className="s-head">
         <Reveal at={0} variant="fade">
-          <span className="kicker">The role, redefined</span>
+          <span className="kicker">People · The role, redefined</span>
         </Reveal>
         <h2 className="h1">
           <Words text="What changes for a Head of UX?" at={0} grad="ink" />
@@ -57,6 +57,19 @@ export default function Slide05HeadOfUX(_: SlideProps) {
               </div>
             </Reveal>
           ))}
+          <Reveal at={1} i={6} variant="soft">
+            <div className="role-shape">
+              <div className="role-shape__rule" />
+              <div className="role-shape__lead">
+                Headcount doesn't fall in year one. The shape does.
+              </div>
+              <ul className="role-shape__list">
+                <li>Fewer pure production roles</li>
+                <li>More design engineers</li>
+                <li>Research synthesis at scale</li>
+              </ul>
+            </div>
+          </Reveal>
         </div>
       </div>
 

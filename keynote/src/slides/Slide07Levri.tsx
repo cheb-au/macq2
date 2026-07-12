@@ -31,8 +31,7 @@ export default function Slide07Levri({ active }: SlideProps) {
           <span className="kicker">Proof</span>
         </Reveal>
         <h2 className="h1">
-          <Words text="From theory to production." at={0} grad="ink" />
-          <br />
+          <Words text="From theory to production" at={0} grad="ink" />
           <span
             className="gold"
             style={{
@@ -41,7 +40,8 @@ export default function Slide07Levri({ active }: SlideProps) {
               transition: "opacity 0.9s var(--ease-out), filter 0.9s var(--ease-out)",
             }}
           >
-            through Levri.
+            {" "}
+            - via Levri.
           </span>
         </h2>
       </div>
@@ -54,7 +54,7 @@ export default function Slide07Levri({ active }: SlideProps) {
                 className="grad-accent"
                 style={{ fontSize: 96, fontWeight: 600, letterSpacing: "-0.05em" }}
               >
-                100+
+                1
               </span>
               <span
                 style={{
@@ -64,13 +64,13 @@ export default function Slide07Levri({ active }: SlideProps) {
                   letterSpacing: "-0.02em",
                 }}
               >
-                teams
+                person
               </span>
             </div>
           </Reveal>
           <Reveal at={0} i={2} variant="soft">
             <p className="lead" style={{ fontSize: 27, maxWidth: 480 }}>
-              Built to test an AI-native operating model.
+              12 weeks from zero to production platform.
             </p>
           </Reveal>
           <Reveal at={0} i={3} variant="soft">
@@ -78,8 +78,7 @@ export default function Slide07Levri({ active }: SlideProps) {
               className="stack"
               style={{ gap: 8, fontSize: 24, color: "var(--ink-soft)", fontWeight: 500 }}
             >
-              <span>One multidisciplinary team.</span>
-              <span>Production from day one.</span>
+              <span>Two years ago: a squad and two quarters.</span>
             </div>
           </Reveal>
         </div>
@@ -118,6 +117,20 @@ export default function Slide07Levri({ active }: SlideProps) {
           The experiment was the operating model.
           <br />
           <span className="gold">The product was the proof.</span>
+        </p>
+      </Reveal>
+      <Reveal at={5} i={1} variant="soft" style={{ marginTop: 12 }}>
+        <p
+          style={{
+            fontSize: 19,
+            lineHeight: 1.45,
+            color: "var(--gold-soft)",
+            maxWidth: 1180,
+          }}
+        >
+          I'm not proposing you run a bank like a startup. I've run this model at the
+          extreme - and I know which parts survive contact with an APRA-regulated
+          environment, and which don't.
         </p>
       </Reveal>
     </div>
