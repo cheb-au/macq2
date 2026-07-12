@@ -25,7 +25,7 @@ export default function Slide05HeadOfUX(_: SlideProps) {
           <span className="kicker">The role, redefined</span>
         </Reveal>
         <h2 className="h1">
-          <Words text="What changes for a Head of UX?" at={0} grad="ink" />
+          <Words text="What changes for a Head of Design?" at={0} grad="ink" />
         </h2>
       </div>
 

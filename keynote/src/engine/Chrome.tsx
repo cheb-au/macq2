@@ -16,7 +16,7 @@ export function Chrome({ ctrl, showHint }: { ctrl: Controller; showHint: boolean
             </svg>
             <span>Macquarie</span>
             <span className="wordmark__sep">·</span>
-            <span className="wordmark__sub">Head of UX</span>
+            <span className="wordmark__sub">Head of Design</span>
           </div>
         </div>
 

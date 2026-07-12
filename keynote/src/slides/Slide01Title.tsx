@@ -10,7 +10,7 @@ export default function Slide01Title(_: SlideProps) {
       </Reveal>
 
       <Reveal at={0} i={1} variant="fade">
-        <span className="kicker">A Head of UX perspective</span>
+        <span className="kicker">A Head of Design perspective</span>
       </Reveal>
 
       <h1 className="display" style={{ maxWidth: 1500 }}>
