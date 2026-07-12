@@ -108,8 +108,8 @@ export default function Slide06Pipeline({ review }: SlideProps) {
         </div>
 
         <div className="opreview__payoff">
-          AI compresses execution.{" "}
-          <span className="gold">Leadership compounds outcomes.</span>
+          The work compresses.{" "}
+          <span className="gold">Leadership expands.</span>
         </div>
       </div>
     );
@@ -179,9 +179,9 @@ export default function Slide06Pipeline({ review }: SlideProps) {
           className="opwalk__payoff"
           style={{ pointerEvents: payoff ? "auto" : "none" }}
         >
-          <Words text="AI compresses execution." at={STAGES.length} grad="ink" />
+          <Words text="The work compresses." at={STAGES.length} grad="ink" />
           <Words
-            text="Leadership compounds outcomes."
+            text="Leadership expands."
             at={STAGES.length}
             from={3}
             grad="gold"

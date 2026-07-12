@@ -67,7 +67,7 @@ export default function Slide10Growth({ review }: SlideProps) {
           </div>
           <div className="stack" style={{ gap: 30 }}>
             <p className="h2" style={{ fontSize: 46, lineHeight: 1.2, maxWidth: 700 }}>
-              How do we develop great designers after AI removes the{" "}
+              How do we develop great designers when AI removes the{" "}
               <span className="gold">apprenticeship?</span>
             </p>
             <p className="subline" style={{ fontSize: 27, maxWidth: 640 }}>
@@ -138,7 +138,7 @@ export default function Slide10Growth({ review }: SlideProps) {
         <div className="stack" style={{ gap: 30 }}>
           <Reveal at={0} i={1} variant="rise">
             <p className="h2" style={{ fontSize: 46, lineHeight: 1.2, maxWidth: 700 }}>
-              How do we develop great designers after AI removes the{" "}
+              How do we develop great designers when AI removes the{" "}
               <span className="gold">apprenticeship?</span>
             </p>
           </Reveal>

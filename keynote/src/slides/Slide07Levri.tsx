@@ -4,7 +4,7 @@ import { useBeat } from "../engine/PresentationContext";
 import type { SlideProps } from "../engine/types";
 
 const MILESTONES: { t: string; key?: boolean }[] = [
-  { t: "Production platform" },
+  { t: "Production product" },
   { t: "Real customers" },
   { t: "Real revenue" },
   { t: "AI-native operating model proven", key: true },
@@ -41,7 +41,7 @@ export default function Slide07Levri({ active }: SlideProps) {
               transition: "opacity 0.9s var(--ease-out), filter 0.9s var(--ease-out)",
             }}
           >
-            through Levri.
+            Through Levri.
           </span>
         </h2>
       </div>

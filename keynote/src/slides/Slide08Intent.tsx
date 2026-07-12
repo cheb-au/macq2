@@ -22,7 +22,7 @@ export default function Slide08Intent(_: SlideProps) {
       <div className="split" style={{ marginTop: 24 }}>
         <div className="split__col">
           <Reveal at={1} variant="fade">
-            <div className="split__label">The AI</div>
+            <div className="split__label">AI</div>
           </Reveal>
           <div className="pills">
             {AI.map((t, i) => (
@@ -41,7 +41,7 @@ export default function Slide08Intent(_: SlideProps) {
         <div className="split__col">
           <Reveal at={2} variant="fade">
             <div className="split__label" style={{ color: "var(--accent)" }}>
-              The human
+              Me
             </div>
           </Reveal>
           <div className="pills">
@@ -61,8 +61,8 @@ export default function Slide08Intent(_: SlideProps) {
         <div className="takeaway">
           <span className="takeaway__mark">→</span>
           <div className="takeaway__text">
-            Machines produce options.{" "}
-            <span className="muted">People own the intent.</span>
+            Execution moved to AI.{" "}
+            <span className="muted">Accountability didn't.</span>
           </div>
         </div>
       </Reveal>

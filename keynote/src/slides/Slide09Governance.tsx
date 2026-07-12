@@ -33,7 +33,7 @@ const CARDS: Card[] = [
   {
     p: 4,
     k: "Judgement",
-    t: "Rejected - optimises conversion at the expense of customer trust.",
+    t: "Rejected. Optimises conversion at the expense of customer trust.",
     variant: "judge",
     icon: Icon.shield,
   },
@@ -41,7 +41,7 @@ const CARDS: Card[] = [
     p: 5,
     k: "Resolution",
     t: "Clearer guidance and simpler next steps.",
-    sub: "Reduced complexity instead of increasing pressure.",
+    sub: "Reduced friction instead of increasing pressure.",
     variant: "safe",
     icon: Icon.compass,
   },

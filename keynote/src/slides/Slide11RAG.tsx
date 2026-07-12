@@ -13,7 +13,7 @@ const COLS = [
     key: "amber",
     verb: "Review",
     desc: "Humans verify AI output.",
-    items: ["Design", "Code", "Research", "Content"],
+    items: ["Design", "Research", "Content", "Code"],
   },
   {
     key: "red",

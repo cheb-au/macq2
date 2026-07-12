@@ -62,8 +62,8 @@ export default function Slide05HeadOfUX(_: SlideProps) {
 
       <Reveal at={2} variant="rise" style={{ marginTop: 4 }}>
         <p className="eyebrow-quote">
-          The craft doesn't disappear.{" "}
-          <span className="muted">The altitude of the work changes.</span>
+          Headcount doesn't fall in year one.{" "}
+          <span className="muted">The shape does.</span>
         </p>
       </Reveal>
     </div>
