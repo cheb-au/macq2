@@ -686,6 +686,10 @@
   gap: 0 80px;
   flex: 1;
   align-content: center;
+  /* centre the two columns on the page as one block */
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
 }
 .tnn__h {
   display: flex;
