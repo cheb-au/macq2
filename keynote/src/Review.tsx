@@ -51,7 +51,7 @@ export function Review() {
                 <NodeField />
                 <section className="slide" data-state="active">
                   <BeatProvider value={finalBeat}>
-                    <s.Component active beat={finalBeat} dir={1} />
+                    <s.Component active beat={finalBeat} dir={1} review />
                   </BeatProvider>
                 </section>
                 <div className="stage__grain" />

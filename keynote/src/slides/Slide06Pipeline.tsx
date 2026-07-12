@@ -71,11 +71,49 @@ const STAGES = [
   },
 ];
 
-export default function Slide06Pipeline(_: SlideProps) {
+export default function Slide06Pipeline({ review }: SlideProps) {
   const beat = useBeat();
   const active = Math.min(Math.max(beat, 0), STAGES.length - 1);
   const payoff = beat >= STAGES.length; // after all six, land the payoff
   const s = STAGES[active];
+
+  // review contact sheet: the roller shows one stage at a time, so expand the
+  // whole walk-through into a static, fully-legible list
+  if (review) {
+    return (
+      <div className="stack grow" style={{ gap: 8 }}>
+        <div className="s-head">
+          <span className="kicker">The system of work</span>
+          <h2 className="h1">
+            <Words text="An AI-native operating model." at={0} grad="ink" />
+          </h2>
+        </div>
+
+        <div className="opreview">
+          {STAGES.map((st, i) => (
+            <div className="opreview__row" key={st.name}>
+              <div className="opreview__stage">
+                <span className="opreview__num">{String(i + 1).padStart(2, "0")}</span>
+                <span className="opreview__name">{st.name}</span>
+                <span className="opreview__dur">
+                  {st.from} → {st.to}
+                </span>
+              </div>
+              <div className="opreview__lead">
+                <span className="opreview__verb">{st.verb}</span>
+                <span className="opreview__bul">{st.bullets.join(" · ")}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="opreview__payoff">
+          AI compresses execution.{" "}
+          <span className="gold">Leadership compounds outcomes.</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="stack grow" style={{ gap: 8 }}>

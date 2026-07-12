@@ -7,6 +7,8 @@ export interface SlideProps {
   beat: number;
   /** direction of the last navigation: 1 forward, -1 backward */
   dir: number;
+  /** rendered in the #/review contact sheet - roller slides expand to show every state */
+  review?: boolean;
 }
 
 export interface SlideDef {

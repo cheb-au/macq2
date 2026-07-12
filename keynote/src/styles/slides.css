@@ -1672,6 +1672,93 @@
   animation: heldPulse 2.2s ease-in-out infinite;
 }
 
+/* review contact sheet: expand the roller into a static, fully-legible ladder */
+.caproller--review {
+  height: auto;
+  overflow: visible;
+  -webkit-mask-image: none;
+  mask-image: none;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding-left: 44px;
+}
+.caproller--review .capitem {
+  position: static;
+  left: auto;
+  right: auto;
+  top: auto;
+  transform: none;
+  opacity: 1;
+  filter: none;
+}
+
+/* review contact sheet: expand the Slide 6 roller into a static list */
+.opreview {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+}
+.opreview__row {
+  display: grid;
+  grid-template-columns: 0.95fr 1.5fr;
+  gap: 40px;
+  align-items: baseline;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+.opreview__row:last-child {
+  border-bottom: none;
+}
+.opreview__stage {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+.opreview__num {
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--ink-faint);
+}
+.opreview__name {
+  font-size: 27px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+}
+.opreview__dur {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 15px;
+  color: var(--gold-soft);
+  white-space: nowrap;
+}
+.opreview__lead {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.opreview__verb {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.opreview__bul {
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--ink-dim);
+}
+.opreview__payoff {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ink-faint);
+  margin-top: 14px;
+}
+
 /* ---------- talent ladder (legacy) ---------- */
 .ladder {
   position: relative;
