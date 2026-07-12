@@ -33,7 +33,7 @@ export function Review() {
 
       {slides.map((s, i) => {
         // show the last meaningful beat (skip S12's fade-to-black)
-        const finalBeat = s.id === "s12" ? s.beats - 2 : s.beats - 1;
+        const finalBeat = s.id === "s13" ? s.beats - 2 : s.beats - 1;
         const frameStyle = {
           ["--accent" as string]: s.accent ?? "var(--violet)",
           ["--accent-glow" as string]: s.accentGlow ?? "rgba(139,147,255,0.5)",
@@ -43,7 +43,7 @@ export function Review() {
           <div className="review__item" key={s.id}>
             <div className="review__meta">
               <span className="review__num">{String(i + 1).padStart(2, "0")}</span>
-              <span className="review__id">/ 12</span>
+              <span className="review__id">/ {slides.length}</span>
             </div>
             <div className="review__frame" style={frameStyle}>
               <div className="review__stage">

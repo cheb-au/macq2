@@ -2266,3 +2266,172 @@
   font-family: var(--mono);
   letter-spacing: 0.1em;
 }
+
+/* ============================================================= *
+ *  DIFFERENTIATION - three identical banks, one comes alive     *
+ * ============================================================= */
+.diff-phones {
+  display: flex;
+  gap: 60px;
+  justify-content: center;
+  align-items: flex-end;
+  margin-top: 54px;
+}
+.phone {
+  position: relative;
+  width: 204px;
+  height: 404px;
+  border-radius: 34px;
+  border: 1px solid var(--line);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
+  padding: 12px;
+  transition: transform 0.9s var(--ease-out), box-shadow 0.9s var(--ease-out),
+    border-color 0.9s var(--ease-out);
+}
+.phone__scr {
+  position: relative;
+  height: 100%;
+  border-radius: 24px;
+  background: var(--bg-lift, rgba(255, 255, 255, 0.02));
+  padding: 30px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: hidden;
+}
+.phone__notch {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 54px;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--line-strong, rgba(255, 255, 255, 0.12));
+}
+.phone__bar {
+  height: 11px;
+  border-radius: 6px;
+  background: var(--line-strong, rgba(255, 255, 255, 0.12));
+}
+.phone__balance {
+  height: 58px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  margin: 4px 0 8px;
+  transition: background 0.9s var(--ease-out);
+}
+.phone__card {
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.035);
+  transition: background 0.9s var(--ease-out);
+}
+.phone__btn {
+  margin-top: auto;
+  height: 46px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.07);
+  transition: background 0.9s var(--ease-out);
+}
+.phone__label {
+  position: absolute;
+  bottom: -38px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 15px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  transition: color 0.9s var(--ease-out);
+}
+/* the one that comes alive */
+.phone--alive {
+  border-color: color-mix(in srgb, var(--gold) 60%, transparent);
+  box-shadow: 0 0 70px -12px var(--gold-soft), 0 34px 90px -34px rgba(0, 0, 0, 0.7);
+  transform: translateY(-18px) scale(1.05);
+}
+.phone--alive .phone__balance {
+  background: linear-gradient(135deg, var(--gold), var(--gold-soft));
+}
+.phone--alive .phone__btn {
+  background: linear-gradient(135deg, var(--gold), #b3925a);
+}
+.phone--alive .phone__card {
+  background: rgba(203, 171, 116, 0.16);
+}
+.phone--alive .phone__bar,
+.phone--alive .phone__notch {
+  background: color-mix(in srgb, var(--gold) 55%, transparent);
+}
+.phone--alive .phone__label {
+  color: var(--gold);
+}
+
+.diff-lines {
+  margin-top: 78px;
+  min-height: 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.diff-line {
+  font-size: 34px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--ink-dim);
+  transition: opacity 0.9s var(--ease-out);
+}
+.diff-line--gold {
+  color: var(--gold);
+  font-weight: 600;
+  transition-delay: 0.1s;
+}
+
+/* scene B - the system stack */
+.diff-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.diff-stack__end {
+  font-size: 20px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.diff-stack__arrow {
+  font-size: 30px;
+  color: var(--ink-ghost);
+  line-height: 1;
+}
+.diff-stack__layers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.diff-stack__layers span {
+  font-size: 36px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.diff-stack__out {
+  font-size: 46px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.diff-foot {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 60px;
+  text-align: center;
+  font-size: 19px;
+  color: var(--ink-faint);
+  transition: opacity 0.9s var(--ease-out);
+}
