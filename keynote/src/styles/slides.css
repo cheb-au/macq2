@@ -507,13 +507,13 @@
   left: 0;
   right: 0;
   bottom: 0;
-  /* the second rise: a quick, smooth fill (no elastic bounce) */
-  transition: height 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+  /* the second rise: fills to the end over ~2s, in step with the words */
+  transition: height 1.9s cubic-bezier(0.22, 0.61, 0.36, 1);
   will-change: height;
 }
-/* the first fill: pour in slowly and irregularly, like water into a glass */
+/* the first fill: pour in irregularly, like water into a glass */
 .tank__water--pour {
-  animation: waterPour 3.4s linear both;
+  animation: waterPour 1.7s linear both;
 }
 @keyframes waterPour {
   0% {
@@ -621,7 +621,7 @@
   gap: 22px;
   opacity: 0;
   transform: translateY(-10px);
-  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+  transition: opacity 1.9s var(--ease-out), transform 1.9s var(--ease-out);
 }
 .tank__ceiling[data-on="true"] {
   opacity: 1;
@@ -657,7 +657,7 @@
   text-transform: uppercase;
   color: var(--ink-faint);
   opacity: 0;
-  transition: opacity 0.8s var(--ease-out);
+  transition: opacity 1.9s var(--ease-out);
 }
 .tank__caption[data-on="true"] {
   opacity: 1;

@@ -75,15 +75,24 @@ export default function Slide04Value(_: SlideProps) {
       </div>
 
       <div className="takeaway" style={{ justifyContent: "center" }}>
-        <Reveal at={1} variant="rise" style={{ display: "flex", alignItems: "baseline", gap: 22 }}>
+        {/* comes in as the water starts filling */}
+        <Reveal at={0} variant="rise" style={{ display: "flex", alignItems: "baseline", gap: 22 }}>
           <span className="takeaway__mark">→</span>
           <div className="takeaway__text">AI raises the floor.</div>
         </Reveal>
-        <Reveal at={2} variant="rise">
-          <div className="takeaway__text" style={{ color: "var(--accent)" }}>
-            Leaders raise the ceiling.
-          </div>
-        </Reveal>
+        {/* beat 1: fades in over ~2s together with the rise and the ceiling words */}
+        <div
+          className="takeaway__text"
+          style={{
+            color: "var(--accent)",
+            opacity: beat >= 1 ? 1 : 0,
+            transform: beat >= 1 ? "none" : "translateY(12px)",
+            transition:
+              "opacity 1.9s var(--ease-out), transform 1.9s var(--ease-out)",
+          }}
+        >
+          Leaders raise the ceiling.
+        </div>
       </div>
     </div>
   );

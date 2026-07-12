@@ -24,7 +24,7 @@ export const slides: SlideDef[] = [
   { id: "s02", beats: 4, accent: B, accentGlow: "rgba(91,141,239,0.45)", Component: Slide02Work },
   { id: "s03", beats: 3, accent: V, accentGlow: "rgba(139,147,255,0.45)", Component: Slide03Artefacts },
   { id: "s04", beats: 5, accent: G, accentGlow: "rgba(203,171,116,0.42)", Component: SlideDifferentiation },
-  { id: "s05", beats: 3, accent: V, accentGlow: "rgba(139,147,255,0.45)", Component: Slide04Value },
+  { id: "s05", beats: 2, accent: V, accentGlow: "rgba(139,147,255,0.45)", Component: Slide04Value },
   { id: "s06", beats: 3, accent: V, accentGlow: "rgba(139,147,255,0.45)", Component: Slide05HeadOfUX },
   { id: "s07", beats: 8, accent: V, accentGlow: "rgba(139,147,255,0.45)", Component: Slide10Growth },
   { id: "s08", beats: 6, accent: G, accentGlow: "rgba(203,171,116,0.45)", Component: Slide07Levri },
