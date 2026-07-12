@@ -116,8 +116,11 @@ export default function Slide06Pipeline({ review }: SlideProps) {
   }
 
   return (
-    <div className="stack grow" style={{ gap: 8 }}>
-      <div className="s-head">
+    <div className="stack grow" style={{ gap: 8, position: "relative" }}>
+      <div
+        className="s-head"
+        style={{ opacity: payoff ? 0 : 1, transition: "opacity 0.5s var(--ease-out)" }}
+      >
         <Reveal at={0} variant="fade">
           <span className="kicker">The system of work</span>
         </Reveal>
@@ -175,18 +178,19 @@ export default function Slide06Pipeline({ review }: SlideProps) {
           </div>
         </div>
 
-        <div
-          className="opwalk__payoff"
-          style={{ pointerEvents: payoff ? "auto" : "none" }}
-        >
-          <Words text="The work compresses." at={STAGES.length} grad="ink" />
-          <Words
-            text="Leadership expands."
-            at={STAGES.length}
-            from={3}
-            grad="gold"
-          />
-        </div>
+      </div>
+
+      <div
+        className="opwalk__payoff opwalk__payoff--full"
+        style={{ pointerEvents: payoff ? "auto" : "none" }}
+      >
+        <Words text="The work compresses." at={STAGES.length} grad="ink" />
+        <Words
+          text="Leadership expands."
+          at={STAGES.length}
+          from={3}
+          grad="gold"
+        />
       </div>
     </div>
   );
