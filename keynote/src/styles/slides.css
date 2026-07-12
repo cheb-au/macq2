@@ -1399,6 +1399,7 @@
   background: var(--line);
 }
 .istep__card {
+  position: relative;
   padding: 18px 26px;
   border-radius: 14px;
   border: 1px solid var(--line-soft);
@@ -1502,7 +1503,10 @@
   font-style: italic;
 }
 .istep__note {
-  margin-top: 9px;
+  position: absolute;
+  right: 26px;
+  top: 50%;
+  transform: translateY(-50%);
   font-size: 15px;
   font-weight: 600;
   letter-spacing: 0.06em;

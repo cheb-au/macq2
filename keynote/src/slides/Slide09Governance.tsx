@@ -68,7 +68,7 @@ export default function Slide09Governance(_: SlideProps) {
         </h2>
       </div>
 
-      <div className="incident" style={{ marginTop: 48 }}>
+      <div className="incident" style={{ marginTop: 28 }}>
         {CARDS.map((c, i) => {
           const shown = beat >= c.p;
           const isStruck = c.variant === "amber" && struck;
@@ -107,7 +107,7 @@ export default function Slide09Governance(_: SlideProps) {
         })}
       </div>
 
-      <div className="takeaway" style={{ minHeight: 56, marginTop: 34 }}>
+      <div className="takeaway" style={{ minHeight: 56, marginTop: 14 }}>
         <div
           className="takeaway__text"
           style={{
