@@ -61,7 +61,10 @@ export default function Slide05HeadOfUX(_: SlideProps) {
       </div>
 
       <Reveal at={2} variant="rise" style={{ marginTop: 4 }}>
-        <p className="eyebrow-quote" style={{ textAlign: "center" }}>
+        <p
+          className="eyebrow-quote"
+          style={{ textAlign: "center", marginLeft: "auto", marginRight: "auto" }}
+        >
           Headcount doesn't fall in year one.{" "}
           <span className="muted">The shape does.</span>
         </p>

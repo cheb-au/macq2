@@ -2,10 +2,24 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useRef,
   useState,
 } from "react";
 import type { SlideDef } from "./types";
+
+// the deck remembers where you are in the URL hash (#4 = slide 4, #4.2 = beat 2)
+// so a refresh lands you on the same spot instead of the title
+function readHash(slides: SlideDef[]): { index: number; beat: number } {
+  const m = /^#(\d+)(?:\.(\d+))?$/.exec(window.location.hash);
+  if (!m) return { index: 0, beat: 0 };
+  const index = Math.max(0, Math.min(slides.length - 1, parseInt(m[1], 10) - 1));
+  const beat = Math.max(
+    0,
+    Math.min(slides[index].beats - 1, m[2] ? parseInt(m[2], 10) : 0)
+  );
+  return { index, beat };
+}
 
 /* ---- Beat context: a slide's children read the active reveal beat ---- */
 const BeatContext = createContext<number>(-1);
@@ -25,8 +39,9 @@ export interface Controller {
 }
 
 export function usePresentation(slides: SlideDef[]): Controller {
-  const [index, setIndex] = useState(0);
-  const [beat, setBeat] = useState(0);
+  const start = useRef(readHash(slides));
+  const [index, setIndex] = useState(start.current.index);
+  const [beat, setBeat] = useState(start.current.beat);
   const [dir, setDir] = useState(1);
   const [step, setStep] = useState(0);
   const lock = useRef(false);
@@ -36,6 +51,12 @@ export function usePresentation(slides: SlideDef[]): Controller {
   const bRef = useRef(beat);
   iRef.current = index;
   bRef.current = beat;
+
+  // mirror position into the URL hash (replaceState = no reload, no history spam)
+  useEffect(() => {
+    const suffix = beat > 0 ? `.${beat}` : "";
+    window.history.replaceState(null, "", `#${index + 1}${suffix}`);
+  }, [index, beat]);
 
   // debounce so an autorepeating key press doesn't skip beats
   const guard = useCallback((fn: () => void) => {
