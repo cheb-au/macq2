@@ -18,7 +18,7 @@ const CREST = waveLine(8, 28, 0);
 
 export default function Slide04Value(_: SlideProps) {
   const beat = useBeat();
-  const ceilOn = beat >= 2; // capabilities brighten only once the water settles
+  const ceilOn = beat >= 1; // the 4 ceiling words fill in with the second rise
   // fills on entry, the floor rises on beat 1, then the ceiling brightens on beat 2.
   // the first fill pours in slowly and irregularly (CSS @keyframes waterPour).
   const level = beat < 0 ? 0 : beat >= 1 ? 76 : 52;
