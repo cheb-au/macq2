@@ -103,15 +103,6 @@ export function DecisionSphere({ formed }: { formed: boolean }) {
       ctx.arc(CX, CY, R * 3.8, 0, Math.PI * 2);
       ctx.fill();
 
-      // tight inner glow behind the planet - concentrates the brightness
-      const core = ctx.createRadialGradient(CX, CY, R * 0.2, CX, CY, R * 1.9);
-      core.addColorStop(0, `rgba(206,214,255,${0.34 * p})`);
-      core.addColorStop(1, "rgba(206,214,255,0)");
-      ctx.fillStyle = core;
-      ctx.beginPath();
-      ctx.arc(CX, CY, R * 1.9, 0, Math.PI * 2);
-      ctx.fill();
-
       // ---- ring particles: back half (behind the planet) ----
       const N = 48;
       const spin = t * 0.7;
