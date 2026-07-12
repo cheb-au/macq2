@@ -41,7 +41,7 @@ export default function Slide07Levri({ active }: SlideProps) {
               transition: "opacity 0.9s var(--ease-out), filter 0.9s var(--ease-out)",
             }}
           >
-            Through Levri.
+            With Levri.
           </span>
         </h2>
       </div>

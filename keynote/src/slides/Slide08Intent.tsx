@@ -41,7 +41,7 @@ export default function Slide08Intent(_: SlideProps) {
         <div className="split__col">
           <Reveal at={2} variant="fade">
             <div className="split__label" style={{ color: "var(--accent)" }}>
-              Me
+              Human judgement
             </div>
           </Reveal>
           <div className="pills">

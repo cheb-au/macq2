@@ -18,7 +18,8 @@ export default function Slide12Future({ review }: SlideProps) {
       return;
     }
     const t1 = setTimeout(() => setRevealLast(true), 3000);
-    const t2 = setTimeout(() => setAutoBlack(true), 7200);
+    // statement is fully in by ~4s; hold ~2s, then fade to black
+    const t2 = setTimeout(() => setAutoBlack(true), 6000);
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);

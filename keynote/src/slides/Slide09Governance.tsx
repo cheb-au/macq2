@@ -62,7 +62,7 @@ export default function Slide09Governance(_: SlideProps) {
       <div className="s-head">
         <span className="kicker">The other side of speed</span>
         <h2 className="h1" style={{ maxWidth: 1300 }}>
-          <Words text="Speed without governance" at={0} grad="ink" />
+          <Words text="Speed without judgement" at={0} grad="ink" />
           <br />
           <Words text="becomes risk." at={0} from={3} grad="ink" />
         </h2>

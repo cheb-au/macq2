@@ -29,7 +29,7 @@ const STAGES = [
     name: "Prototype",
     from: "Weeks",
     to: "Hours",
-    verb: "Coach",
+    verb: "Shape",
     bullets: [
       "Challenge the solution.",
       "Raise design quality.",
