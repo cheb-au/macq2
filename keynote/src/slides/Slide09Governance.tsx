@@ -9,6 +9,8 @@ interface Card {
   k: string;
   t: string;
   sub?: string;
+  note?: string;
+  cite?: string;
   variant: "" | "ai" | "amber" | "judge" | "safe";
   icon: ComponentType<{ size?: number }>;
 }
@@ -27,13 +29,15 @@ const CARDS: Card[] = [
     k: "Proposed",
     t: "Introduce scarcity messaging",
     sub: "“Apply now before this offer ends.”",
+    note: "False urgency. Consumer credit.",
     variant: "amber",
     icon: Icon.bolt,
   },
   {
     p: 5,
     k: "Judgement",
-    t: "Rejected. Optimises conversion at the expense of customer trust.",
+    t: "Rejected. Optimises conversion at the expense of customer trust - and lands inside the new Unfair Trading Practices prohibition.",
+    cite: "Competition and Consumer Amendment (Unfair Trading Practices) Act 2026 - passed 1 July 2026, commences 1 July 2027.",
     variant: "judge",
     icon: Icon.shield,
   },
@@ -95,6 +99,8 @@ export default function Slide09Governance(_: SlideProps) {
                 <div className="istep__k">{c.k}</div>
                 <div className="istep__t">{c.t}</div>
                 {c.sub && <div className="istep__sub">{c.sub}</div>}
+                {c.note && <div className="istep__note">{c.note}</div>}
+                {c.cite && <div className="istep__cite">{c.cite}</div>}
               </div>
             </div>
           );

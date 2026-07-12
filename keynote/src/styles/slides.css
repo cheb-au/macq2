@@ -219,6 +219,25 @@
 .pill--muted .ico {
   color: var(--ink-faint);
 }
+/* the two human verbs the bank is actually hiring for - not delegable */
+.pill--key {
+  color: var(--ink);
+  font-weight: 600;
+  border-color: color-mix(in srgb, var(--amber) 65%, transparent);
+  box-shadow: 0 0 26px -10px var(--amber);
+}
+.pill--key .ico {
+  color: var(--amber);
+  opacity: 1;
+}
+.pills__note {
+  margin-top: 4px;
+  font-size: 15px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--amber);
+  text-align: right;
+}
 
 /* ---------- key takeaway strip ---------- */
 .takeaway {
@@ -1481,6 +1500,22 @@
   color: var(--ink-dim);
   margin-top: 6px;
   font-style: italic;
+}
+.istep__note {
+  margin-top: 9px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+.istep__cite {
+  margin-top: 11px;
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink-faint);
+  max-width: 640px;
 }
 /* AI card - dot pulses briefly on arrival */
 .istep--ai.is-shown .istep__dot {
