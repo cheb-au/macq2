@@ -1,37 +1,12 @@
 import type { Controller } from "./PresentationContext";
 
 export function Chrome({ ctrl, showHint }: { ctrl: Controller; showHint: boolean }) {
-  const { index, beat, slides, next, prev, goTo } = ctrl;
+  const { index, beat, slides, goTo } = ctrl;
   const total = slides.length;
   const beats = slides[index].beats;
 
   return (
     <>
-      <div
-        className="edgenav edgenav--left"
-        onClick={(e) => {
-          e.stopPropagation();
-          prev();
-        }}
-        aria-label="Previous"
-      >
-        <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M15 6l-6 6 6 6" />
-        </svg>
-      </div>
-      <div
-        className="edgenav edgenav--right"
-        onClick={(e) => {
-          e.stopPropagation();
-          next();
-        }}
-        aria-label="Next"
-      >
-        <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M9 6l6 6-6 6" />
-        </svg>
-      </div>
-
       <div className="chrome">
         <div className="chrome__top">
           <div className="wordmark">
