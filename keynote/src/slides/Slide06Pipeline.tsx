@@ -130,7 +130,7 @@ export default function Slide06Pipeline({ review }: SlideProps) {
         {/* left - what AI compressed */}
         <div className="opwalk__side opwalk__side--left" style={{ opacity: payoff ? 0 : 1, transition: "opacity 0.5s var(--ease-out)" }}>
           <div key={active} className="opwalk__timing">
-            <div className="opwalk__slabel">AI compression</div>
+            <div className="opwalk__slabel">Time recovered</div>
             <div className="opwalk__dur">
               <span className="opwalk__from">{s.from}</span>
               <span className="opwalk__arrow">→</span>
@@ -151,8 +151,8 @@ export default function Slide06Pipeline({ review }: SlideProps) {
                 className={["opwalk__stage", on ? "is-active" : ""].join(" ")}
                 style={{
                   transform: `translateY(calc(-50% + ${rel * 82}px))`,
-                  opacity: on ? 1 : Math.max(0.12, 0.5 - dist * 0.16),
-                  filter: on ? "blur(0)" : `blur(${Math.min(8, 2.4 + dist * 2.2)}px)`,
+                  opacity: on ? 1 : Math.max(0.09, 0.34 - dist * 0.11),
+                  filter: on ? "blur(0)" : `blur(${Math.min(5, 1.6 + dist * 1.4)}px)`,
                 }}
               >
                 <span className="opwalk__marker">▶</span>

@@ -33,15 +33,22 @@ const scene = (visible: boolean): CSSProperties => ({
 export default function Slide12Future(_: SlideProps) {
   const beat = useBeat();
 
-  // final scene self-plays: line 1 lands, then line 2 arrives ~3s later, no click
+  // final scene self-plays: line 1 lands, line 2 arrives ~3s later, then it sits
+  // for ~3.8s before fading to black on its own - no click needed
   const [revealLast, setRevealLast] = useState(false);
+  const [autoBlack, setAutoBlack] = useState(false);
   useEffect(() => {
     if (beat !== 3) {
       setRevealLast(false);
+      setAutoBlack(false);
       return;
     }
-    const t = setTimeout(() => setRevealLast(true), 3000);
-    return () => clearTimeout(t);
+    const t1 = setTimeout(() => setRevealLast(true), 3000);
+    const t2 = setTimeout(() => setAutoBlack(true), 6800);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
   }, [beat]);
 
   return (
@@ -89,9 +96,12 @@ export default function Slide12Future(_: SlideProps) {
         </div>
       </div>
 
-      {/* beat 3 - the one idea to leave them with (self-plays the second line) */}
-      <div style={scene(beat === 3)}>
-        <p className="lead" style={{ fontSize: 42, color: "var(--ink-faint)" }}>
+      {/* beat 3 - the one idea to leave them with (self-plays, then self-fades) */}
+      <div style={{ ...scene(beat === 3), gap: 64 }}>
+        <p
+          className="lead"
+          style={{ fontSize: 42, color: "var(--ink-faint)", marginTop: 40 }}
+        >
           <Words text="AI commoditises execution." at={3} />
         </p>
         <p
@@ -99,6 +109,7 @@ export default function Slide12Future(_: SlideProps) {
           style={{
             fontSize: 92,
             maxWidth: 1500,
+            marginTop: 12,
             opacity: revealLast ? 1 : 0,
             filter: revealLast ? "blur(0)" : "blur(14px)",
             transition: "opacity 1s var(--ease-out), filter 1s var(--ease-out)",
@@ -108,8 +119,8 @@ export default function Slide12Future(_: SlideProps) {
         </p>
       </div>
 
-      {/* fade to black */}
-      <div className={["blackout", beat >= 4 ? "on" : ""].join(" ")} />
+      {/* fade to black - on a click, or automatically once the line has sat */}
+      <div className={["blackout", beat >= 4 || autoBlack ? "on" : ""].join(" ")} />
     </>
   );
 }

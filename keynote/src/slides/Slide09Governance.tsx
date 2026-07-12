@@ -62,12 +62,12 @@ export default function Slide09Governance({ active }: SlideProps) {
     const at = (ms: number, fn: () => void) => timers.push(window.setTimeout(fn, ms));
     at(400, () => setP(1)); // signal
     at(4400, () => setP(2)); // ai investigates
-    at(8400, () => setP(3)); // proposed (amber, attractive)
-    at(10000, () => setStruck(true)); // ~1.5s later, turns red (rejected)
-    at(12400, () => setP(4)); // judgement (deliberate)
-    at(16400, () => setP(5)); // resolution (calm)
-    at(20400, () => setP(6)); // takeaway 1
-    at(24400, () => setP(7)); // takeaway 2
+    at(8400, () => setP(3)); // proposed (amber, attractive) - let it sit and tempt
+    at(12000, () => setStruck(true)); // ~3.6s later, the turn: it goes red (rejected)
+    at(14600, () => setP(4)); // judgement (deliberate)
+    at(18600, () => setP(5)); // resolution (calm)
+    at(22600, () => setP(6)); // takeaway 1
+    at(26600, () => setP(7)); // takeaway 2
     return () => timers.forEach((t) => clearTimeout(t));
   }, [active]);
 

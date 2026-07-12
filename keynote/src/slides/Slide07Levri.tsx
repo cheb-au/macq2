@@ -4,7 +4,7 @@ import { useBeat } from "../engine/PresentationContext";
 import type { SlideProps } from "../engine/types";
 
 const MILESTONES: { t: string; key?: boolean }[] = [
-  { t: "Production product" },
+  { t: "Production platform" },
   { t: "Real customers" },
   { t: "Real revenue" },
   { t: "AI-native operating model proven", key: true },

@@ -495,6 +495,12 @@
   font-weight: 600;
   color: var(--ink);
   letter-spacing: -0.01em;
+  display: inline-block;
+  transition: transform 0.9s var(--ease-out);
+}
+/* the valuable capabilities swell almost imperceptibly as they land */
+.tank__ceiling[data-on="true"] span {
+  transform: scale(1.06);
 }
 .tank__ceiling i {
   width: 4px;

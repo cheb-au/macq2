@@ -27,7 +27,9 @@ export default function Slide02Work(_: SlideProps) {
           <span className="kicker">The shift</span>
         </Reveal>
         <h2 className="h1">
-          <Words text="AI changes how work gets done." at={0} grad="ink" />
+          <Words text="AI isn't replacing design." at={0} grad="ink" />
+          <br />
+          <Words text="It's redefining leadership." at={0} from={4} grad="violet" />
         </h2>
       </div>
 

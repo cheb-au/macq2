@@ -5,21 +5,21 @@ import type { SlideProps } from "../engine/types";
 const COLS = [
   {
     key: "green",
-    verb: "Speed up",
+    verb: "Delegate",
     desc: "AI accelerates execution.",
-    items: ["Draft content", "Summarise research", "Prototype ideas", "Explore alternatives"],
+    items: ["Draft", "Summarise", "Prototype", "Explore"],
   },
   {
     key: "amber",
     verb: "Review",
     desc: "Humans verify AI output.",
-    items: ["Generated code", "Research synthesis", "Generated designs", "AI recommendations"],
+    items: ["Design", "Code", "Research", "Content"],
   },
   {
     key: "red",
     verb: "Decide",
     desc: "Leadership owns the outcome.",
-    items: ["Customer impact", "Risk", "Trade-offs", "Final decisions"],
+    items: ["Customer outcomes", "Financial outcomes", "Risk", "Compliance"],
   },
 ];
 

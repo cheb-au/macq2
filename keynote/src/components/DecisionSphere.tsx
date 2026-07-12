@@ -93,14 +93,23 @@ export function DecisionSphere({ formed }: { formed: boolean }) {
         };
       };
 
-      // atmospheric halo
+      // atmospheric halo - brighter once it lands so the eye locks onto it
       const halo = ctx.createRadialGradient(CX, CY, R * 0.6, CX, CY, R * 3.8);
-      halo.addColorStop(0, `rgba(150,160,255,${0.32 * p})`);
-      halo.addColorStop(0.4, `rgba(120,130,240,${0.12 * p})`);
+      halo.addColorStop(0, `rgba(168,178,255,${0.46 * p})`);
+      halo.addColorStop(0.4, `rgba(126,138,244,${0.18 * p})`);
       halo.addColorStop(1, "rgba(120,130,240,0)");
       ctx.fillStyle = halo;
       ctx.beginPath();
       ctx.arc(CX, CY, R * 3.8, 0, Math.PI * 2);
+      ctx.fill();
+
+      // tight inner glow behind the planet - concentrates the brightness
+      const core = ctx.createRadialGradient(CX, CY, R * 0.2, CX, CY, R * 1.9);
+      core.addColorStop(0, `rgba(206,214,255,${0.34 * p})`);
+      core.addColorStop(1, "rgba(206,214,255,0)");
+      ctx.fillStyle = core;
+      ctx.beginPath();
+      ctx.arc(CX, CY, R * 1.9, 0, Math.PI * 2);
       ctx.fill();
 
       // ---- ring particles: back half (behind the planet) ----

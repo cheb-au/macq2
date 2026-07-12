@@ -363,6 +363,11 @@ body {
     transform: none;
   }
 }
+/* the title sets the tone - let it resolve a touch slower than the rest */
+.words--slow.is-shown .w {
+  animation-duration: 1.5s;
+  animation-delay: calc(var(--wi, 0) * 150ms);
+}
 
 /* ============================================================= *
  *  GLASS + CARD atoms                                           *

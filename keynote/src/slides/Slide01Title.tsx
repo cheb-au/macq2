@@ -14,9 +14,9 @@ export default function Slide01Title(_: SlideProps) {
       </Reveal>
 
       <h1 className="display" style={{ maxWidth: 1500 }}>
-        <Words text="Designing the" at={0} from={0} grad="accent" />
+        <Words text="Designing the" at={0} from={0} grad="accent" className="words--slow" />
         <br />
-        <Words text="AI-Native Organisation" at={0} from={2} grad="accent" />
+        <Words text="AI-Native Organisation" at={0} from={2} grad="accent" className="words--slow" />
       </h1>
 
       <Reveal at={1} i={1} variant="soft">
@@ -25,7 +25,7 @@ export default function Slide01Title(_: SlideProps) {
         </p>
       </Reveal>
 
-      <Reveal at={2} variant="rise" style={{ marginTop: 26 }}>
+      <Reveal at={2} variant="rise" style={{ marginTop: 50 }}>
         <p className="subline" style={{ maxWidth: 1000, textAlign: "center" }}>
           AI isn't changing what good design is.
         </p>
