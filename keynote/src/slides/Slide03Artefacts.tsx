@@ -1,10 +1,10 @@
 import { Reveal, Words } from "../components/Reveal";
-import { ArtefactOrbit } from "../components/ArtefactOrbit";
+import { ArtefactOrbit, LABELS } from "../components/ArtefactOrbit";
 import { DecisionSphere } from "../components/DecisionSphere";
 import { useBeat } from "../engine/PresentationContext";
 import type { SlideProps } from "../engine/types";
 
-export default function Slide03Artefacts(_: SlideProps) {
+export default function Slide03Artefacts({ review }: SlideProps) {
   const beat = useBeat();
   const collapsed = beat >= 2;
 
@@ -66,6 +66,21 @@ export default function Slide03Artefacts(_: SlideProps) {
           <Words text="One decision" at={2} from={3} grad="violet" />
         </div>
       </div>
+
+      {/* review-only: mock the opening state (the artefact cloud) as an inset,
+          since the contact sheet can only show the collapsed final state */}
+      {review && (
+        <div className="state-mock">
+          <div className="state-mock__cap">Opens as - the artefact cloud</div>
+          <div className="state-mock__frame">
+            {LABELS.map((l) => (
+              <span key={l} className="state-mock__chip">
+                {l}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div style={{ flex: 1 }} />
     </div>

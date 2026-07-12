@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-const LABELS = [
+export const LABELS = [
   "Research reports",
   "Wireframes",
   "Figma frames",

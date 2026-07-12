@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-const LINEAR = ["Research", "Design", "Engineering", "QA", "Release"];
+export const LINEAR = ["Research", "Design", "Engineering", "QA", "Release"];
 // clockwise from the top
 const LOOP = ["Signal", "Hypothesis", "Prototype", "Evidence", "Learning"];
 

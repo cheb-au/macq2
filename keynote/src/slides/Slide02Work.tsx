@@ -1,5 +1,6 @@
+import { Fragment } from "react";
 import { Reveal, Words } from "../components/Reveal";
-import { PipelineReorg } from "../components/PipelineReorg";
+import { PipelineReorg, LINEAR } from "../components/PipelineReorg";
 import { PhaseScroll } from "../components/PhaseScroll";
 import type { Phase } from "../components/PhaseScroll";
 import { useBeat } from "../engine/PresentationContext";
@@ -17,11 +18,11 @@ const PHASES: Phase[] = [
   },
 ];
 
-export default function Slide02Work(_: SlideProps) {
+export default function Slide02Work({ review }: SlideProps) {
   const beat = useBeat();
   const mode = beat >= 1 ? 1 : 0;
   return (
-    <div className="stack grow" style={{ gap: 8 }}>
+    <div className="stack grow" style={{ gap: 8, position: "relative" }}>
       <div className="s-head">
         <Reveal at={0} variant="fade">
           <span className="kicker">The shift</span>
@@ -57,6 +58,23 @@ export default function Slide02Work(_: SlideProps) {
           <div className="takeaway__text">Not jobs.</div>
         </Reveal>
       </div>
+
+      {/* review-only: mock the opening state (the straight line) as an inset */}
+      {review && (
+        <div className="state-mock state-mock--row">
+          <div className="state-mock__cap">Opens as - the straight line</div>
+          <div className="state-mock__chain">
+            {LINEAR.map((s, i) => (
+              <Fragment key={s}>
+                <div className="state-mock__stage">{s}</div>
+                {i < LINEAR.length - 1 && (
+                  <div className="state-mock__wait">wait</div>
+                )}
+              </Fragment>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
