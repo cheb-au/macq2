@@ -1827,11 +1827,15 @@
   letter-spacing: -0.015em;
 }
 .capitem__desc {
-  font-size: 19px;
-  line-height: 1.35;
+  font-size: 22px;
+  line-height: 1.45;
   color: var(--ink-dim);
-  max-width: 470px;
-  margin-top: 4px;
+  max-width: 360px;
+  margin-top: 6px;
+}
+/* the active row's description reads clearly */
+.capitem--active .capitem__desc {
+  color: var(--ink-soft);
 }
 .capitem--active .capitem__num {
   color: var(--violet);

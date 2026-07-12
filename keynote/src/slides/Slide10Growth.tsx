@@ -70,7 +70,7 @@ export default function Slide10Growth({ review }: SlideProps) {
               How do we develop great designers when AI removes the{" "}
               <span className="gold">apprenticeship?</span>
             </p>
-            <p className="subline" style={{ fontSize: 27, maxWidth: 920 }}>
+            <p className="subline" style={{ fontSize: 33, maxWidth: 1120 }}>
               AI is reducing the cost of execution.
               <br />
               <span className="gold" style={{ whiteSpace: "nowrap" }}>
@@ -103,7 +103,13 @@ export default function Slide10Growth({ review }: SlideProps) {
             transition: "opacity 0.6s var(--ease-out)",
           }}
         >
-          <span className="caproller__now" />
+          <span
+            className="caproller__now"
+            style={{
+              opacity: beat >= RUNGS.length + 1 ? 0 : 1,
+              transition: "opacity 0.4s var(--ease-out)",
+            }}
+          />
           {RUNGS.map((r, i) => {
             const rel = i - active;
             const on = rel === 0;
@@ -120,7 +126,7 @@ export default function Slide10Growth({ review }: SlideProps) {
                   .filter(Boolean)
                   .join(" ")}
                 style={{
-                  transform: `translateY(calc(-50% + ${rel * 128}px))`,
+                  transform: `translateY(calc(-50% + ${rel * 182}px))`,
                   opacity: on ? 1 : Math.max(0.1, 0.5 - dist * 0.17),
                   filter: on ? "blur(0)" : `blur(${Math.min(9, 2.4 + dist * 2.2)}px)`,
                 }}
@@ -143,7 +149,7 @@ export default function Slide10Growth({ review }: SlideProps) {
             </p>
           </Reveal>
           <Reveal at={7} variant="soft">
-            <p className="subline" style={{ fontSize: 27, maxWidth: 920 }}>
+            <p className="subline" style={{ fontSize: 33, maxWidth: 1120 }}>
               AI is reducing the cost of execution.
               <br />
               <span className="gold" style={{ whiteSpace: "nowrap" }}>
