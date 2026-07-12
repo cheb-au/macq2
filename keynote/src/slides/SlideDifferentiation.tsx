@@ -78,7 +78,10 @@ export default function SlideDifferentiation({ review }: SlideProps) {
           </div>
           <div
             className="diff-line diff-line--gold"
-            style={{ opacity: review || beat >= 2 ? 1 : 0 }}
+            style={{
+              opacity: review || beat >= 2 ? 1 : 0,
+              filter: review || beat >= 2 ? "blur(0)" : "blur(24px)",
+            }}
           >
             The system did.
           </div>
@@ -123,13 +126,6 @@ export default function SlideDifferentiation({ review }: SlideProps) {
         </p>
       </div>
 
-      {/* footer - only while the phones are on screen */}
-      <div
-        className="diff-foot"
-        style={{ opacity: review || beat <= 2 ? 1 : 0 }}
-      >
-        AI generates output. <span className="muted">Systems generate quality.</span>
-      </div>
     </>
   );
 }
