@@ -1,7 +1,7 @@
 import type { ComponentType } from "react";
-import { useEffect, useState } from "react";
 import { Words } from "../components/Reveal";
 import { Icon } from "../components/Icons";
+import { useBeat } from "../engine/PresentationContext";
 import type { SlideProps } from "../engine/types";
 
 interface Card {
@@ -31,14 +31,14 @@ const CARDS: Card[] = [
     icon: Icon.bolt,
   },
   {
-    p: 4,
+    p: 5,
     k: "Judgement",
     t: "Rejected. Optimises conversion at the expense of customer trust.",
     variant: "judge",
     icon: Icon.shield,
   },
   {
-    p: 5,
+    p: 6,
     k: "Resolution",
     t: "Clearer guidance and simpler next steps.",
     sub: "Reduced friction instead of increasing pressure.",
@@ -47,29 +47,11 @@ const CARDS: Card[] = [
   },
 ];
 
-export default function Slide09Governance({ active }: SlideProps) {
-  const [p, setP] = useState(0);
-  const [struck, setStruck] = useState(false);
-
-  // the slide plays itself: 2s beats, no keyboard taps required
-  useEffect(() => {
-    if (!active) {
-      setP(0);
-      setStruck(false);
-      return;
-    }
-    const timers: number[] = [];
-    const at = (ms: number, fn: () => void) => timers.push(window.setTimeout(fn, ms));
-    at(400, () => setP(1)); // signal
-    at(4400, () => setP(2)); // ai investigates
-    at(8400, () => setP(3)); // proposed (amber, attractive) - let it sit and tempt
-    at(12000, () => setStruck(true)); // ~3.6s later, the turn: it goes red (rejected)
-    at(14600, () => setP(4)); // judgement (deliberate)
-    at(18600, () => setP(5)); // resolution (calm)
-    at(22600, () => setP(6)); // takeaway 1
-    at(26600, () => setP(7)); // takeaway 2
-    return () => timers.forEach((t) => clearTimeout(t));
-  }, [active]);
+// click-driven: 1 signal, 2 AI, 3 proposed (amber, tempting), 4 the turn (red),
+// 5 judgement, 6 resolution, 7-8 the two closing lines
+export default function Slide09Governance(_: SlideProps) {
+  const beat = useBeat();
+  const struck = beat >= 4;
 
   return (
     <div className="stack grow" style={{ gap: 8 }}>
@@ -84,7 +66,7 @@ export default function Slide09Governance({ active }: SlideProps) {
 
       <div className="incident" style={{ marginTop: 48 }}>
         {CARDS.map((c, i) => {
-          const shown = p >= c.p;
+          const shown = beat >= c.p;
           const isStruck = c.variant === "amber" && struck;
           const dur = c.variant === "judge" ? 1.1 : 0.6;
           return (
@@ -124,8 +106,8 @@ export default function Slide09Governance({ active }: SlideProps) {
           className="takeaway__text"
           style={{
             color: "var(--ink-faint)",
-            opacity: p >= 6 ? 1 : 0,
-            transform: p >= 6 ? "none" : "translateY(10px)",
+            opacity: beat >= 7 ? 1 : 0,
+            transform: beat >= 7 ? "none" : "translateY(10px)",
             transition: "opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out)",
           }}
         >
@@ -135,8 +117,8 @@ export default function Slide09Governance({ active }: SlideProps) {
           className="takeaway__text"
           style={{
             color: "var(--violet)",
-            opacity: p >= 7 ? 1 : 0,
-            transform: p >= 7 ? "none" : "translateY(10px)",
+            opacity: beat >= 8 ? 1 : 0,
+            transform: beat >= 8 ? "none" : "translateY(10px)",
             transition: "opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out)",
           }}
         >

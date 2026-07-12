@@ -70,11 +70,11 @@ export default function Slide10Growth({ review }: SlideProps) {
               How do we develop great designers when AI removes the{" "}
               <span className="gold">apprenticeship?</span>
             </p>
-            <p className="subline" style={{ fontSize: 27, maxWidth: 640 }}>
-              AI is reducing the cost of execution.{" "}
-              <span className="gold">
-                The competitive advantage becomes how quickly people develop
-                expertise.
+            <p className="subline" style={{ fontSize: 27, maxWidth: 920 }}>
+              AI is reducing the cost of execution.
+              <br />
+              <span className="gold" style={{ whiteSpace: "nowrap" }}>
+                The competitive advantage becomes how quickly people develop expertise.
               </span>
             </p>
           </div>
@@ -143,11 +143,11 @@ export default function Slide10Growth({ review }: SlideProps) {
             </p>
           </Reveal>
           <Reveal at={7} variant="soft">
-            <p className="subline" style={{ fontSize: 27, maxWidth: 640 }}>
-              AI is reducing the cost of execution.{" "}
-              <span className="gold">
-                The competitive advantage becomes how quickly people develop
-                expertise.
+            <p className="subline" style={{ fontSize: 27, maxWidth: 920 }}>
+              AI is reducing the cost of execution.
+              <br />
+              <span className="gold" style={{ whiteSpace: "nowrap" }}>
+                The competitive advantage becomes how quickly people develop expertise.
               </span>
             </p>
           </Reveal>
