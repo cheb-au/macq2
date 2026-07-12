@@ -83,7 +83,7 @@ export default function Slide07Levri({ active }: SlideProps) {
               className="stack"
               style={{ gap: 8, fontSize: 24, color: "var(--ink-soft)", fontWeight: 500 }}
             >
-              <span>One multidisciplinary team.</span>
+              <span>From strategy to shipped product.</span>
               <span>Production from day one.</span>
             </div>
           </Reveal>
