@@ -511,6 +511,39 @@
   transition: height 1.35s cubic-bezier(0.34, 1.4, 0.5, 1);
   will-change: height;
 }
+/* the first fill: pour in slowly and irregularly, like water into a glass */
+.tank__water--pour {
+  animation: waterPour 3.4s linear both;
+}
+@keyframes waterPour {
+  0% {
+    height: 0%;
+  }
+  10% {
+    height: 13%;
+  }
+  20% {
+    height: 16%;
+  }
+  34% {
+    height: 31%;
+  }
+  46% {
+    height: 35%;
+  }
+  60% {
+    height: 46%;
+  }
+  72% {
+    height: 49%;
+  }
+  86% {
+    height: 51%;
+  }
+  100% {
+    height: 52%;
+  }
+}
 /* the body of the water - one colour; the wave band abuts this exactly */
 .tank__body {
   position: absolute;

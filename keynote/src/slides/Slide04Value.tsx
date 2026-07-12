@@ -18,9 +18,11 @@ const CREST = waveLine(8, 28, 0);
 
 export default function Slide04Value(_: SlideProps) {
   const beat = useBeat();
-  // fills on entry, the floor rises on beat 1, then the ceiling brightens on beat 2
-  const level = beat < 0 ? 0 : beat >= 1 ? 76 : 52;
   const ceilOn = beat >= 2; // capabilities brighten only once the water settles
+  // fills on entry, the floor rises on beat 1, then the ceiling brightens on beat 2.
+  // the first fill pours in slowly and irregularly (CSS @keyframes waterPour).
+  const level = beat < 0 ? 0 : beat >= 1 ? 76 : 52;
+  const pouring = beat === 0;
 
   return (
     <div className="stack grow" style={{ gap: 8 }}>
@@ -47,7 +49,16 @@ export default function Slide04Value(_: SlideProps) {
             the ceiling - only leaders raise it
           </div>
 
-          <div className="tank__water" style={{ height: `${level}%` }}>
+          <div
+            className={["tank__water", pouring ? "tank__water--pour" : ""]
+              .filter(Boolean)
+              .join(" ")}
+            style={{
+              height: `${level}%`,
+              // the pour is a CSS animation; the raise uses the CSS elastic transition
+              transition: beat >= 1 ? undefined : "none",
+            }}
+          >
             <div className="tank__body" />
             <div className="tank__waves">
               <svg className="tank__wave tank__wave--a" viewBox="0 0 1440 60" preserveAspectRatio="none">
@@ -61,12 +72,9 @@ export default function Slide04Value(_: SlideProps) {
           </div>
         </div>
 
-        <div className="tank-floor">
-          <b>Execution</b> - the floor, raised by AI
-        </div>
       </div>
 
-      <div className="takeaway">
+      <div className="takeaway" style={{ justifyContent: "center" }}>
         <Reveal at={1} variant="rise" style={{ display: "flex", alignItems: "baseline", gap: 22 }}>
           <span className="takeaway__mark">→</span>
           <div className="takeaway__text">AI raises the floor.</div>
