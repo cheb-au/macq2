@@ -54,7 +54,7 @@ export default function Slide07Levri({ active }: SlideProps) {
                 className="grad-accent"
                 style={{ fontSize: 96, fontWeight: 600, letterSpacing: "-0.05em" }}
               >
-                1
+                3
               </span>
               <span
                 style={{
@@ -64,13 +64,13 @@ export default function Slide07Levri({ active }: SlideProps) {
                   letterSpacing: "-0.02em",
                 }}
               >
-                person
+                months
               </span>
             </div>
           </Reveal>
           <Reveal at={0} i={2} variant="soft">
             <p className="lead" style={{ fontSize: 27, maxWidth: 480 }}>
-              12 weeks from zero to production platform.
+              One person. Zero to production platform.
             </p>
           </Reveal>
           <Reveal at={0} i={3} variant="soft">
