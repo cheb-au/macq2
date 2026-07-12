@@ -686,7 +686,15 @@
   align-items: center;
   gap: 16px;
 }
+/* THEN mirrors NOW: right-aligned against the centre gap */
+.tnn__col--then {
+  text-align: right;
+}
+.tnn__col--then .tnn__h {
+  justify-content: flex-end;
+}
 .tnn__col--then .tnn__row {
+  justify-content: flex-end;
   color: var(--ink-dim);
 }
 .tnn__col--now .tnn__row {
@@ -2382,7 +2390,7 @@
   font-size: 34px;
   font-weight: 500;
   letter-spacing: -0.015em;
-  color: var(--ink-dim);
+  color: var(--ink-soft);
   transition: opacity 0.9s var(--ease-out), filter 1s var(--ease-out);
 }
 .diff-line--gold {
@@ -2399,35 +2407,38 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
 }
 .diff-stack__end {
-  font-size: 20px;
-  letter-spacing: 0.24em;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: 0.32em;
   text-transform: uppercase;
-  color: var(--ink-faint);
+  color: var(--ink);
+  text-shadow: 0 0 28px rgba(255, 255, 255, 0.16);
 }
 .diff-stack__arrow {
-  font-size: 30px;
-  color: var(--ink-ghost);
+  font-size: 40px;
+  color: var(--ink-dim);
   line-height: 1;
 }
 .diff-stack__layers {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
 }
 .diff-stack__layers span {
-  font-size: 36px;
+  font-size: 38px;
   font-weight: 500;
   letter-spacing: -0.015em;
   color: var(--ink);
 }
 .diff-stack__out {
-  font-size: 46px;
+  font-size: 58px;
   font-weight: 600;
   letter-spacing: -0.02em;
+  text-shadow: 0 0 46px rgba(203, 171, 116, 0.45);
 }
 
 .diff-foot {

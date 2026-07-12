@@ -91,23 +91,23 @@ export default function SlideDifferentiation({ review }: SlideProps) {
       {/* scene B - the system that shapes the AI */}
       <div style={scene(!review && beat === 3)}>
         <div className="diff-stack">
-          <Reveal at={3} variant="fade">
+          <Reveal at={3} variant="head">
             <span className="diff-stack__end">AI</span>
           </Reveal>
-          <Reveal at={3} i={1} variant="fade">
+          <Reveal at={3} i={1} variant="head">
             <span className="diff-stack__arrow">↓</span>
           </Reveal>
           <div className="diff-stack__layers">
             {LAYERS.map((l, i) => (
-              <Reveal key={l} at={3} i={2 + i} variant="soft">
+              <Reveal key={l} at={3} i={2 + i} variant="head">
                 <span>{l}</span>
               </Reveal>
             ))}
           </div>
-          <Reveal at={3} i={8} variant="fade">
+          <Reveal at={3} i={8} variant="head">
             <span className="diff-stack__arrow">↓</span>
           </Reveal>
-          <Reveal at={3} i={9} variant="rise">
+          <Reveal at={3} i={10} variant="head">
             <span className="diff-stack__out gold">Customer experience</span>
           </Reveal>
         </div>
@@ -115,7 +115,7 @@ export default function SlideDifferentiation({ review }: SlideProps) {
 
       {/* scene C - the closer */}
       <div style={{ ...scene(!review && beat === 4), gap: 20 }}>
-        <p className="lead" style={{ fontSize: 44, color: "var(--ink-faint)" }}>
+        <p className="lead" style={{ fontSize: 44, color: "var(--ink-soft)" }}>
           <Words text="AI is becoming the engine." at={4} />
         </p>
         <p
