@@ -4,9 +4,9 @@ import { useBeat } from "../engine/PresentationContext";
 import type { SlideProps } from "../engine/types";
 
 const MILESTONES: { t: string; key?: boolean }[] = [
-  { t: "Production product" },
-  { t: "Real customers" },
-  { t: "Real revenue" },
+  { t: "Strategy translated into product" },
+  { t: "Design and engineering aligned" },
+  { t: "Production constraints navigated" },
   { t: "AI-native operating model proven", key: true },
 ];
 
@@ -52,9 +52,14 @@ export default function Slide07Levri({ active }: SlideProps) {
             <div className="stack" style={{ gap: 0, lineHeight: 0.86 }}>
               <span
                 className="grad-accent"
-                style={{ fontSize: 96, fontWeight: 600, letterSpacing: "-0.05em" }}
+                style={{
+                  fontSize: 96,
+                  fontWeight: 600,
+                  letterSpacing: "-0.05em",
+                  marginLeft: -5,
+                }}
               >
-                100+
+                95+
               </span>
               <span
                 style={{
