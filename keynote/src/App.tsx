@@ -12,7 +12,42 @@ export default function App() {
   const [showHint, setShowHint] = useState(true);
   const hintTimer = useRef<number>(0);
 
-  const { next, prev, goTo, index } = ctrl;
+  const { next, prev, goTo, index, beat } = ctrl;
+
+  // ---- presenter sync: broadcast position, accept commands from #/notes ----
+  const chRef = useRef<BroadcastChannel | null>(null);
+  const posRef = useRef({ index, beat });
+  posRef.current = { index, beat };
+  useEffect(() => {
+    const ch = new BroadcastChannel("keynote");
+    chRef.current = ch;
+    ch.onmessage = (e) => {
+      const m = e.data;
+      if (m?.t === "cmd") {
+        if (m.cmd === "next") next();
+        else if (m.cmd === "prev") prev();
+        else if (m.cmd === "first") goTo(0);
+        else if (m.cmd === "last") goTo(slides.length - 1);
+        else if (m.cmd === "goto") goTo(m.target);
+      } else if (m?.t === "hello") {
+        ch.postMessage({ t: "state", ...posRef.current });
+      }
+    };
+    return () => ch.close();
+  }, [next, prev, goTo]);
+  useEffect(() => {
+    chRef.current?.postMessage({ t: "state", index, beat });
+  }, [index, beat]);
+
+  const openPresenter = () => {
+    window.open(
+      `${location.origin}${location.pathname}#/notes`,
+      "keynote-presenter",
+      "width=1280,height=820"
+    );
+    const el = viewportRef.current ?? document.documentElement;
+    if (!document.fullscreenElement) el.requestFullscreen?.().catch(() => {});
+  };
 
   // ---- fit the 1920x1080 stage into the viewport (letterboxed) ----
   useEffect(() => {
@@ -53,6 +88,11 @@ export default function App() {
         case "F":
           e.preventDefault();
           toggleFullscreen();
+          break;
+        case "p":
+        case "P":
+          e.preventDefault();
+          openPresenter();
           break;
         default:
           // number keys jump to a slide

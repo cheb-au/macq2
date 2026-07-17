@@ -1,0 +1,200 @@
+/* ============================================================= *
+ *  PRESENTER VIEW (#/notes) - speaker notes + live previews      *
+ * ============================================================= */
+.pr {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background: #06070b;
+  color: var(--ink);
+  font-family: var(--font, system-ui, sans-serif);
+}
+
+/* ---- left: previews + timer ---- */
+.pr__left {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: none;
+}
+.pr__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px 28px;
+  border-bottom: 1px solid var(--line);
+}
+.pr__timer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.pr__elapsed {
+  font-family: var(--mono, monospace);
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.pr__count {
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+.pr__beat {
+  color: var(--ink-faint);
+}
+.pr__clock {
+  font-family: var(--mono, monospace);
+  font-size: 16px;
+  color: var(--ink-dim);
+  font-variant-numeric: tabular-nums;
+}
+.pr__btn {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--ink-dim);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.pr__btn:hover {
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--line-strong);
+}
+
+.pr__current {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+}
+.pr__thumbs {
+  display: flex;
+  gap: 20px;
+}
+.pr__thumb {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+}
+.pr__thumb:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.pr__thumbcap {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  align-self: flex-start;
+}
+.pr__thumb:not(:disabled):hover .pv {
+  border-color: var(--accent, #8b93ff);
+}
+
+/* ---- the preview frame ---- */
+.pv {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: #05060a;
+  flex: none;
+  transition: border-color 0.15s;
+}
+.pv--empty {
+  display: grid;
+  place-items: center;
+}
+.pv__stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1920px;
+  height: 1080px;
+  transform-origin: top left;
+}
+
+/* ---- divider ---- */
+.pr__divider {
+  width: 8px;
+  flex: none;
+  cursor: col-resize;
+  background: var(--line);
+  transition: background 0.15s;
+}
+.pr__divider:hover {
+  background: var(--accent, #8b93ff);
+}
+
+/* ---- right: notes ---- */
+.pr__notes {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+.pr__noteshead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 28px;
+  border-bottom: 1px solid var(--line);
+}
+.pr__notestitle {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.pr__fontctl {
+  display: flex;
+  gap: 8px;
+}
+.pr__notesbody {
+  flex: 1;
+  overflow-y: auto;
+  padding: 28px 32px 60px;
+  color: var(--ink-soft);
+}
+.pr__notesbody p {
+  margin: 0 0 0.6em;
+}
+.pr__notesbody .pr__gap {
+  height: 0.5em;
+}
+.pr__nextnote {
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line-soft);
+  color: var(--ink-dim);
+}
+.pr__nextlabel {
+  display: block;
+  font-size: 0.6em;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 0.4em;
+}
