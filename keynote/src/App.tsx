@@ -40,13 +40,13 @@ export default function App() {
   }, [index, beat]);
 
   const openPresenter = () => {
+    // just open the notes window; you drive fullscreen yourself (F) once the
+    // deck is on the projector screen
     window.open(
       `${location.origin}${location.pathname}#/notes`,
       "keynote-presenter",
       "width=1280,height=820"
     );
-    const el = viewportRef.current ?? document.documentElement;
-    if (!document.fullscreenElement) el.requestFullscreen?.().catch(() => {});
   };
 
   // ---- fit the 1920x1080 stage into the viewport (letterboxed) ----

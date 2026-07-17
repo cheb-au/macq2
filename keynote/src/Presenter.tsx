@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { slides } from "./slides";
 import { NOTES } from "./notes";
@@ -27,6 +28,7 @@ export function Presenter() {
   const startRef = useRef(Date.now());
   const chRef = useRef<BroadcastChannel | null>(null);
   const leftRef = useRef<HTMLDivElement>(null);
+  const activeRef = useRef<HTMLDivElement>(null);
   const [leftW, setLeftW] = useState(720);
 
   // ---- sync with the deck window ----
@@ -47,6 +49,11 @@ export function Presenter() {
   const send = useCallback((cmd: string, target?: number) => {
     chRef.current?.postMessage({ t: "cmd", cmd, target });
   }, []);
+
+  // keep the current beat's note in view as you advance
+  useEffect(() => {
+    activeRef.current?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  }, [index, beat]);
 
   // ---- keyboard mirrors the deck ----
   useEffect(() => {
@@ -119,7 +126,15 @@ export function Presenter() {
   const smallW = Math.max(160, (leftW - pad * 2 - 20) / 2);
 
   return (
-    <div className="pr">
+    <div
+      className="pr"
+      style={
+        {
+          ["--accent"]: cur?.accent ?? "var(--violet)",
+          ["--accent-glow"]: cur?.accentGlow ?? "rgba(139,147,255,0.5)",
+        } as CSSProperties
+      }
+    >
       <div className="pr__left" ref={leftRef} style={{ width: `${split}%` }}>
         <div className="pr__bar">
           <div className="pr__timer">
@@ -179,18 +194,28 @@ export function Presenter() {
             </button>
           </div>
         </div>
-        <div className="pr__notesbody" style={{ fontSize: noteSize, lineHeight: 1.5 }}>
-          {(note?.notes ?? "No notes for this slide yet.")
-            .split("\n")
-            .map((line, i) => (
-              <p key={i} className={line.trim() ? "" : "pr__gap"}>
-                {line}
-              </p>
-            ))}
+        <div className="pr__notesbody" style={{ fontSize: noteSize }}>
+          {note?.beats.map((line, i) =>
+            line.trim() ? (
+              <div
+                key={i}
+                ref={i === beat ? activeRef : undefined}
+                className={["pr__beatnote", i === beat ? "is-now" : ""]
+                  .filter(Boolean)
+                  .join(" ")}
+              >
+                <span className="pr__beatlabel">Beat {i + 1}</span>
+                <p>{line}</p>
+              </div>
+            ) : null
+          )}
+          {(!note || !note.beats.some((b) => b.trim())) && (
+            <p className="pr__empty">No notes for this slide.</p>
+          )}
           {nextNote && (
             <div className="pr__nextnote">
               <span className="pr__nextlabel">Up next — {nextNote.title}</span>
-              <p>{nextNote.notes.split("\n")[0]}</p>
+              <p>{nextNote.beats.find((b) => b.trim()) ?? ""}</p>
             </div>
           )}
         </div>

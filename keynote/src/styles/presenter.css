@@ -175,14 +175,39 @@
 .pr__notesbody {
   flex: 1;
   overflow-y: auto;
-  padding: 28px 32px 60px;
-  color: var(--ink-soft);
+  padding: 20px 28px 60px;
+  line-height: 1.45;
 }
-.pr__notesbody p {
-  margin: 0 0 0.6em;
+/* one block per beat; the current beat is highlighted */
+.pr__beatnote {
+  padding: 12px 16px;
+  margin: 0 0 8px;
+  border-left: 3px solid transparent;
+  border-radius: 8px;
+  color: var(--ink-faint);
+  transition: color 0.25s, background 0.25s, border-color 0.25s;
 }
-.pr__notesbody .pr__gap {
-  height: 0.5em;
+.pr__beatnote p {
+  margin: 4px 0 0;
+}
+.pr__beatlabel {
+  font-size: 0.55em;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-ghost);
+}
+.pr__beatnote.is-now {
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.035);
+  border-left-color: var(--accent, #8b93ff);
+}
+.pr__beatnote.is-now .pr__beatlabel {
+  color: var(--accent, #8b93ff);
+}
+.pr__empty {
+  color: var(--ink-faint);
+  font-style: italic;
 }
 .pr__nextnote {
   margin-top: 32px;
