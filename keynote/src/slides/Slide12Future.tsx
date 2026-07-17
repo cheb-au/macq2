@@ -6,29 +6,26 @@ import type { SlideProps } from "../engine/types";
 export default function Slide12Future({ review }: SlideProps) {
   const beat = useBeat();
 
-  // the close self-plays: the small line lands, the statement arrives ~3s later,
-  // then it sits and fades to black on its own - no click needed
+  // beat 0: the small line lands, the statement blurs in ~2.5s later (you hold
+  // it as long as you like). beat 1 (2/2): keep it on screen 5s, then fade out.
   const [revealLast, setRevealLast] = useState(false);
   const [autoBlack, setAutoBlack] = useState(false);
   useEffect(() => {
     if (review) return;
-    if (beat !== 0) {
-      setRevealLast(false);
-      setAutoBlack(false);
-      return;
+    setAutoBlack(false);
+    if (beat === 0) {
+      const t = setTimeout(() => setRevealLast(true), 2500);
+      return () => clearTimeout(t);
     }
-    const t1 = setTimeout(() => setRevealLast(true), 3000);
-    // statement is fully in by ~4s; hold ~2s, then fade to black
-    const t2 = setTimeout(() => setAutoBlack(true), 6000);
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-    };
+    // beat 1: statement stays up, then fades to black after 5 seconds
+    setRevealLast(true);
+    const t = setTimeout(() => setAutoBlack(true), 5000);
+    return () => clearTimeout(t);
   }, [beat, review]);
 
   // in the review contact sheet, show the finished statement (no auto-fade)
   const last = review || revealLast;
-  const black = !review && (beat >= 1 || autoBlack);
+  const black = !review && autoBlack;
 
   return (
     <>
